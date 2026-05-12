@@ -44,7 +44,12 @@
   </Folder>
   <Folder Name="/benchmarks/" />
   <Folder Name="/examples/" />
-  <Folder Name="/src/" />
-  <Folder Name="/tests/" />
+  <Folder Name="/src/">
+    <Project Path="src/Wolfgang.Audit.Abstractions/Wolfgang.Audit.Abstractions.csproj" />
+    <Project Path="src/Wolfgang.Audit.EFCore/Wolfgang.Audit.EFCore.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Wolfgang.Audit.EFCore.Tests.Unit/Wolfgang.Audit.EFCore.Tests.Unit.csproj" />
+  </Folder>
 </Solution>
 
