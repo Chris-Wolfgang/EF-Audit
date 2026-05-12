@@ -85,4 +85,120 @@ public class SaveChangesBenchmarks
         }
         ctx.SaveChanges();
     }
+
+    [Benchmark]
+    public void Lifecycle_without_audit()
+    {
+        using var ctx = CreateUnauditedContext();
+        var rows = new Customer[BatchSize];
+        for (var i = 0; i < BatchSize; i++)
+        {
+            rows[i] = new Customer { Name = $"L{i}", Email = $"l{i}@x.com", LoyaltyPoints = i };
+            ctx.Customers.Add(rows[i]);
+        }
+        ctx.SaveChanges();
+
+        for (var i = 0; i < BatchSize; i++)
+        {
+            rows[i].Email = $"updated-{i}@x.com";
+        }
+        ctx.SaveChanges();
+
+        for (var i = 0; i < BatchSize; i++)
+        {
+            ctx.Customers.Remove(rows[i]);
+        }
+        ctx.SaveChanges();
+    }
+
+    [Benchmark]
+    public void Lifecycle_with_audit()
+    {
+        using var ctx = CreateAuditedContext();
+        var rows = new Customer[BatchSize];
+        for (var i = 0; i < BatchSize; i++)
+        {
+            rows[i] = new Customer { Name = $"L{i}", Email = $"l{i}@x.com", LoyaltyPoints = i };
+            ctx.Customers.Add(rows[i]);
+        }
+        ctx.SaveChanges();
+
+        for (var i = 0; i < BatchSize; i++)
+        {
+            rows[i].Email = $"updated-{i}@x.com";
+        }
+        ctx.SaveChanges();
+
+        for (var i = 0; i < BatchSize; i++)
+        {
+            ctx.Customers.Remove(rows[i]);
+        }
+        ctx.SaveChanges();
+    }
+
+    [Benchmark]
+    public void MixedStates_per_save_without_audit()
+    {
+        // First, seed half the batch so we have rows to update/delete in the measured save.
+        using var seedCtx = CreateUnauditedContext();
+        var existing = new Customer[BatchSize];
+        for (var i = 0; i < BatchSize; i++)
+        {
+            existing[i] = new Customer { Name = $"E{i}", LoyaltyPoints = i };
+            seedCtx.Customers.Add(existing[i]);
+        }
+        seedCtx.SaveChanges();
+        seedCtx.Dispose();
+
+        using var ctx = CreateUnauditedContext();
+        ctx.Customers.AttachRange(existing);
+        // Update first half.
+        for (var i = 0; i < BatchSize / 2; i++)
+        {
+            existing[i].Email = $"u{i}@x.com";
+            ctx.Entry(existing[i]).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+        }
+        // Delete second half.
+        for (var i = BatchSize / 2; i < BatchSize; i++)
+        {
+            ctx.Customers.Remove(existing[i]);
+        }
+        // Insert new ones.
+        for (var i = 0; i < BatchSize; i++)
+        {
+            ctx.Customers.Add(new Customer { Name = $"N{i}", LoyaltyPoints = i });
+        }
+        ctx.SaveChanges();
+    }
+
+    [Benchmark]
+    public void MixedStates_per_save_with_audit()
+    {
+        using var seedCtx = CreateAuditedContext();
+        var existing = new Customer[BatchSize];
+        for (var i = 0; i < BatchSize; i++)
+        {
+            existing[i] = new Customer { Name = $"E{i}", LoyaltyPoints = i };
+            seedCtx.Customers.Add(existing[i]);
+        }
+        seedCtx.SaveChanges();
+        seedCtx.Dispose();
+
+        using var ctx = CreateAuditedContext();
+        ctx.Customers.AttachRange(existing);
+        for (var i = 0; i < BatchSize / 2; i++)
+        {
+            existing[i].Email = $"u{i}@x.com";
+            ctx.Entry(existing[i]).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+        }
+        for (var i = BatchSize / 2; i < BatchSize; i++)
+        {
+            ctx.Customers.Remove(existing[i]);
+        }
+        for (var i = 0; i < BatchSize; i++)
+        {
+            ctx.Customers.Add(new Customer { Name = $"N{i}", LoyaltyPoints = i });
+        }
+        ctx.SaveChanges();
+    }
 }
