@@ -51,6 +51,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Wolfgang.Audit.EFCore.Tests.Unit/Wolfgang.Audit.EFCore.Tests.Unit.csproj" />
+    <Project Path="tests/Wolfgang.Audit.EFCore.Tests.Integration/Wolfgang.Audit.EFCore.Tests.Integration.csproj" />
   </Folder>
 </Solution>
 
