@@ -1,0 +1,79 @@
+# Integration tests against real database engines via Testcontainers.
+#
+# Runs on Linux only — GitHub-hosted ubuntu runners come with Docker pre-installed,
+# which Testcontainers uses to spin up SQL Server, PostgreSQL, and MySQL containers
+# per test class. Windows / macOS runners don't have Docker out of the box, so this
+# workflow doesn't try to run there. The unit suite in pr.yaml covers the
+# cross-platform invariants.
+#
+# The integration test csproj sets <IsTestProject> only when RunIntegrationTests=true
+# so the main pr.yaml's `dotnet test` discovery silently skips it on Windows / macOS.
+
+name: Integration Tests
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  RunIntegrationTests: 'true'
+
+jobs:
+  integration:
+    name: Integration Tests (Linux + Docker)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      - name: Verify Docker is available
+        run: |
+          docker version
+          docker info
+
+      - name: Restore
+        run: dotnet restore tests/Wolfgang.Audit.EFCore.Tests.Integration/Wolfgang.Audit.EFCore.Tests.Integration.csproj
+
+      - name: Build
+        run: |
+          dotnet build tests/Wolfgang.Audit.EFCore.Tests.Integration/Wolfgang.Audit.EFCore.Tests.Integration.csproj \
+            --no-restore \
+            --configuration Release
+
+      - name: Run integration tests
+        run: |
+          dotnet test tests/Wolfgang.Audit.EFCore.Tests.Integration/Wolfgang.Audit.EFCore.Tests.Integration.csproj \
+            --no-build \
+            --configuration Release \
+            --logger "console;verbosity=normal" \
+            --logger "trx;LogFileName=integration.trx" \
+            --results-directory TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results
+          path: TestResults
+          if-no-files-found: warn

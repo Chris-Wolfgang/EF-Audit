@@ -11,7 +11,15 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
+    <!--
+      IsTestProject is gated on the RunIntegrationTests env var so the main pr.yaml
+      test discovery (which doesn't have Docker on Windows / macOS stages) skips
+      this project. The dedicated integration.yaml workflow sets RunIntegrationTests=true.
+      Default has to be an explicit false — without it, the SDK auto-detects test
+      framework references and treats the project as a test project anyway.
+    -->
+    <IsTestProject>false</IsTestProject>
+    <IsTestProject Condition="'$(RunIntegrationTests)' == 'true'">true</IsTestProject>
     <NoWarn>$(NoWarn);VSTHRD200;CA1707;S6966;CA1515</NoWarn>
   </PropertyGroup>
 

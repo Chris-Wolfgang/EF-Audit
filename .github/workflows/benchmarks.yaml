@@ -1,0 +1,93 @@
+# BenchmarkDotNet runs the audit perf suite and publishes results to gh-pages.
+# A PR comment alerts when the audited variant regresses >2x time or allocations
+# vs the previous main-branch baseline (the perf gate the plan calls for).
+#
+# First-time setup requirements (one-time, by repo owner):
+#   - A `gh-pages` branch must exist (the chart pushes to dev/bench/ under it).
+#   - GH Actions permissions must allow workflow writes to the repo (Settings ->
+#     Actions -> General -> Workflow permissions -> Read and write).
+
+name: Benchmarks
+
+permissions:
+  contents: write          # auto-push of chart data to gh-pages
+  pull-requests: write     # PR comment with the perf-gate alert
+  deployments: write       # GitHub Pages deployments
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  benchmark:
+    name: Benchmark (Linux, net10.0)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj
+
+      - name: Build
+        run: |
+          dotnet build benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj \
+            --no-restore \
+            --configuration Release
+
+      - name: Run benchmarks
+        run: |
+          dotnet run \
+            --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj \
+            --configuration Release \
+            --no-build \
+            -- \
+            --exporters json \
+            --filter '*' \
+            --memory
+
+      - name: Locate full-report JSON
+        id: locate
+        run: |
+          report=$(find . -path '*/BenchmarkDotNet.Artifacts/results/*-report-full.json' | head -1)
+          if [ -z "$report" ]; then
+            echo "No BDN report found"
+            exit 1
+          fi
+          echo "report=$report" >> "$GITHUB_OUTPUT"
+
+      - name: Store benchmark result + perf gate
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: Audit Interceptor Benchmarks
+          tool: 'benchmarkdotnet'
+          output-file-path: ${{ steps.locate.outputs.report }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: dev/bench
+          # 2x time / allocation budget on top of the previous main-branch baseline.
+          # The audit interceptor inherently costs SOMETHING; this is the headroom
+          # before CI flags a regression. Tune down as the implementation matures.
+          alert-threshold: '200%'
+          fail-on-alert: true
+          comment-on-alert: true
+          alert-comment-cc-users: '@Chris-Wolfgang'
+          # Only push to gh-pages from the main branch; PR runs alert in comments
+          # without polluting the chart history with branch noise.
+          auto-push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
