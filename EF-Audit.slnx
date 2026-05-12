@@ -1,0 +1,50 @@
+<Solution>
+  <Folder Name="/.root/">
+    <File Path="BannedSymbols.txt" />
+    <File Path="CODE_OF_CONDUCT.md" />
+    <File Path="CONTRIBUTING.md" />
+    <File Path="coverlet.runsettings" />
+    <File Path="Directory.Build.props" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+    <File Path="REPO-INSTRUCTIONS.md" />
+    <File Path="SECURITY.md" />
+  </Folder>
+  <Folder Name="/.root/.github/">
+    <File Path=".github/CODEOWNERS" />
+    <File Path=".github/copilot-instructions.md" />
+    <File Path=".github/dependabot.yml" />
+    <File Path=".github/pull_request_template.md" />
+    <File Path=".github/version-picker-template.html" />
+  </Folder>
+  <Folder Name="/.root/.github/ISSUE_TEMPLATE/">
+    <File Path=".github/ISSUE_TEMPLATE/BUG_REPORT.yaml" />
+    <File Path=".github/ISSUE_TEMPLATE/feature_request.yaml" />
+  </Folder>
+  <Folder Name="/.root/.github/workflows/">
+    <File Path=".github/workflows/build-all-versions.yaml" />
+    <File Path=".github/workflows/codeql.yaml" />
+    <File Path=".github/workflows/docfx.yaml" />
+    <File Path=".github/workflows/pr.yaml" />
+    <File Path=".github/workflows/release.yaml" />
+  </Folder>
+  <Folder Name="/.root/docs/">
+    <File Path="docs/README-FORMATTING.md" />
+    <File Path="docs/RELEASE-WORKFLOW-SETUP.md" />
+    <File Path="docs/WORKFLOW_SECURITY.md" />
+  </Folder>
+  <Folder Name="/.root/scripts/">
+    <File Path="scripts/build-pr.ps1" />
+    <File Path="scripts/Fix-BranchRuleset.ps1" />
+    <File Path="scripts/format.ps1" />
+    <File Path="scripts/Setup-BranchRuleset.ps1" />
+    <File Path="scripts/Setup-GitHubPages.ps1" />
+    <File Path="scripts/Setup-Labels.ps1" />
+    <File Path="scripts/setup.ps1" />
+  </Folder>
+  <Folder Name="/benchmarks/" />
+  <Folder Name="/examples/" />
+  <Folder Name="/src/" />
+  <Folder Name="/tests/" />
+</Solution>
+
