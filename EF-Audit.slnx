@@ -42,7 +42,9 @@
     <File Path="scripts/Setup-Labels.ps1" />
     <File Path="scripts/setup.ps1" />
   </Folder>
-  <Folder Name="/benchmarks/" />
+  <Folder Name="/benchmarks/">
+    <Project Path="benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj" />
+  </Folder>
   <Folder Name="/examples/" />
   <Folder Name="/src/">
     <Project Path="src/Wolfgang.Audit.Abstractions/Wolfgang.Audit.Abstractions.csproj" />
