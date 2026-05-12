@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net8.0;net10.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings Condition="'$(TargetFramework)' != 'netstandard2.0'">enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+    <IsTestProject>false</IsTestProject>
+
+    <PackageId>Wolfgang.Audit.TestKit.Xunit</PackageId>
+    <Version>0.1.0</Version>
+    <Title>Wolfgang.Audit.TestKit.Xunit</Title>
+    <Authors>Chris Wolfgang</Authors>
+    <Description>Shipped xunit contract-test bases for the Wolfgang.Audit family. AuditValueSerializerContractTests&lt;TSut&gt; uses FsCheck.Xunit property-based testing plus explicit boundary theories to verify any IAuditValueSerializer implementation round-trips every supported CLR type. Each new serializer (binary, hybrid, custom) inherits the suite and provides CreateSut().</Description>
+    <Copyright>Copyright (c) Chris Wolfgang</Copyright>
+    <PackageProjectUrl>https://github.com/Chris-Wolfgang/EF-Audit</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Chris-Wolfgang/EF-Audit</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>audit;ef;ef-core;testkit;xunit;fscheck;property-based-testing</PackageTags>
+
+    <!-- Test-method naming uses underscores by xunit convention; suppress CA1707. -->
+    <!-- Test methods are self-documenting via name + attribute; suppress missing-doc warnings. -->
+    <NoWarn>$(NoWarn);CA1707;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wolfgang.Audit.Abstractions\Wolfgang.Audit.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="FsCheck.Xunit" Version="2.16.6" />
+  </ItemGroup>
+
+</Project>

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Wolfgang.Audit.EFCore\Wolfgang.Audit.EFCore.csproj" />
+    <ProjectReference Include="..\..\src\Wolfgang.Audit.TestKit.Xunit\Wolfgang.Audit.TestKit.Xunit.csproj" />
   </ItemGroup>
 
   <ItemGroup>
