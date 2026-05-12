@@ -23,3 +23,13 @@ public class CacheEntry
 
     public string Payload { get; set; } = string.Empty;
 }
+
+[ExcludeFromCodeCoverage]
+public class OrderLine
+{
+    public int OrderId { get; set; }
+
+    public int LineNumber { get; set; }
+
+    public string Description { get; set; } = string.Empty;
+}

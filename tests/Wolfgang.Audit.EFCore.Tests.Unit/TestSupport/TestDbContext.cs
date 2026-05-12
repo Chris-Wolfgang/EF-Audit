@@ -18,8 +18,12 @@ public class TestDbContext : DbContext
 
     public DbSet<CacheEntry> CacheEntries => Set<CacheEntry>();
 
+    public DbSet<OrderLine> OrderLines => Set<OrderLine>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        ArgumentNullException.ThrowIfNull(modelBuilder);
+        modelBuilder.Entity<OrderLine>().HasKey(o => new { o.OrderId, o.LineNumber });
         modelBuilder.ApplyAuditing(_auditOptions);
     }
 }

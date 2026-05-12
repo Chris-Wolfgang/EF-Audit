@@ -11,11 +11,19 @@ public sealed class AuditFixture : IDisposable
 {
     private readonly DbConnection _connection;
 
-    public AuditFixture(string userId = "test-user", string? onBehalfOfUserId = null, bool captureDeletedValues = false)
+    public AuditFixture(
+        string userId = "test-user",
+        string? onBehalfOfUserId = null,
+        bool captureDeletedValues = false,
+        string headerTableName = "AuditHeader",
+        string detailTableName = "AuditDetail",
+        bool createOnConstruct = true)
     {
         Options = new AuditOptions
         {
             CaptureDeletedValues = captureDeletedValues,
+            HeaderTableName = headerTableName,
+            DetailTableName = detailTableName,
             ValueSerializer = new StringAuditValueSerializer(),
             EntityKeySerializer = new PipeDelimitedEntityKeySerializer(),
         };
@@ -26,8 +34,11 @@ public sealed class AuditFixture : IDisposable
         _connection = new SqliteConnection("Filename=:memory:");
         _connection.Open();
 
-        using var seed = CreateContext();
-        seed.Database.EnsureCreated();
+        if (createOnConstruct)
+        {
+            using var seed = CreateContext();
+            seed.Database.EnsureCreated();
+        }
     }
 
     public AuditOptions Options { get; }
