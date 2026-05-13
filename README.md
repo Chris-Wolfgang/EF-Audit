@@ -15,7 +15,7 @@ The header/detail-per-column schema is the same shape that [Z.EntityFramework.Pl
 | Package | Purpose |
 |---|---|
 | `Wolfgang.Audit.Abstractions` | Shared contracts (interfaces, attributes, entity types). No EF Core dependency. |
-| `Wolfgang.Audit.EFCore` | The EF Core interceptor, default serializers, and DI helpers. Depends on EF Core 6+ Relational. |
+| `Wolfgang.Audit.EFCore` | The `SaveChangesWithAuditAsync` extension method, default serializers, and DI helpers. Depends on EF Core 6+ Relational. |
 | `Wolfgang.Audit.TestKit.Xunit` | xunit contract-test bases (FsCheck-powered) for validating custom `IAuditValueSerializer` implementations. |
 
 All three are published to NuGet.org under the **`Wolfgang.Audit.*`** prefix.
@@ -123,7 +123,7 @@ RunIntegrationTests=true dotnet test tests/Wolfgang.Audit.EFCore.Tests.Integrati
 
 ## 📈 Benchmarks
 
-[`benchmarks/Wolfgang.Audit.EFCore.Benchmarks`](./benchmarks/Wolfgang.Audit.EFCore.Benchmarks) ships BenchmarkDotNet comparisons of `SaveChanges` with vs without the interceptor across Insert, full Lifecycle (I→U→D), and MixedStates workloads. `MemoryDiagnoser` is enabled so allocation deltas are visible.
+[`benchmarks/Wolfgang.Audit.EFCore.Benchmarks`](./benchmarks/Wolfgang.Audit.EFCore.Benchmarks) ships BenchmarkDotNet comparisons of plain `SaveChanges` vs `SaveChangesWithAuditAsync` across Insert, full Lifecycle (I→U→D), and MixedStates workloads. `MemoryDiagnoser` is enabled so allocation deltas are visible.
 
 The [`benchmarks.yaml`](./.github/workflows/benchmarks.yaml) workflow runs them on every PR, fails the build if time or allocations regress beyond 2× the previous main-branch baseline, and auto-publishes the chart to [`gh-pages/dev/bench`](https://Chris-Wolfgang.github.io/EF-Audit/dev/bench/) on pushes to `main`.
 

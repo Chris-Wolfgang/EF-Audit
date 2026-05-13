@@ -60,31 +60,39 @@ public static class DbContextAuditExtensions
             throw new ArgumentException("AuditOptions.EntityKeySerializer must be set.", nameof(options));
         }
 
-        // If the consumer is already inside a transaction, do not wrap in an
-        // execution strategy (retrying execution strategies don't support
-        // user-initiated transactions). The save + audit run in the existing
-        // transaction; commit / rollback remains the consumer's responsibility.
+        // Generate the TransactionId once at the top of the call so we have a stable
+        // identifier for verifySucceeded to look up if the execution strategy retries
+        // after a transient commit failure.
+        var auditTransactionId = Guid.NewGuid();
+
+        // If the consumer is already inside a transaction, don't wrap in an execution
+        // strategy (retrying strategies refuse user-initiated transactions). The save
+        // and audit run in the existing transaction; commit/rollback remains the
+        // consumer's responsibility.
         if (context.Database.CurrentTransaction is not null)
         {
-            return ExecuteSaveAndAuditAsync(context, userProvider, options, cancellationToken);
+            return ExecuteSaveAndAuditAsync(context, userProvider, options, auditTransactionId, cancellationToken);
         }
 
         var strategy = context.Database.CreateExecutionStrategy();
-        return strategy.ExecuteAsync(
-            state: (context, userProvider, options),
-            operation: static async (_, args, ct) =>
-            {
-                await using var transaction = await args.context.Database
-                    .BeginTransactionAsync(ct)
-                    .ConfigureAwait(false);
+        var state = (context, userProvider, options, auditTransactionId);
 
-                var result = await ExecuteSaveAndAuditAsync(args.context, args.userProvider, args.options, ct)
-                    .ConfigureAwait(false);
-
-                await transaction.CommitAsync(ct).ConfigureAwait(false);
-                return result;
-            },
-            verifySucceeded: null,
+        // ExecuteInTransactionAsync (the strategy-aware variant) opens a transaction
+        // around the operation, commits on success, retries on transient failure, and
+        // calls `verifySucceeded` between retries to detect the case where the commit
+        // actually succeeded but the response was lost (so we don't double-write the
+        // audit history). verifySucceeded queries for headers with our pre-generated
+        // TransactionId — if any exist, the previous attempt already committed and
+        // the strategy should not retry.
+        return strategy.ExecuteInTransactionAsync(
+            state: state,
+            operation: static (s, ct) =>
+                ExecuteSaveAndAuditAsync(s.context, s.userProvider, s.options, s.auditTransactionId, ct),
+            verifySucceeded: static async (s, ct) =>
+                await s.context.Set<AuditHeader>()
+                    .AsNoTracking()
+                    .AnyAsync(h => h.TransactionId == s.auditTransactionId, ct)
+                    .ConfigureAwait(false),
             cancellationToken);
     }
 
@@ -92,6 +100,7 @@ public static class DbContextAuditExtensions
         DbContext context,
         IAuditUserProvider userProvider,
         AuditOptions options,
+        Guid auditTransactionId,
         CancellationToken cancellationToken)
     {
         // Capture pending audit state BEFORE the user save runs. Updates and Deletes
@@ -106,7 +115,7 @@ public static class DbContextAuditExtensions
 
         if (pending.Count > 0)
         {
-            AddAuditEntities(context, pending, userProvider, options);
+            AddAuditEntities(context, pending, userProvider, options, auditTransactionId);
             await context
                 .SaveChangesAsync(cancellationToken)
                 .ConfigureAwait(false);
@@ -227,11 +236,11 @@ public static class DbContextAuditExtensions
         DbContext context,
         List<PendingAuditEntry> pending,
         IAuditUserProvider userProvider,
-        AuditOptions options)
+        AuditOptions options,
+        Guid transactionId)
     {
         var user = userProvider.GetCurrentUser();
         var auditedAt = DateTime.UtcNow;
-        var transactionId = Guid.NewGuid();
         var keySerializer = options.EntityKeySerializer!;
         var valueSerializer = options.ValueSerializer!;
 

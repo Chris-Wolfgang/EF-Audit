@@ -36,7 +36,19 @@ public abstract class AuditValueSerializerContractTests<TSut>
         Equals(value, RoundTrip(value));
 
     [Property]
+    public bool Byte_round_trips(byte value) =>
+        Equals(value, RoundTrip(value));
+
+    [Property]
+    public bool SByte_round_trips(sbyte value) =>
+        Equals(value, RoundTrip(value));
+
+    [Property]
     public bool Int16_round_trips(short value) =>
+        Equals(value, RoundTrip(value));
+
+    [Property]
+    public bool UInt16_round_trips(ushort value) =>
         Equals(value, RoundTrip(value));
 
     [Property]
@@ -44,7 +56,15 @@ public abstract class AuditValueSerializerContractTests<TSut>
         Equals(value, RoundTrip(value));
 
     [Property]
+    public bool UInt32_round_trips(uint value) =>
+        Equals(value, RoundTrip(value));
+
+    [Property]
     public bool Int64_round_trips(long value) =>
+        Equals(value, RoundTrip(value));
+
+    [Property]
+    public bool UInt64_round_trips(ulong value) =>
         Equals(value, RoundTrip(value));
 
     [Property]
@@ -168,5 +188,70 @@ public abstract class AuditValueSerializerContractTests<TSut>
     {
         var value = new byte[] { 0x00, 0xFF, 0x7F, 0x80, 0x01 };
         Assert.Equal(value, RoundTrip(value));
+    }
+
+    [Property]
+    public bool Byte_array_round_trips(byte[]? value)
+    {
+        if (value is null)
+        {
+            return RoundTrip(value) is null;
+        }
+        var decoded = RoundTrip(value);
+        return decoded is byte[] bytes && bytes.SequenceEqual(value);
+    }
+
+    [Property]
+    public bool DateTime_with_random_kind_round_trips(DateTime value)
+    {
+        var decoded = RoundTrip(value);
+        // ISO 8601 round-trip ("o") preserves both ticks and Kind on the wire.
+        return decoded is DateTime dt
+            && dt.Ticks == value.Ticks
+            && dt.Kind == value.Kind;
+    }
+
+    [Property]
+    public bool DateTimeOffset_round_trips(DateTimeOffset value) =>
+        Equals(value, RoundTrip(value));
+
+    [Fact]
+    public void Enum_discriminator_includes_full_type_name()
+    {
+        var sut = CreateSut();
+        var buffer = new InMemoryAuditValueBuffer();
+        var valueType = sut.Encode(SampleEnum.Beta, typeof(SampleEnum), buffer);
+        Assert.StartsWith("Enum:", valueType, StringComparison.Ordinal);
+        Assert.Contains(nameof(SampleEnum), valueType, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void Enum_round_trips_through_the_symbolic_name()
+    {
+        // String serializers can't always resolve a cross-assembly enum Type at
+        // decode time (Type.GetType(FullName) only finds types in the calling
+        // assembly or mscorlib). The contract pinned here: either the decoded
+        // value is the enum itself, OR the decoder returned the raw symbolic
+        // name as a fallback. Both are acceptable round-trip behavior.
+        var sut = CreateSut();
+        var buffer = new InMemoryAuditValueBuffer();
+        var valueType = sut.Encode(SampleEnum.Beta, typeof(SampleEnum), buffer);
+        var decoded = sut.Decode(buffer, valueType);
+
+        var matchedEnum = decoded is SampleEnum se && se == SampleEnum.Beta;
+        var matchedText = string.Equals(decoded?.ToString(), nameof(SampleEnum.Beta), StringComparison.Ordinal);
+
+        Assert.True(matchedEnum || matchedText, $"Expected SampleEnum.Beta or \"Beta\" but got {decoded ?? "null"}.");
+    }
+
+    /// <summary>
+    /// A small enum used exclusively by the contract tests so consumers inheriting this
+    /// base get coverage of the <c>Enum:&lt;FullName&gt;</c> discriminator path.
+    /// </summary>
+    public enum SampleEnum
+    {
+        Alpha,
+        Beta,
+        Gamma,
     }
 }
