@@ -48,10 +48,12 @@ public sealed class AuditSaveChangesInterceptor : SaveChangesInterceptor
     }
 
     /// <inheritdoc />
-    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync
+    (
         DbContextEventData eventData,
         InterceptionResult<int> result,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default
+    )
     {
         ArgumentNullException.ThrowIfNull(eventData);
 
@@ -77,10 +79,12 @@ public sealed class AuditSaveChangesInterceptor : SaveChangesInterceptor
     }
 
     /// <inheritdoc />
-    public override async ValueTask<int> SavedChangesAsync(
+    public override async ValueTask<int> SavedChangesAsync
+    (
         SaveChangesCompletedEventData eventData,
         int result,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default
+    )
     {
         ArgumentNullException.ThrowIfNull(eventData);
 

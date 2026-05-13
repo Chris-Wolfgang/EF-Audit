@@ -17,9 +17,11 @@ public static class ServiceCollectionExtensions
     /// responsible for wiring the interceptor onto each <see cref="DbContext"/> via
     /// <c>DbContextOptionsBuilder.AddInterceptors(...)</c> or by resolving it through DI.
     /// </summary>
-    public static IServiceCollection AddEfCoreAuditing<TUserProvider>(
+    public static IServiceCollection AddEfCoreAuditing<TUserProvider>
+    (
         this IServiceCollection services,
-        Action<AuditOptions>? configure = null)
+        Action<AuditOptions>? configure = null
+    )
         where TUserProvider : class, IAuditUserProvider
     {
         ArgumentNullException.ThrowIfNull(services);
