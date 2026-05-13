@@ -15,25 +15,47 @@ public class Customer
     public int LoyaltyPoints { get; set; }
 }
 
-[ExcludeFromCodeCoverage]
-public class BenchmarkDbContext : DbContext
-{
-    private readonly AuditOptions? _auditOptions;
+// EF Core caches IModel per DbContext type, so an audited and unaudited variant
+// sharing the same type would contaminate each other's cached model — whichever
+// is built first wins. Splitting into two concrete subclasses gives each
+// variant its own type, its own model-cache entry, and its own consistent
+// schema. The shared base owns the Customer DbSet so both variants see the
+// same user-data shape.
 
-    public BenchmarkDbContext(DbContextOptions<BenchmarkDbContext> options, AuditOptions? auditOptions = null)
+[ExcludeFromCodeCoverage]
+public abstract class BenchmarkDbContextBase : DbContext
+{
+    protected BenchmarkDbContextBase(DbContextOptions options)
+        : base(options)
+    {
+    }
+
+    public DbSet<Customer> Customers => Set<Customer>();
+}
+
+[ExcludeFromCodeCoverage]
+public sealed class UnauditedBenchmarkDbContext : BenchmarkDbContextBase
+{
+    public UnauditedBenchmarkDbContext(DbContextOptions<UnauditedBenchmarkDbContext> options)
+        : base(options)
+    {
+    }
+}
+
+[ExcludeFromCodeCoverage]
+public sealed class AuditedBenchmarkDbContext : BenchmarkDbContextBase
+{
+    private readonly AuditOptions _auditOptions;
+
+    public AuditedBenchmarkDbContext(DbContextOptions<AuditedBenchmarkDbContext> options, AuditOptions auditOptions)
         : base(options)
     {
         _auditOptions = auditOptions;
     }
 
-    public DbSet<Customer> Customers => Set<Customer>();
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        if (_auditOptions is not null)
-        {
-            modelBuilder.ApplyAuditing(_auditOptions);
-        }
+        modelBuilder.ApplyAuditing(_auditOptions);
     }
 }
 
