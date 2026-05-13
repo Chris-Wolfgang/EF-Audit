@@ -22,9 +22,11 @@ public class AuditDetail
     public string ColumnName { get; set; } = string.Empty;
 
     /// <summary>
-    /// Culture-invariant text representation of the new value, encoded by the active
-    /// <see cref="IAuditValueSerializer"/>. <c>null</c> when the audited value was
-    /// itself <c>null</c>.
+    /// Culture-invariant text representation of the captured column value, encoded
+    /// by the active <see cref="IAuditValueSerializer"/>. For Insert and Update this
+    /// is the new (post-change) value; for Delete with
+    /// <c>AuditOptions.CaptureDeletedValues = true</c> this is the pre-delete
+    /// (original) value. <c>null</c> when the audited value was itself <c>null</c>.
     /// </summary>
     public string? ValueText { get; set; }
 
