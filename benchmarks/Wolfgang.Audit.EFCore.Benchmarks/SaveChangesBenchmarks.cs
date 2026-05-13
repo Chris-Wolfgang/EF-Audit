@@ -7,10 +7,10 @@ using Wolfgang.Audit.Serializers;
 namespace Wolfgang.Audit.Benchmarks;
 
 /// <summary>
-/// Compares <see cref="DbContext.SaveChanges"/> with and without the audit
-/// interceptor across Insert, Update, Delete, and mixed workloads. SQLite is used
-/// for a consistent, dependency-free baseline; the relative delta is what matters,
-/// not absolute numbers.
+/// Compares <c>SaveChanges</c> (unaudited baseline) against the audited variant
+/// for Insert workloads. SQLite is used for a consistent, dependency-free
+/// baseline; the relative delta between the two is what matters, not the
+/// absolute numbers. Update / Delete / Mixed workloads land in a follow-up.
 /// </summary>
 [MemoryDiagnoser]
 public class SaveChangesBenchmarks
@@ -45,23 +45,22 @@ public class SaveChangesBenchmarks
         _connection.Dispose();
     }
 
-    private BenchmarkDbContext CreateAuditedContext()
+    private AuditedBenchmarkDbContext CreateAuditedContext()
     {
-        return new BenchmarkDbContext(
-            new DbContextOptionsBuilder<BenchmarkDbContext>()
+        return new AuditedBenchmarkDbContext(
+            new DbContextOptionsBuilder<AuditedBenchmarkDbContext>()
                 .UseSqlite(_connection)
                 .AddInterceptors(_interceptor)
                 .Options,
             _options);
     }
 
-    private BenchmarkDbContext CreateUnauditedContext()
+    private UnauditedBenchmarkDbContext CreateUnauditedContext()
     {
-        return new BenchmarkDbContext(
-            new DbContextOptionsBuilder<BenchmarkDbContext>()
+        return new UnauditedBenchmarkDbContext(
+            new DbContextOptionsBuilder<UnauditedBenchmarkDbContext>()
                 .UseSqlite(_connection)
-                .Options,
-            auditOptions: null);
+                .Options);
     }
 
     [Benchmark(Baseline = true)]

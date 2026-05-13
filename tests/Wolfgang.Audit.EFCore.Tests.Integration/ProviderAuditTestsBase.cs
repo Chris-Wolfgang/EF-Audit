@@ -35,14 +35,17 @@ public abstract class ProviderAuditTestsBase<TFixture> : IClassFixture<TFixture>
     [Fact]
     public async Task SaveChangesAsync_when_inserting_writes_a_header_with_the_generated_primary_key()
     {
+        int customerId;
         var (context, _) = NewContext();
         await using (context)
         {
             await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
 
-            context.Customers.Add(new Customer { Name = "Alice", Email = "alice@example.com" });
+            var alice = new Customer { Name = "Alice", Email = "alice@example.com" };
+            context.Customers.Add(alice);
             await context.SaveChangesAsync();
+            customerId = alice.CustomerId;
         }
 
         var (verify, _) = NewContext();
@@ -50,8 +53,9 @@ public abstract class ProviderAuditTestsBase<TFixture> : IClassFixture<TFixture>
         {
             var header = await verify.Set<AuditHeader>().Include(h => h.Details).SingleAsync();
             Assert.Equal(AuditOperation.Insert, header.Operation);
-            Assert.NotEqual("0", header.EntityKey);
-            Assert.NotEqual(string.Empty, header.EntityKey);
+            Assert.Equal(
+                customerId.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                header.EntityKey);
 
             var details = header.Details.ToDictionary(d => d.ColumnName, StringComparer.Ordinal);
             Assert.Equal("Alice", details["Name"].ValueText);
