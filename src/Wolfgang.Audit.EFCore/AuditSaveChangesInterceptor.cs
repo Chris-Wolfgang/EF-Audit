@@ -132,6 +132,7 @@ public sealed class AuditSaveChangesInterceptor : SaveChangesInterceptor
 
             if (clrType.GetCustomAttribute<NotAuditedAttribute>(inherit: false) is not null)
             {
+                // Entire entity is not logged.
                 continue;
             }
 
