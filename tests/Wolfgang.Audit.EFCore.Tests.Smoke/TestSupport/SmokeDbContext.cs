@@ -21,11 +21,3 @@ public class SmokeDbContext : DbContext
         modelBuilder.ApplyAuditing(_auditOptions);
     }
 }
-
-[ExcludeFromCodeCoverage]
-public sealed class StaticAuditUserProvider : IAuditUserProvider
-{
-    private readonly AuditUser _user;
-    public StaticAuditUserProvider(string id) => _user = new AuditUser(id);
-    public AuditUser GetCurrentUser() => _user;
-}
