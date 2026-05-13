@@ -2,6 +2,16 @@
 # A PR comment alerts when the audited variant regresses >2x time or allocations
 # vs the previous main-branch baseline (the perf gate the plan calls for).
 #
+# Security model: PR runs execute arbitrary contributor code (`dotnet run`), so
+# they must NOT be able to push to gh-pages or otherwise mutate the repo. We
+# split the work into two jobs with different permissions:
+#
+#   - `benchmark-pr` runs on pull_request. Read-only contents + pull-requests:
+#     write (only for the alert comment). It only ALERTS — never pushes chart
+#     data — so a malicious PR can't reach gh-pages via this workflow's token.
+#   - `benchmark-main` runs on push to main. It gets contents: write so it can
+#     auto-push the chart history to gh-pages. Trusted: main-branch code only.
+#
 # First-time setup requirements (one-time, by repo owner):
 #   - A `gh-pages` branch must exist (the chart pushes to dev/bench/ under it).
 #   - GH Actions permissions must allow workflow writes to the repo (Settings ->
@@ -9,10 +19,9 @@
 
 name: Benchmarks
 
+# Default least-privilege; per-job permissions override below.
 permissions:
-  contents: write          # auto-push of chart data to gh-pages
-  pull-requests: write     # PR comment with the perf-gate alert
-  deployments: write       # GitHub Pages deployments
+  contents: read
 
 on:
   pull_request:
@@ -28,10 +37,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  benchmark:
-    name: Benchmark (Linux, net10.0)
+  # ---------------------------------------------------------------------------
+  # PR runs: read-only on contents (no gh-pages push); pull-requests:write only
+  # so the perf-gate action can leave a regression comment.
+  # ---------------------------------------------------------------------------
+  benchmark-pr:
+    if: github.event_name == 'pull_request'
+    name: Benchmark PR alert (read-only)
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout
@@ -42,21 +59,11 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      - name: Restore
-        run: dotnet restore benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj
-
-      - name: Build
-        run: |
-          dotnet build benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj \
-            --no-restore \
-            --configuration Release
-
       - name: Run benchmarks
         run: |
           dotnet run \
             --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj \
             --configuration Release \
-            --no-build \
             -- \
             --exporters json \
             --filter '*' \
@@ -72,7 +79,7 @@ jobs:
           fi
           echo "report=$report" >> "$GITHUB_OUTPUT"
 
-      - name: Store benchmark result + perf gate
+      - name: Compare against main + alert
         uses: benchmark-action/github-action-benchmark@v1
         with:
           name: Audit Interceptor Benchmarks
@@ -81,13 +88,64 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           gh-pages-branch: gh-pages
           benchmark-data-dir-path: dev/bench
-          # 2x time / allocation budget on top of the previous main-branch baseline.
-          # The audit interceptor inherently costs SOMETHING; this is the headroom
-          # before CI flags a regression. Tune down as the implementation matures.
           alert-threshold: '200%'
           fail-on-alert: true
           comment-on-alert: true
           alert-comment-cc-users: '@Chris-Wolfgang'
-          # Only push to gh-pages from the main branch; PR runs alert in comments
-          # without polluting the chart history with branch noise.
-          auto-push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          # PR-side: alert only, never push chart history.
+          auto-push: false
+
+  # ---------------------------------------------------------------------------
+  # Main-branch runs: contents:write so the chart can be auto-pushed to gh-pages.
+  # Only runs from the trusted main branch.
+  # ---------------------------------------------------------------------------
+  benchmark-main:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    name: Benchmark + publish chart (main)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      deployments: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Run benchmarks
+        run: |
+          dotnet run \
+            --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj \
+            --configuration Release \
+            -- \
+            --exporters json \
+            --filter '*' \
+            --memory
+
+      - name: Locate full-report JSON
+        id: locate
+        run: |
+          report=$(find . -path '*/BenchmarkDotNet.Artifacts/results/*-report-full.json' | head -1)
+          if [ -z "$report" ]; then
+            echo "No BDN report found"
+            exit 1
+          fi
+          echo "report=$report" >> "$GITHUB_OUTPUT"
+
+      - name: Store + push chart history
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: Audit Interceptor Benchmarks
+          tool: 'benchmarkdotnet'
+          output-file-path: ${{ steps.locate.outputs.report }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: dev/bench
+          alert-threshold: '200%'
+          fail-on-alert: true
+          auto-push: true

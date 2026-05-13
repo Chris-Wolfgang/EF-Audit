@@ -6,8 +6,12 @@
 # workflow doesn't try to run there. The unit suite in pr.yaml covers the
 # cross-platform invariants.
 #
-# The integration test csproj sets <IsTestProject> only when RunIntegrationTests=true
-# so the main pr.yaml's `dotnet test` discovery silently skips it on Windows / macOS.
+# The integration test csproj sets <IsTestProject> only when RunIntegrationTests=true.
+# Without that env var, `dotnet test` discovers no test framework and the project is
+# a no-op when pr.yaml iterates over ./tests/*. (pr.yaml's discovery enumerates every
+# *.csproj under ./tests and invokes `dotnet test` on each; the project IS visited,
+# it just runs zero tests.) This workflow sets RunIntegrationTests=true so the same
+# project becomes a normal test project here.
 
 name: Integration Tests
 
@@ -43,9 +47,10 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: |
-            8.0.x
-            10.0.x
+          # Integration tests target net8.0 only (Pomelo.EntityFrameworkCore.MySql
+          # lags EF Core by one major; bump TFM + this SDK list together when
+          # it ships a stable 10.x).
+          dotnet-version: 8.0.x
 
       - name: Verify Docker is available
         run: |
