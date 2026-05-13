@@ -12,11 +12,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
     <!--
-      IsTestProject is gated on the RunIntegrationTests env var so the main pr.yaml
-      test discovery (which doesn't have Docker on Windows / macOS stages) skips
-      this project. The dedicated integration.yaml workflow sets RunIntegrationTests=true.
-      Default has to be an explicit false — without it, the SDK auto-detects test
-      framework references and treats the project as a test project anyway.
+      pr.yaml enumerates every *.csproj under ./tests and invokes `dotnet test`
+      on each one (see the "Run tests with coverage" step in .github/workflows/pr.yaml).
+      It does NOT exclude any project by path. Instead, we keep this project a
+      no-op in that workflow by leaving <IsTestProject> false unless
+      RunIntegrationTests=true. `dotnet test` then sees no test framework on
+      the project and runs zero tests against it. The dedicated integration.yaml
+      workflow sets RunIntegrationTests=true so the same project becomes a real
+      test project there.
+      Default has to be an explicit false — without it, the SDK auto-detects
+      test framework references and treats the project as a test project anyway.
     -->
     <IsTestProject>false</IsTestProject>
     <IsTestProject Condition="'$(RunIntegrationTests)' == 'true'">true</IsTestProject>
