@@ -16,7 +16,7 @@ namespace Wolfgang.Audit.Tests.Smoke;
 public class EndToEndHistorySmokeTest
 {
     [Fact]
-    public async Task An_orders_full_lifecycle_is_recoverable_from_the_audit_tables()
+    public async Task An_order_full_lifecycle_is_recoverable_from_the_audit_tables()
     {
         var options = new AuditOptions
         {
