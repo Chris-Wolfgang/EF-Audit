@@ -4,10 +4,10 @@ using Wolfgang.Audit.Serializers;
 namespace Wolfgang.Audit.Tests.Unit.TestSupport;
 
 /// <summary>
-/// Wraps <see cref="StringAuditValueSerializer"/> and throws on the first
-/// <see cref="Encode"/> call, simulating a corrupt or buggy serializer. Used to
-/// verify that an audit-save failure rolls back the user's data save (atomicity
-/// contract).
+/// Wraps <see cref="StringAuditValueSerializer"/> and throws unconditionally on
+/// every <see cref="Encode"/> call, simulating a corrupt or buggy serializer.
+/// Used to verify that an audit-save failure rolls back the user's data save
+/// (atomicity contract).
 /// </summary>
 [ExcludeFromCodeCoverage]
 public sealed class FailingAuditValueSerializer : IAuditValueSerializer
