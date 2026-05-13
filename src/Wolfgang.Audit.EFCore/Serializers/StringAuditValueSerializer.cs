@@ -4,7 +4,7 @@ namespace Wolfgang.Audit.Serializers;
 
 /// <summary>
 /// v1 default <see cref="IAuditValueSerializer"/>. Writes every value as culture-invariant
-/// text to a single <c>Value</c> column on the <c>AuditDetail</c> table.
+/// text to the <c>ValueText</c> column on the <c>AuditDetail</c> table.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -24,7 +24,7 @@ namespace Wolfgang.Audit.Serializers;
 public sealed class StringAuditValueSerializer : IAuditValueSerializer
 {
     /// <summary>The name of the single text column this serializer writes.</summary>
-    public const string ValueColumnName = "Value";
+    public const string ValueColumnName = "ValueText";
 
     private static readonly IReadOnlyList<AuditValueColumn> _columns = new[]
     {
