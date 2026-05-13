@@ -13,10 +13,11 @@ public class AuditAtomicityAndConcurrencyTests
     [Fact]
     public async Task SaveChangesWithAuditAsync_when_value_serializer_throws_rolls_back_the_user_save()
     {
-        // With the IExecutionStrategy + interceptor-owned transaction in the
-        // extension method, the audit save and the user save share one transaction.
-        // If the serializer throws while building audit rows, the entire transaction
-        // rolls back — even without the consumer opening their own.
+        // SaveChangesWithAuditAsync owns the transaction via
+        // IExecutionStrategy.ExecuteInTransactionAsync, so the user save and the
+        // audit save share one transaction. If the serializer throws while building
+        // audit rows, the entire transaction rolls back — even without the consumer
+        // opening their own.
         var options = new AuditOptions
         {
             ValueSerializer = new FailingAuditValueSerializer(),
