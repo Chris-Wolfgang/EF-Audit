@@ -10,8 +10,12 @@ public sealed class MySqlFixture : IAsyncLifetime, IProviderFixture
 {
     // Pinned to a specific patch tag so test reruns are reproducible. Bump
     // deliberately; do not float on `:8.0`.
+    // WithDatabase pins the container's user database to a dedicated name so
+    // EnsureDeletedAsync / EnsureCreatedAsync target an isolated DB instead of
+    // MySQL's default `test` / `mysql` databases.
     private readonly MySqlContainer _container = new MySqlBuilder()
         .WithImage("mysql:8.0.39")
+        .WithDatabase("auditdb")
         .Build();
 
     private ServerVersion? _serverVersion;
