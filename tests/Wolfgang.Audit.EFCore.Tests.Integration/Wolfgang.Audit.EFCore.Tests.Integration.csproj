@@ -11,7 +11,25 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
+    <!--
+      pr.yaml enumerates every *.csproj under ./tests and invokes `dotnet test`
+      on each one. Without gating, this project would attempt to spin up
+      Testcontainers on Windows / macOS runners where Docker isn't available
+      out of the box, causing the whole pr.yaml job to fail. We keep
+      <IsTestProject> false unless RunIntegrationTests=true. With that, the
+      SDK sees no test framework on this project and `dotnet test` runs zero
+      tests against it — silently a no-op on the cross-platform stages.
+
+      A dedicated integration-tests workflow (planned in a follow-up PR
+      stacked above this one) sets RunIntegrationTests=true on a Linux
+      runner where Docker is available, and runs the suite for real there.
+
+      Default has to be an explicit `false` — without it, the SDK
+      auto-detects the test-framework references and treats the project as
+      a test project anyway.
+    -->
+    <IsTestProject>false</IsTestProject>
+    <IsTestProject Condition="'$(RunIntegrationTests)' == 'true'">true</IsTestProject>
     <NoWarn>$(NoWarn);VSTHRD200;CA1707;S6966;CA1515</NoWarn>
   </PropertyGroup>
 
