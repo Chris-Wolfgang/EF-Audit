@@ -1,6 +1,6 @@
 # Wolfgang.Audit
 
-An EF Core change-tracking library. Calling `context.SaveChangesWithAuditAsync(...)` instead of `SaveChangesAsync` captures every Insert / Update / Delete via `ChangeTracker` and writes a row-by-row audit history — one **header** per changed entity plus per-column **detail** rows — into the **same transaction** as the user's save. Either both commit or both roll back, atomically. Uses EF Core's `IExecutionStrategy` under the hood so transient retries still work.
+An EF Core change-tracking library. Derive your `DbContext` from `AuditingDbContext` (or attach the auto-transaction interceptor) and every existing `context.SaveChangesAsync()` call site captures every Insert / Update / Delete via `ChangeTracker`, writing a row-by-row audit history — one **header** per changed entity plus per-column **detail** rows — into the **same transaction** as the user's save. Either both commit or both roll back, atomically. Uses EF Core's `IExecutionStrategy` under the hood so transient retries still work. **No call-site changes required.**
 
 The header/detail-per-column schema is the same shape that [Z.EntityFramework.Plus.Audit](https://entityframework-plus.net/ef-core-audit) and the [ABP Framework auditing](https://abp.io/docs/latest/framework/infrastructure/audit-logging) use — chosen for queryability ("every change to `Customer.Email` ever") over the more common JSON-blob-per-change shape (Audit.NET, EntityFrameworkCore.AutoHistory).
 
@@ -15,7 +15,7 @@ The header/detail-per-column schema is the same shape that [Z.EntityFramework.Pl
 | Package | Purpose |
 |---|---|
 | `Wolfgang.Audit.Abstractions` | Shared contracts (interfaces, attributes, entity types). No EF Core dependency. |
-| `Wolfgang.Audit.EFCore` | The `SaveChangesWithAuditAsync` extension method, default serializers, and DI helpers. Depends on EF Core 6+ Relational. |
+| `Wolfgang.Audit.EFCore` | `AuditingDbContext` base class, auto-transaction `AuditSaveChangesInterceptor`, default serializers, DI helpers. Depends on EF Core 6+ Relational. |
 | `Wolfgang.Audit.TestKit.Xunit` | xunit contract-test bases (FsCheck-powered) for validating custom `IAuditValueSerializer` implementations. |
 
 All three are published to NuGet.org under the **`Wolfgang.Audit.*`** prefix.
@@ -28,43 +28,75 @@ dotnet add package Wolfgang.Audit.EFCore
 
 ## 🚀 Quick start
 
+Two integration models — pick whichever fits your codebase. **In both cases your `SaveChangesAsync` call sites stay exactly as they are today.**
+
+### Model 1 — `AuditingDbContext` base class (recommended)
+
+For new contexts or any context whose only base is `DbContext`. One word changes; nothing else does.
+
 ```csharp
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Wolfgang.Audit;
-using Wolfgang.Audit.Serializers;
 
-// 1. Configure options + serializers.
-var auditOptions = new AuditOptions
+// 1. Register audit services + your DbContext as normal.
+services.AddEfCoreAuditing<MyUserProvider>(opts =>
 {
-    Schema = null,                                   // null = provider default
-    ValueSerializer = new StringAuditValueSerializer(),
-    EntityKeySerializer = new PipeDelimitedEntityKeySerializer(),
-};
-IAuditUserProvider userProvider = new MyUserProvider();
+    opts.Schema = null; // null = provider default (dbo / public / none)
+});
 
-// 2. Tell EF Core about the audit entity types in OnModelCreating.
-public class AppDbContext : DbContext
+services.AddDbContext<AppDbContext>(opts => opts.UseSqlServer(connStr));
+
+// 2. Derive your DbContext from AuditingDbContext (the only line that changes).
+public class AppDbContext : AuditingDbContext
 {
-    private readonly AuditOptions _auditOptions;
-    public AppDbContext(DbContextOptions<AppDbContext> options, AuditOptions auditOptions)
-        : base(options) => _auditOptions = auditOptions;
+    public AppDbContext(
+        DbContextOptions<AppDbContext> options,
+        IAuditUserProvider userProvider,
+        AuditOptions auditOptions)
+        : base(options, userProvider, auditOptions) { }
 
     public DbSet<Customer> Customers => Set<Customer>();
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-        => modelBuilder.ApplyAuditing(_auditOptions);
 }
 
-// 3. Call SaveChangesWithAuditAsync instead of SaveChangesAsync.
-await using var ctx = new AppDbContext(contextOptions, auditOptions);
+// 3. Save as usual. Audit rows are written in the same transaction.
 ctx.Customers.Add(new Customer { Name = "Alice" });
-await ctx.SaveChangesWithAuditAsync(userProvider, auditOptions);
-// AuditHeader + AuditDetail rows for the insert are now in the same transaction.
+await ctx.SaveChangesAsync();
 ```
 
-### Why an extension method instead of an interceptor?
+### Model 2 — auto-transaction interceptor
 
-EF Core's implicit transaction commits *before* `SavedChangesAsync` fires (see [efcore#37131](https://github.com/dotnet/efcore/issues/37131)), so an interceptor cannot guarantee that audit rows commit in the same transaction as the user's data. Owning the transaction at the call site — what `SaveChangesWithAuditAsync` does via `IExecutionStrategy.ExecuteInTransactionAsync` — is the canonical pattern the EF Core team recommends. The cost is one extra method name to learn; the win is real atomicity, including for database-generated primary keys.
+For contexts already inheriting from a third-party base — `IdentityDbContext<TUser>`, multi-tenant bases, internal enterprise bases — that can't switch parents.
+
+```csharp
+services.AddEfCoreAuditing<MyUserProvider>();
+
+services.AddDbContext<AppDbContext>((sp, opts) => opts
+    .UseSqlServer(connStr)
+    .UseAuditing(sp));        // <-- the only new line
+
+// AppDbContext stays whatever it already was.
+public class AppDbContext : IdentityDbContext<AppUser>
+{
+    // ... existing code unchanged
+}
+
+// Save call sites are unchanged.
+await ctx.SaveChangesAsync();
+```
+
+### Which one should I pick?
+
+| Situation | Use |
+|---|---|
+| New `DbContext` | **Model 1 (`AuditingDbContext`)** |
+| Context inherits from `DbContext` only | **Model 1** |
+| Context inherits from `IdentityDbContext<TUser>` or another base | **Model 2 (interceptor)** |
+| `EnableRetryOnFailure` enabled on the connection | **Model 1** (Model 2 throws at runtime — see [Retry caveat](#retry-strategy-caveat) below) |
+
+### Retry-strategy caveat
+
+EF Core's retrying execution strategies (e.g. `SqlServerRetryingExecutionStrategy` from `EnableRetryOnFailure`) refuse user-initiated transactions opened outside `strategy.ExecuteAsync(...)`. Model 1 handles this correctly because the base class owns the strategy wrap; Model 2's interceptor cannot, and throws a clear `InvalidOperationException` at the first save pointing you back at Model 1. If you're on Azure SQL or any other connection with retry enabled, derive from `AuditingDbContext`.
 
 Two end-to-end samples ship in [`examples/`](./examples):
 
@@ -123,7 +155,7 @@ RunIntegrationTests=true dotnet test tests/Wolfgang.Audit.EFCore.Tests.Integrati
 
 ## 📈 Benchmarks
 
-[`benchmarks/Wolfgang.Audit.EFCore.Benchmarks`](./benchmarks/Wolfgang.Audit.EFCore.Benchmarks) ships BenchmarkDotNet comparisons of plain `SaveChanges` vs `SaveChangesWithAuditAsync` across Insert, full Lifecycle (I→U→D), and MixedStates workloads. `MemoryDiagnoser` is enabled so allocation deltas are visible.
+[`benchmarks/Wolfgang.Audit.EFCore.Benchmarks`](./benchmarks/Wolfgang.Audit.EFCore.Benchmarks) ships BenchmarkDotNet comparisons of plain `SaveChangesAsync` on an unaudited `DbContext` vs `SaveChangesAsync` on an `AuditingDbContext` across Insert, full Lifecycle (I→U→D), and MixedStates workloads. `MemoryDiagnoser` is enabled so allocation deltas are visible.
 
 The [`benchmarks.yaml`](./.github/workflows/benchmarks.yaml) workflow runs them on every PR, fails the build if time or allocations regress beyond 2× the previous main-branch baseline, and auto-publishes the chart to [`gh-pages/dev/bench`](https://Chris-Wolfgang.github.io/EF-Audit/dev/bench/) on pushes to `main`.
 
