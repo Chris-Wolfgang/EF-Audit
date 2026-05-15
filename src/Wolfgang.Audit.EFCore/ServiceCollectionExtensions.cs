@@ -12,9 +12,19 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Registers <see cref="AuditOptions"/> (as a singleton) and
     /// <typeparamref name="TUserProvider"/> as <see cref="IAuditUserProvider"/>
-    /// (scoped). Consumers then call
-    /// <see cref="DbContextAuditExtensions.SaveChangesWithAuditAsync"/> on their
-    /// <c>DbContext</c> to perform a save that includes audit rows.
+    /// (scoped). Pick one of the two integration models:
+    /// <list type="bullet">
+    /// <item>Derive your <c>DbContext</c> from <see cref="AuditingDbContext"/>
+    /// (recommended for greenfield contexts), or</item>
+    /// <item>Call <see cref="DbContextOptionsBuilderExtensions.UseAuditing"/> on
+    /// the <c>DbContextOptionsBuilder</c> when registering your context (for
+    /// contexts already inheriting from a third-party base such as
+    /// <c>IdentityDbContext&lt;TUser&gt;</c>).</item>
+    /// </list>
+    /// Either way, consumers continue to call plain
+    /// <see cref="Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(CancellationToken)"/>
+    /// at every call site — audit rows are written atomically in the same
+    /// transaction.
     /// </summary>
     public static IServiceCollection AddEfCoreAuditing<TUserProvider>(
         this IServiceCollection services,

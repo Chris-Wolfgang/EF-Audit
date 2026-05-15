@@ -5,10 +5,10 @@ using Xunit;
 
 namespace Wolfgang.Audit.Tests.Unit;
 
-public class AuditSaveChangesWithAuditTests
+public class AuditingDbContextSaveChangesTests
 {
     [Fact]
-    public async Task SaveChangesWithAuditAsync_when_inserting_a_customer_writes_header_and_detail_rows()
+    public async Task SaveChangesAsync_when_inserting_a_customer_writes_header_and_detail_rows()
     {
         using var fixture = new AuditFixture();
 
@@ -33,7 +33,7 @@ public class AuditSaveChangesWithAuditTests
     }
 
     [Fact]
-    public async Task SaveChangesWithAuditAsync_when_updating_a_customer_writes_one_detail_row_per_changed_column()
+    public async Task SaveChangesAsync_when_updating_a_customer_writes_one_detail_row_per_changed_column()
     {
         using var fixture = new AuditFixture();
 
@@ -63,7 +63,7 @@ public class AuditSaveChangesWithAuditTests
     }
 
     [Fact]
-    public async Task SaveChangesWithAuditAsync_when_deleting_writes_header_with_no_details_by_default()
+    public async Task SaveChangesAsync_when_deleting_writes_header_with_no_details_by_default()
     {
         using var fixture = new AuditFixture();
 
@@ -91,7 +91,7 @@ public class AuditSaveChangesWithAuditTests
     }
 
     [Fact]
-    public async Task SaveChangesWithAuditAsync_when_CaptureDeletedValues_is_true_writes_pre_delete_detail_rows()
+    public async Task SaveChangesAsync_when_CaptureDeletedValues_is_true_writes_pre_delete_detail_rows()
     {
         using var fixture = new AuditFixture(captureDeletedValues: true);
 
@@ -121,7 +121,7 @@ public class AuditSaveChangesWithAuditTests
     }
 
     [Fact]
-    public async Task SaveChangesWithAuditAsync_when_entity_has_NotAudited_attribute_writes_no_header_for_it()
+    public async Task SaveChangesAsync_when_entity_has_NotAudited_attribute_writes_no_header_for_it()
     {
         using var fixture = new AuditFixture();
 
@@ -136,7 +136,7 @@ public class AuditSaveChangesWithAuditTests
     }
 
     [Fact]
-    public async Task SaveChangesWithAuditAsync_when_saving_multiple_entities_groups_them_under_one_TransactionId()
+    public async Task SaveChangesAsync_when_saving_multiple_entities_groups_them_under_one_TransactionId()
     {
         using var fixture = new AuditFixture();
 
