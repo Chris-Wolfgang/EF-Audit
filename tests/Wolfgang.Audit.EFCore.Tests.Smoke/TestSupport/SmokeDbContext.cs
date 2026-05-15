@@ -4,20 +4,19 @@ using Microsoft.EntityFrameworkCore;
 namespace Wolfgang.Audit.Tests.Smoke.TestSupport;
 
 [ExcludeFromCodeCoverage]
-public class SmokeDbContext : DbContext
+public class SmokeDbContext : AuditingDbContext
 {
-    private readonly AuditOptions _auditOptions;
-
-    public SmokeDbContext(DbContextOptions<SmokeDbContext> options, AuditOptions auditOptions)
-        : base(options)
+    public SmokeDbContext
+    (
+        DbContextOptions<SmokeDbContext> options,
+        IAuditUserProvider userProvider,
+        AuditOptions auditOptions
+    )
+        : base(options, userProvider, auditOptions)
     {
-        _auditOptions = auditOptions;
     }
+
+
 
     public DbSet<Order> Orders => Set<Order>();
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyAuditing(_auditOptions);
-    }
 }

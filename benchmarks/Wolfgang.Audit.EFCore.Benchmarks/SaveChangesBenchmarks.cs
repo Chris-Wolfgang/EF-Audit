@@ -7,10 +7,11 @@ using Wolfgang.Audit.Serializers;
 namespace Wolfgang.Audit.Benchmarks;
 
 /// <summary>
-/// Compares <c>SaveChangesAsync</c> (unaudited baseline) with
-/// <c>SaveChangesWithAuditAsync</c> across Insert, Lifecycle, and MixedStates
-/// workloads. SQLite is used for a consistent, dependency-free baseline; the
-/// relative delta between the two is what matters, not the absolute numbers.
+/// Compares plain <c>SaveChangesAsync</c> on an unaudited <see cref="DbContext"/>
+/// against <c>SaveChangesAsync</c> on an <see cref="AuditingDbContext"/> across
+/// Insert, Lifecycle, and MixedStates workloads. SQLite is used for a consistent,
+/// dependency-free baseline; the relative delta between the two is what matters,
+/// not the absolute numbers.
 /// </summary>
 [MemoryDiagnoser]
 public class SaveChangesBenchmarks
@@ -109,6 +110,7 @@ public class SaveChangesBenchmarks
             new DbContextOptionsBuilder<AuditedBenchmarkDbContext>()
                 .UseSqlite(_connection)
                 .Options,
+            _userProvider,
             _options);
     }
 
@@ -120,8 +122,8 @@ public class SaveChangesBenchmarks
                 .Options);
     }
 
-    private void SaveAudited(AuditedBenchmarkDbContext ctx)
-        => ctx.SaveChangesWithAuditAsync(_userProvider, _options).GetAwaiter().GetResult();
+    private static void SaveAudited(AuditedBenchmarkDbContext ctx)
+        => ctx.SaveChangesAsync().GetAwaiter().GetResult();
 
     [Benchmark(Baseline = true)]
     public void Insert_without_audit()

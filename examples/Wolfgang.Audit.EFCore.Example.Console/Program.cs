@@ -16,23 +16,23 @@ var contextOptions = new DbContextOptionsBuilder<AppDbContext>()
     .UseSqlite("DataSource=audit-example.db")
     .Options;
 
-await using (var setup = new AppDbContext(contextOptions, auditOptions))
+await using (var setup = new AppDbContext(contextOptions, userProvider, auditOptions))
 {
     await setup.Database.EnsureDeletedAsync();
     await setup.Database.EnsureCreatedAsync();
 }
 
-await using (var ctx = new AppDbContext(contextOptions, auditOptions))
+await using (var ctx = new AppDbContext(contextOptions, userProvider, auditOptions))
 {
     ctx.Products.Add(new Product { Name = "Widget", Price = 9.99m });
-    await ctx.SaveChangesWithAuditAsync(userProvider, auditOptions);
+    await ctx.SaveChangesAsync();
 
     var widget = await ctx.Products.SingleAsync();
     widget.Price = 12.49m;
-    await ctx.SaveChangesWithAuditAsync(userProvider, auditOptions);
+    await ctx.SaveChangesAsync();
 }
 
-await using (var ctx = new AppDbContext(contextOptions, auditOptions))
+await using (var ctx = new AppDbContext(contextOptions, userProvider, auditOptions))
 {
     Console.WriteLine("Audit history:");
     var headers = await ctx.Set<AuditHeader>()

@@ -11,13 +11,12 @@ namespace Wolfgang.Audit.Tests.Unit;
 public class AuditAtomicityAndConcurrencyTests
 {
     [Fact]
-    public async Task SaveChangesWithAuditAsync_when_value_serializer_throws_rolls_back_the_user_save()
+    public async Task SaveChangesAsync_when_value_serializer_throws_rolls_back_the_user_save()
     {
-        // SaveChangesWithAuditAsync owns the transaction via
-        // IExecutionStrategy.ExecuteInTransactionAsync, so the user save and the
-        // audit save share one transaction. If the serializer throws while building
-        // audit rows, the entire transaction rolls back — even without the consumer
-        // opening their own.
+        // AuditingDbContext.SaveChangesAsync wraps the user save + audit save in a
+        // single transaction via IExecutionStrategy.ExecuteInTransactionAsync. If the
+        // serializer throws while building audit rows, the entire transaction rolls
+        // back — even without the consumer opening their own.
         var options = new AuditOptions
         {
             ValueSerializer = new FailingAuditValueSerializer(),
@@ -33,6 +32,7 @@ public class AuditAtomicityAndConcurrencyTests
                 new DbContextOptionsBuilder<TestDbContext>()
                     .UseSqlite(connection)
                     .Options,
+                userProvider,
                 options);
 
             await using (var seed = NewContext())
@@ -44,7 +44,7 @@ public class AuditAtomicityAndConcurrencyTests
             {
                 ctx.Customers.Add(new Customer { Name = "Alice" });
                 await Assert.ThrowsAsync<InvalidOperationException>(
-                    () => ctx.SaveChangesWithAuditAsync(userProvider, options));
+                    () => ctx.SaveChangesAsync());
             }
 
             await using var verify = NewContext();
@@ -58,7 +58,7 @@ public class AuditAtomicityAndConcurrencyTests
     }
 
     [Fact]
-    public async Task SaveChangesWithAuditAsync_when_called_repeatedly_each_save_gets_a_distinct_TransactionId()
+    public async Task SaveChangesAsync_when_called_repeatedly_each_save_gets_a_distinct_TransactionId()
     {
         using var fixture = new AuditFixture();
 
@@ -77,7 +77,7 @@ public class AuditAtomicityAndConcurrencyTests
     }
 
     [Fact]
-    public async Task SaveChangesWithAuditAsync_uses_the_consumer_supplied_IAuditEntityKeySerializer()
+    public async Task SaveChangesAsync_uses_the_consumer_supplied_IAuditEntityKeySerializer()
     {
         var options = new AuditOptions
         {
@@ -94,6 +94,7 @@ public class AuditAtomicityAndConcurrencyTests
                 new DbContextOptionsBuilder<TestDbContext>()
                     .UseSqlite(connection)
                     .Options,
+                userProvider,
                 options);
 
             await using (var seed = NewContext())
@@ -104,7 +105,7 @@ public class AuditAtomicityAndConcurrencyTests
             await using (var ctx = NewContext())
             {
                 ctx.OrderLines.Add(new OrderLine { OrderId = 7, LineNumber = 3, Description = "Widget" });
-                await ctx.SaveChangesWithAuditAsync(userProvider, options);
+                await ctx.SaveChangesAsync();
             }
 
             await using var verify = NewContext();

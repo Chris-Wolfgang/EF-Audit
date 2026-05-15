@@ -49,15 +49,19 @@ public sealed class AuditFixture : IDisposable
         var builder = new DbContextOptionsBuilder<TestDbContext>()
             .UseSqlite(_connection);
 
-        return new TestDbContext(builder.Options, Options);
+        return new TestDbContext(builder.Options, UserProvider, Options);
     }
 
     /// <summary>
-    /// Convenience wrapper so individual tests don't have to repeat the user-provider
-    /// + options arguments. Mirrors what real consumers do at the call site.
+    /// Convenience wrapper kept so individual tests don't have to restate intent.
+    /// With the <see cref="AuditingDbContext"/> base, plain <c>SaveChangesAsync</c>
+    /// already writes audit rows atomically — this wrapper just calls it.
     /// </summary>
     public Task<int> SaveAsync(TestDbContext context, CancellationToken cancellationToken = default)
-        => context.SaveChangesWithAuditAsync(UserProvider, Options, cancellationToken);
+    {
+        ArgumentNullException.ThrowIfNull(context);
+        return context.SaveChangesAsync(cancellationToken);
+    }
 
     public void Dispose()
     {
