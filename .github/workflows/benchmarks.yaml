@@ -66,8 +66,12 @@ jobs:
             --configuration Release \
             -- \
             --exporters json \
-            --filter '*' \
+            --filter '*Wolfgang.Audit.Benchmarks.SaveChangesBenchmarks*' \
             --memory
+        # Filter scoped to the SQLite-only SaveChangesBenchmarks. The
+        # ProviderSaveChangesBenchmarks class spins Testcontainers for
+        # SQL Server / PostgreSQL and is intentionally excluded from CI —
+        # run it locally with --filter '*ProviderSaveChangesBenchmarks*'.
 
       - name: Locate full-report JSON
         id: locate
@@ -124,8 +128,12 @@ jobs:
             --configuration Release \
             -- \
             --exporters json \
-            --filter '*' \
+            --filter '*Wolfgang.Audit.Benchmarks.SaveChangesBenchmarks*' \
             --memory
+        # Filter scoped to the SQLite-only SaveChangesBenchmarks. The
+        # ProviderSaveChangesBenchmarks class spins Testcontainers for
+        # SQL Server / PostgreSQL and is intentionally excluded from CI —
+        # run it locally with --filter '*ProviderSaveChangesBenchmarks*'.
 
       - name: Locate full-report JSON
         id: locate
