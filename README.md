@@ -110,7 +110,7 @@ Two end-to-end samples ship in [`examples/`](./examples):
 | Feature | What it does |
 |---|---|
 | **Atomic audit writes** | Audit rows are persisted via the same `DbContext` as user data, so they share the user's transaction. Rollback = no orphaned audit history. |
-| **Two-phase capture** | Snapshots in `SavingChangesAsync`, persists in `SavedChangesAsync` — so database-generated identity keys are resolved by the time the audit header is written. |
+| **Two-phase capture** | Snapshots the `ChangeTracker` before the user save, then materializes audit rows from that snapshot after the user save completes — so database-generated identity keys are resolved by the time the audit header is written. The `AuditingDbContext` base class drives both passes inside `IExecutionStrategy.ExecuteInTransactionAsync`; the optional interceptor drives them across `SavingChanges`/`SavedChanges`. |
 | **Pluggable value serializer** | `IAuditValueSerializer` owns the detail-row column shape. v1 ships `StringAuditValueSerializer`; future binary / hybrid variants slot in without changing the contract. |
 | **Pluggable entity-key serializer** | `IAuditEntityKeySerializer` controls how composite keys render into the `EntityKey` column. v1 default is pipe-delimited. |
 | **Opt-out via `[NotAudited]`** | Apply at the class level to exclude an entity; apply at the property level to exclude a single column. Mirrors EF Core's `[NotMapped]`. |
