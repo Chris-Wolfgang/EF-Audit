@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage;
+using Wolfgang.Audit.Entities;
 using Wolfgang.Audit.Internal;
 
 namespace Wolfgang.Audit;
@@ -25,6 +26,26 @@ namespace Wolfgang.Audit;
 ///     .UseSqlServer(connStr)
 ///     .UseAuditing(sp));
 /// </code>
+/// <para>
+/// <strong>Cancellation caveat.</strong> When <c>SaveChangesAsync</c> is cancelled
+/// via its <see cref="CancellationToken"/>, EF Core 7+ raises
+/// <c>SaveChangesCanceledAsync</c> (not <c>SaveChangesFailedAsync</c>); EF Core 6
+/// raises neither. The interceptor's failure cleanup hangs off
+/// <c>SaveChangesFailedAsync</c>, so a cancellation that fires after this
+/// interceptor opens its owned transaction may leak the transaction until the
+/// <see cref="DbContext"/> is disposed. Inherit from <see cref="AuditingDbContext"/>
+/// to avoid this — the base class owns the <c>SaveChangesAsync</c> override and
+/// can clean up on any exit path, including cancellation.
+/// </para>
+/// <para>
+/// <strong>acceptAllChangesOnSuccess caveat.</strong> The interceptor does not
+/// support <c>SaveChanges(acceptAllChangesOnSuccess: false)</c>: when the caller
+/// passes <c>false</c>, EF leaves user entries in their dirty state and the
+/// interceptor's audit-pass save would re-emit them. The interceptor detects
+/// this case at runtime and throws <see cref="InvalidOperationException"/>
+/// pointing at <see cref="AuditingDbContext"/>, which threads the value through
+/// both passes correctly.
+/// </para>
 /// <para>
 /// <strong>Retry-strategy caveat.</strong> EF Core's retrying execution strategies
 /// (e.g. <c>SqlServerRetryingExecutionStrategy</c> from
@@ -225,6 +246,7 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
         {
             if (pending is { Count: > 0 })
             {
+                EnsureUserEntriesAreSettled(context);
                 AuditCapture.AddAuditEntities(context, pending, _userProvider, _options, txId);
 
                 context.SetItem(SuppressItemsKey, value: true);
@@ -258,6 +280,7 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
         {
             if (pending is { Count: > 0 })
             {
+                EnsureUserEntriesAreSettled(context);
                 AuditCapture.AddAuditEntities(context, pending, _userProvider, _options, txId);
 
                 context.SetItem(SuppressItemsKey, value: true);
@@ -347,8 +370,42 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
                 "the configured execution strategy enables retries on failure (e.g. " +
                 "EnableRetryOnFailure). Either inherit your DbContext from " +
                 "AuditingDbContext (which composes correctly with retrying strategies), " +
-                "or wrap your saves in strategy.ExecuteAsync(...) so the interceptor " +
-                "enlists in the strategy's transaction."
+                "or open the transaction yourself inside strategy.ExecuteAsync(...) " +
+                "(for example via strategy.ExecuteInTransactionAsync(...)) so the " +
+                "interceptor sees Database.CurrentTransaction and enlists in it."
+            );
+        }
+    }
+
+
+
+    private static void EnsureUserEntriesAreSettled(DbContext context)
+    {
+        // After the user's SaveChanges completes successfully, EF leaves the
+        // user-data entries in Unchanged state when acceptAllChangesOnSuccess is
+        // true (the default). If the caller passed false, the entries remain in
+        // Added/Modified/Deleted and our internal audit-pass SaveChanges would
+        // re-emit them. The interceptor cannot safely roundtrip that semantic, so
+        // detect and fail loudly pointing at AuditingDbContext (which composes
+        // correctly because it owns the override and can thread the value through).
+        var stillDirty = context.ChangeTracker
+            .Entries()
+            .Any(e => e.Entity is not AuditHeader
+                   && e.Entity is not AuditDetail
+                   && e.State is EntityState.Added
+                                or EntityState.Modified
+                                or EntityState.Deleted);
+
+        if (stillDirty)
+        {
+            throw new InvalidOperationException
+            (
+                "AuditSaveChangesInterceptor does not support " +
+                "SaveChanges(acceptAllChangesOnSuccess: false) because the inner " +
+                "audit-pass save would re-emit the still-dirty user entries. Either " +
+                "call SaveChanges() / SaveChangesAsync() without the false override, " +
+                "or inherit your DbContext from AuditingDbContext, which routes " +
+                "acceptAllChangesOnSuccess through both passes correctly."
             );
         }
     }
