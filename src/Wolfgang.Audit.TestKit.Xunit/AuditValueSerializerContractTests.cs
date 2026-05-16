@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FsCheck.Xunit;
 using Xunit;
 

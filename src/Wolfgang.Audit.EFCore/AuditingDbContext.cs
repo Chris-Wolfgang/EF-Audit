@@ -90,6 +90,18 @@ public abstract class AuditingDbContext : DbContext
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
+        // If nothing in the change tracker produces an audit row, skip the
+        // execution-strategy + transaction wrap entirely. Wrapping a no-op save in
+        // ExecuteInTransaction's commit-lost detection would be unsafe because
+        // verifySucceeded looks for AuditHeader rows tagged with our TransactionId —
+        // and none would exist, so a transient commit-lost failure could cause the
+        // strategy to retry the user save.
+        var pending = AuditCapture.CapturePending(this, _auditOptions);
+        if (pending.Count == 0)
+        {
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
         // TransactionId is generated once and threaded through state so a retrying
         // execution strategy can detect "the commit actually succeeded but the response
         // was lost" via VerifyAuditCommitted.
@@ -99,15 +111,15 @@ public abstract class AuditingDbContext : DbContext
         // just run inline; commit/rollback remains the consumer's responsibility.
         if (Database.CurrentTransaction is not null)
         {
-            return SaveWithAuditInline(acceptAllChangesOnSuccess, auditTransactionId);
+            return SaveWithAuditInline(acceptAllChangesOnSuccess, auditTransactionId, pending);
         }
 
         var strategy = Database.CreateExecutionStrategy();
 
         return strategy.ExecuteInTransaction
         (
-            state:           (Context: this, AcceptAll: acceptAllChangesOnSuccess, TxId: auditTransactionId),
-            operation:       static s => s.Context.SaveWithAuditInline(s.AcceptAll, s.TxId),
+            state:           (Context: this, AcceptAll: acceptAllChangesOnSuccess, TxId: auditTransactionId, Pending: pending),
+            operation:       static s => s.Context.SaveWithAuditInline(s.AcceptAll, s.TxId, s.Pending),
             verifySucceeded: static s => VerifyAuditCommitted(s.Context, s.TxId)
         );
     }
@@ -126,19 +138,26 @@ public abstract class AuditingDbContext : DbContext
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
+        // See SaveChanges for the no-op short-circuit rationale.
+        var pending = AuditCapture.CapturePending(this, _auditOptions);
+        if (pending.Count == 0)
+        {
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
         var auditTransactionId = Guid.NewGuid();
 
         if (Database.CurrentTransaction is not null)
         {
-            return SaveWithAuditInlineAsync(acceptAllChangesOnSuccess, auditTransactionId, cancellationToken);
+            return SaveWithAuditInlineAsync(acceptAllChangesOnSuccess, auditTransactionId, pending, cancellationToken);
         }
 
         var strategy = Database.CreateExecutionStrategy();
 
         return strategy.ExecuteInTransactionAsync
         (
-            state:             (Context: this, AcceptAll: acceptAllChangesOnSuccess, TxId: auditTransactionId),
-            operation:         static (s, ct) => s.Context.SaveWithAuditInlineAsync(s.AcceptAll, s.TxId, ct),
+            state:             (Context: this, AcceptAll: acceptAllChangesOnSuccess, TxId: auditTransactionId, Pending: pending),
+            operation:         static (s, ct) => s.Context.SaveWithAuditInlineAsync(s.AcceptAll, s.TxId, s.Pending, ct),
             verifySucceeded:   static (s, ct) => VerifyAuditCommittedAsync(s.Context, s.TxId, ct),
             cancellationToken: cancellationToken
         );
@@ -146,19 +165,20 @@ public abstract class AuditingDbContext : DbContext
 
 
 
-    private int SaveWithAuditInline(bool acceptAllChangesOnSuccess, Guid transactionId)
+    private int SaveWithAuditInline
+    (
+        bool acceptAllChangesOnSuccess,
+        Guid transactionId,
+        List<PendingAuditEntry> pending
+    )
     {
-        var pending = AuditCapture.CapturePending(this, _auditOptions);
         var result = base.SaveChanges(acceptAllChangesOnSuccess);
 
-        if (pending.Count > 0)
-        {
-            AuditCapture.AddAuditEntities(this, pending, _userProvider, _auditOptions, transactionId);
+        AuditCapture.AddAuditEntities(this, pending, _userProvider, _auditOptions, transactionId);
 
-            _isAuditingSave = true;
-            try     { base.SaveChanges(acceptAllChangesOnSuccess); }
-            finally { _isAuditingSave = false; }
-        }
+        _isAuditingSave = true;
+        try     { base.SaveChanges(acceptAllChangesOnSuccess); }
+        finally { _isAuditingSave = false; }
 
         return result;
     }
@@ -169,29 +189,26 @@ public abstract class AuditingDbContext : DbContext
     (
         bool acceptAllChangesOnSuccess,
         Guid transactionId,
+        List<PendingAuditEntry> pending,
         CancellationToken cancellationToken
     )
     {
-        var pending = AuditCapture.CapturePending(this, _auditOptions);
         var result = await base
             .SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken)
             .ConfigureAwait(false);
 
-        if (pending.Count > 0)
-        {
-            AuditCapture.AddAuditEntities(this, pending, _userProvider, _auditOptions, transactionId);
+        AuditCapture.AddAuditEntities(this, pending, _userProvider, _auditOptions, transactionId);
 
-            _isAuditingSave = true;
-            try
-            {
-                await base
-                    .SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken)
-                    .ConfigureAwait(false);
-            }
-            finally
-            {
-                _isAuditingSave = false;
-            }
+        _isAuditingSave = true;
+        try
+        {
+            await base
+                .SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken)
+                .ConfigureAwait(false);
+        }
+        finally
+        {
+            _isAuditingSave = false;
         }
 
         return result;
