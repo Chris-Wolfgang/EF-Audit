@@ -15,13 +15,19 @@ public class Customer
     public int LoyaltyPoints { get; set; }
 }
 
-// EF Core caches IModel per DbContext type, so an audited and unaudited variant
-// sharing the same type would contaminate each other's cached model — whichever
-// is built first wins. Splitting into two concrete types (rather than a shared
-// abstract base) gives each variant its own model-cache entry and its own
-// consistent schema. The audited variant derives from AuditingDbContext to
-// mirror what real consumers do; the unaudited variant derives from DbContext
-// directly as the comparison baseline.
+// Two separate concrete context types — one audited, one unaudited — for two
+// independent reasons:
+//
+//  1. The audited variant must derive from AuditingDbContext to mirror what real
+//     consumers do; the unaudited variant derives from DbContext as the baseline.
+//     C# is single-inheritance, so the audit semantics force separate inheritance
+//     chains regardless of caching concerns.
+//
+//  2. EF Core's default model cache is keyed by the concrete DbContext type. A
+//     shared abstract base with separate concrete subclasses would already give
+//     each variant its own cache entry — so the cache is not what drives the
+//     design here; #1 is. Documenting both so future refactors don't conflate
+//     them.
 
 [ExcludeFromCodeCoverage]
 public sealed class UnauditedBenchmarkDbContext : DbContext
