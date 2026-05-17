@@ -42,9 +42,6 @@
     - Write access with "Administration" permission enabled
     
     These permissions are necessary to create and modify repository rulesets.
-    
-    Note: Copilot code review is not supported through the rulesets API and must be
-    enabled manually in the GitHub repository UI after running this script.
 #>
 
 [CmdletBinding()]
@@ -155,6 +152,38 @@ if ($repoTypeChoice -eq "2") {
     Write-Host "✅ Configured for single-developer repository (no approvals required)" -ForegroundColor Green
 }
 
+# Preflight: does CodeQL have any uploaded analyses on this repo? The
+# `code_scanning` rule requires at least one prior analysis on the protected
+# branch — without one it blocks every PR. Skip the rule with a warning when
+# no analyses exist (common for brand-new repos created from this template,
+# and for repos with no analyzable source yet). Re-run this script after the
+# first successful CodeQL workflow run to bring the rule online.
+$includeCodeScanningRule = $true
+Write-Host "`n🔍 Checking for existing CodeQL analyses..." -ForegroundColor Yellow
+try {
+    $analysisCount = gh api `
+        -H "Accept: application/vnd.github+json" `
+        -H "X-GitHub-Api-Version: 2022-11-28" `
+        "/repos/$Repository/code-scanning/analyses?per_page=1" `
+        --jq 'length' 2>$null
+
+    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($analysisCount)) {
+        Write-Host "ℹ️  Could not query CodeQL analyses (API returned exit code $LASTEXITCODE). Including code_scanning rule anyway." -ForegroundColor Gray
+    }
+    elseif ([int]$analysisCount -lt 1) {
+        Write-Host "⚠️  No CodeQL analyses found for $Repository. Skipping the code_scanning rule" -ForegroundColor Yellow
+        Write-Host "   (it would block every PR until the first analysis is uploaded). Re-run this" -ForegroundColor Yellow
+        Write-Host "   script after CodeQL has analyzed at least once to enable the rule." -ForegroundColor Yellow
+        $includeCodeScanningRule = $false
+    }
+    else {
+        Write-Host "✅ CodeQL analyses found — code_scanning rule will be included." -ForegroundColor Green
+    }
+}
+catch {
+    Write-Host "ℹ️  Preflight check failed ($($_.Exception.Message)). Including code_scanning rule anyway." -ForegroundColor Gray
+}
+
 # Create ruleset configuration
 Write-Host "`n📝 Creating ruleset configuration..." -ForegroundColor Cyan
 
@@ -200,21 +229,52 @@ $rulesetConfig = @{
                 )
             }
         },
-        # NOTE: the code_scanning *rule type* (which checks the CodeQL alerts dashboard) is not
-        # included because it requires a CodeQL workflow to have run previously on the repo;
-        # without prior analyses it blocks all PRs. The CodeQL job IS required above as a
-        # status check ("Security Scan (CodeQL) (csharp)"), which only requires that the
-        # CodeQL build/analysis succeed on each PR.
-        # NOTE: Copilot code review is not included in this API-created payload because
-        # it is not currently supported through the rulesets API. After the ruleset is
-        # created, enable Copilot code review settings manually in the GitHub repository UI.
         @{
             type = "non_fast_forward"
         },
         @{
             type = "deletion"
+        },
+        # Auto-request a Copilot review on every PR, including drafts and on
+        # subsequent pushes. The rulesets API now supports this rule type
+        # (earlier versions of this script left the toggle to the UI).
+        @{
+            type = "copilot_code_review"
+            parameters = @{
+                review_draft_pull_requests = $true
+                review_on_push             = $true
+            }
+        },
+        # Block merges when the code-quality check (analyzer / formatter) emits
+        # errors. Severity matches the canonical libraries (errors only — warnings
+        # don't block, the build itself already promotes them in Release mode).
+        @{
+            type = "code_quality"
+            parameters = @{
+                severity = "errors"
+            }
         }
     )
+}
+
+# Conditionally append the CodeQL alerts-dashboard gate. Only blocks merges when
+# the alerts threshold is exceeded; the underlying CodeQL workflow already runs
+# as a required status check above, so this is the second-tier "results" gate.
+# The preflight above sets $includeCodeScanningRule based on whether any prior
+# analyses exist on this repo.
+if ($includeCodeScanningRule) {
+    $rulesetConfig.rules += @{
+        type = "code_scanning"
+        parameters = @{
+            code_scanning_tools = @(
+                @{
+                    alerts_threshold          = "errors"
+                    security_alerts_threshold = "high_or_higher"
+                    tool                      = "CodeQL"
+                }
+            )
+        }
+    }
 }
 
 # Convert to JSON
@@ -256,10 +316,17 @@ try {
         Write-Host "   ✅ Branches must be up to date before merging" -ForegroundColor Gray
         Write-Host "   ✅ Conversation resolution required before merging" -ForegroundColor Gray
         Write-Host "   ✅ Stale reviews dismissed when new commits are pushed" -ForegroundColor Gray
-        Write-Host "   ⚠️  Copilot code review: enable manually in repository settings" -ForegroundColor Yellow
-        Write-Host "      (Not yet supported through the rulesets API)" -ForegroundColor DarkGray
         Write-Host "   ✅ Force pushes blocked on $BranchName branch" -ForegroundColor Gray
         Write-Host "   ✅ Branch deletion prevented for $BranchName" -ForegroundColor Gray
+        if ($includeCodeScanningRule) {
+            Write-Host "   ✅ Code scanning: CodeQL alerts gate (errors / high+)" -ForegroundColor Gray
+        }
+        else {
+            Write-Host "   ⊘  Code scanning: SKIPPED (no prior CodeQL analyses on this repo)" -ForegroundColor Yellow
+            Write-Host "      Re-run after the first CodeQL workflow completes to enable the rule." -ForegroundColor DarkGray
+        }
+        Write-Host "   ✅ Copilot code review: auto-requested on every PR (incl. drafts, on push)" -ForegroundColor Gray
+        Write-Host "   ✅ Code quality gate: blocks on analyzer / formatter errors" -ForegroundColor Gray
         Write-Host "   ✅ No bypass allowed - all users must follow these rules" -ForegroundColor Gray
         
         Write-Host "`n🔗 View ruleset at:" -ForegroundColor Cyan

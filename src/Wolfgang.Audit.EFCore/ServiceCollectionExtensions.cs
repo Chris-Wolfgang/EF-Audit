@@ -16,9 +16,11 @@ public static class ServiceCollectionExtensions
     /// <see cref="DbContextAuditExtensions.SaveChangesWithAuditAsync"/> on their
     /// <c>DbContext</c> to perform a save that includes audit rows.
     /// </summary>
-    public static IServiceCollection AddEfCoreAuditing<TUserProvider>(
+    public static IServiceCollection AddEfCoreAuditing<TUserProvider>
+    (
         this IServiceCollection services,
-        Action<AuditOptions>? configure = null)
+        Action<AuditOptions>? configure = null
+    )
         where TUserProvider : class, IAuditUserProvider
     {
         ArgumentNullException.ThrowIfNull(services);
