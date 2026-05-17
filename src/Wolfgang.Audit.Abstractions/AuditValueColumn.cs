@@ -5,10 +5,9 @@ namespace Wolfgang.Audit;
 /// <c>AuditDetail</c> table.
 /// </summary>
 /// <remarks>
-/// The schema installer queries every registered serializer's <see cref="IAuditValueSerializer.Columns"/>
-/// to build provider-appropriate DDL.
+/// v1 declares only text columns. Future serializers (binary, hybrid) will extend
+/// this type with a storage-kind discriminator when they ship.
 /// </remarks>
-/// <param name="Name">The column name, e.g. <c>Value</c>, <c>ValueText</c>, <c>ValueBinary</c>.</param>
-/// <param name="StorageKind">Whether the column stores text or binary data.</param>
+/// <param name="Name">The column name, e.g. <c>ValueText</c>.</param>
 /// <param name="IsNullable">Whether the column is nullable. Defaults to <c>true</c>.</param>
-public sealed record AuditValueColumn(string Name, AuditValueStorageKind StorageKind, bool IsNullable = true);
+public sealed record AuditValueColumn(string Name, bool IsNullable = true);

@@ -10,10 +10,4 @@ public interface IAuditValueReader
     /// or absent.
     /// </summary>
     string? ReadText(string columnName);
-
-    /// <summary>
-    /// Reads the named column as binary. Returns <c>null</c> if the column is <c>NULL</c>
-    /// or absent.
-    /// </summary>
-    byte[]? ReadBinary(string columnName);
 }

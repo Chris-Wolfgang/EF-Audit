@@ -20,11 +20,13 @@ public static class ModelBuilderExtensions
         ArgumentNullException.ThrowIfNull(modelBuilder);
         ArgumentNullException.ThrowIfNull(options);
 
-        modelBuilder.Entity<AuditHeader>(builder => ConfigureAuditHeader(builder, options));
-        modelBuilder.Entity<AuditDetail>(builder => ConfigureAuditDetail(builder, options));
+        modelBuilder.Entity<AuditHeader>(b => ConfigureAuditHeader(b, options));
+        modelBuilder.Entity<AuditDetail>(b => ConfigureAuditDetail(b, options));
 
         return modelBuilder;
     }
+
+
 
     private static void ConfigureAuditHeader(EntityTypeBuilder<AuditHeader> builder, AuditOptions options)
     {
@@ -47,15 +49,14 @@ public static class ModelBuilderExtensions
         builder.Property(h => h.EntityTable).HasMaxLength(512).IsRequired();
         builder.Property(h => h.EntityKey).HasMaxLength(512).IsRequired();
 
-        // Store the operation as the literal character 'I' / 'U' / 'D'. The enum's
-        // backing byte values are the ASCII codes for those characters, so we cast
-        // through byte then char on the way out, and char then byte (then enum) on
-        // the way back in. Result in the DB is a 1-character column that reads
-        // naturally when querying directly.
+        // Store Operation as the literal character 'I' / 'U' / 'D' so the column
+        // reads naturally when querying directly. The cast chain enum → byte →
+        // char → string yields a 1-character string that SQLite stores as TEXT
+        // (a bare char would be stored as INTEGER codepoint instead).
         builder.Property(h => h.Operation)
             .HasConversion(
-                v => (char)(byte)v,
-                c => (AuditOperation)(byte)c)
+                v => new string((char)(byte)v, 1),
+                s => (AuditOperation)(byte)s[0])
             .HasMaxLength(1)
             .IsRequired();
 
@@ -63,6 +64,8 @@ public static class ModelBuilderExtensions
         builder.HasIndex(h => h.AuditedAtUtc);
         builder.HasIndex(h => new { h.EntityType, h.EntityKey });
     }
+
+
 
     private static void ConfigureAuditDetail(EntityTypeBuilder<AuditDetail> builder, AuditOptions options)
     {
@@ -80,12 +83,7 @@ public static class ModelBuilderExtensions
         builder.Property(d => d.HeaderId).IsRequired();
         builder.Property(d => d.ColumnName).HasMaxLength(256).IsRequired();
         builder.Property(d => d.ValueText);
-        builder.Property(d => d.ValueBinary);
-
-        // 256 accommodates the longest known discriminator shape: `Enum:<FullName>`
-        // where <FullName> can be an arbitrarily-namespaced enum type (e.g.
-        // `Enum:Acme.Domain.Catalog.Products.ProductCategory`).
-        builder.Property(d => d.ValueType).HasMaxLength(256).IsRequired();
+        builder.Property(d => d.ValueType).HasMaxLength(20).IsRequired();
 
         builder.HasOne(d => d.Header)
             .WithMany(h => h.Details)

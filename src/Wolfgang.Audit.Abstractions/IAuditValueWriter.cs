@@ -15,9 +15,4 @@ public interface IAuditValueWriter
     /// Writes a text value to the named column.
     /// </summary>
     void WriteText(string columnName, string? value);
-
-    /// <summary>
-    /// Writes a binary value to the named column.
-    /// </summary>
-    void WriteBinary(string columnName, byte[]? value);
 }

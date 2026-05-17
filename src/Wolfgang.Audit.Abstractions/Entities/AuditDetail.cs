@@ -3,9 +3,8 @@ using System;
 namespace Wolfgang.Audit.Entities;
 
 /// <summary>
-/// One row per changed column on the associated <see cref="AuditHeader"/>. The value
-/// column(s) populated depend on the configured <see cref="IAuditValueSerializer"/>;
-/// the discriminator in <see cref="ValueType"/> identifies the CLR type the value
+/// One row per changed column on the associated <see cref="AuditHeader"/>. The
+/// discriminator in <see cref="ValueType"/> identifies the CLR type the value
 /// represents.
 /// </summary>
 public class AuditDetail
@@ -23,18 +22,13 @@ public class AuditDetail
     public string ColumnName { get; set; } = string.Empty;
 
     /// <summary>
-    /// Text representation of the value (populated by serializers that declare a text
-    /// column — including v1's <c>StringAuditValueSerializer</c>). <c>null</c> when
-    /// the audited value was <c>null</c> or when the serializer routes the value to
-    /// <see cref="ValueBinary"/>.
+    /// Culture-invariant text representation of the captured column value, encoded
+    /// by the active <see cref="IAuditValueSerializer"/>. For Insert and Update this
+    /// is the new (post-change) value; for Delete with
+    /// <c>AuditOptions.CaptureDeletedValues = true</c> this is the pre-delete
+    /// (original) value. <c>null</c> when the audited value was itself <c>null</c>.
     /// </summary>
     public string? ValueText { get; set; }
-
-    /// <summary>
-    /// Binary representation of the value (populated by serializers that declare a
-    /// binary column). <c>null</c> for the v1 text-only serializer.
-    /// </summary>
-    public byte[]? ValueBinary { get; set; }
 
     /// <summary>
     /// Discriminator identifying the CLR type of the value: <c>String</c>, <c>Int32</c>,

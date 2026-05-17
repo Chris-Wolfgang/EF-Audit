@@ -5,17 +5,17 @@ using Xunit;
 
 namespace Wolfgang.Audit.Tests.Unit;
 
-public class AuditSaveChangesInterceptorTests
+public class AuditSaveChangesWithAuditTests
 {
     [Fact]
-    public async Task SaveChangesAsync_when_inserting_a_customer_writes_header_and_detail_rows()
+    public async Task SaveChangesWithAuditAsync_when_inserting_a_customer_writes_header_and_detail_rows()
     {
         using var fixture = new AuditFixture();
 
         await using (var context = fixture.CreateContext())
         {
             context.Customers.Add(new Customer { Name = "Alice", Email = "alice@example.com" });
-            await context.SaveChangesAsync();
+            await fixture.SaveAsync(context);
         }
 
         await using var verify = fixture.CreateContext();
@@ -33,21 +33,21 @@ public class AuditSaveChangesInterceptorTests
     }
 
     [Fact]
-    public async Task SaveChangesAsync_when_updating_a_customer_writes_one_detail_row_per_changed_column()
+    public async Task SaveChangesWithAuditAsync_when_updating_a_customer_writes_one_detail_row_per_changed_column()
     {
         using var fixture = new AuditFixture();
 
         await using (var seed = fixture.CreateContext())
         {
             seed.Customers.Add(new Customer { Name = "Alice", Email = "alice@example.com" });
-            await seed.SaveChangesAsync();
+            await fixture.SaveAsync(seed);
         }
 
         await using (var update = fixture.CreateContext())
         {
             var customer = await update.Customers.SingleAsync();
             customer.Email = "alice@new.example.com";
-            await update.SaveChangesAsync();
+            await fixture.SaveAsync(update);
         }
 
         await using var verify = fixture.CreateContext();
@@ -63,21 +63,21 @@ public class AuditSaveChangesInterceptorTests
     }
 
     [Fact]
-    public async Task SaveChangesAsync_when_deleting_writes_header_with_no_details_by_default()
+    public async Task SaveChangesWithAuditAsync_when_deleting_writes_header_with_no_details_by_default()
     {
         using var fixture = new AuditFixture();
 
         await using (var seed = fixture.CreateContext())
         {
             seed.Customers.Add(new Customer { Name = "Alice" });
-            await seed.SaveChangesAsync();
+            await fixture.SaveAsync(seed);
         }
 
         await using (var delete = fixture.CreateContext())
         {
             var customer = await delete.Customers.SingleAsync();
             delete.Customers.Remove(customer);
-            await delete.SaveChangesAsync();
+            await fixture.SaveAsync(delete);
         }
 
         await using var verify = fixture.CreateContext();
@@ -91,21 +91,21 @@ public class AuditSaveChangesInterceptorTests
     }
 
     [Fact]
-    public async Task SaveChangesAsync_when_CaptureDeletedValues_is_true_writes_pre_delete_detail_rows()
+    public async Task SaveChangesWithAuditAsync_when_CaptureDeletedValues_is_true_writes_pre_delete_detail_rows()
     {
         using var fixture = new AuditFixture(captureDeletedValues: true);
 
         await using (var seed = fixture.CreateContext())
         {
             seed.Customers.Add(new Customer { Name = "Alice", Email = "alice@example.com" });
-            await seed.SaveChangesAsync();
+            await fixture.SaveAsync(seed);
         }
 
         await using (var delete = fixture.CreateContext())
         {
             var customer = await delete.Customers.SingleAsync();
             delete.Customers.Remove(customer);
-            await delete.SaveChangesAsync();
+            await fixture.SaveAsync(delete);
         }
 
         await using var verify = fixture.CreateContext();
@@ -121,14 +121,14 @@ public class AuditSaveChangesInterceptorTests
     }
 
     [Fact]
-    public async Task SaveChangesAsync_when_entity_has_NotAudited_attribute_writes_no_header_for_it()
+    public async Task SaveChangesWithAuditAsync_when_entity_has_NotAudited_attribute_writes_no_header_for_it()
     {
         using var fixture = new AuditFixture();
 
         await using (var context = fixture.CreateContext())
         {
             context.CacheEntries.Add(new CacheEntry { Payload = "x" });
-            await context.SaveChangesAsync();
+            await fixture.SaveAsync(context);
         }
 
         await using var verify = fixture.CreateContext();
@@ -136,7 +136,7 @@ public class AuditSaveChangesInterceptorTests
     }
 
     [Fact]
-    public async Task SaveChangesAsync_when_saving_multiple_entities_groups_them_under_one_TransactionId()
+    public async Task SaveChangesWithAuditAsync_when_saving_multiple_entities_groups_them_under_one_TransactionId()
     {
         using var fixture = new AuditFixture();
 
@@ -144,7 +144,7 @@ public class AuditSaveChangesInterceptorTests
         {
             context.Customers.Add(new Customer { Name = "Alice" });
             context.Customers.Add(new Customer { Name = "Bob" });
-            await context.SaveChangesAsync();
+            await fixture.SaveAsync(context);
         }
 
         await using var verify = fixture.CreateContext();

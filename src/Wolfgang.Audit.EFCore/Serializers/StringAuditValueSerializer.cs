@@ -28,7 +28,7 @@ public sealed class StringAuditValueSerializer : IAuditValueSerializer
 
     private static readonly IReadOnlyList<AuditValueColumn> _columns = new[]
     {
-        new AuditValueColumn(Name: ValueColumnName, StorageKind: AuditValueStorageKind.Text),
+        new AuditValueColumn(Name: ValueColumnName),
     };
 
     /// <inheritdoc />

@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Wolfgang.Audit.Serializers;
@@ -6,16 +5,16 @@ using Wolfgang.Audit.Serializers;
 namespace Wolfgang.Audit;
 
 /// <summary>
-/// Dependency-injection helpers for registering the audit interceptor and its
-/// supporting services.
+/// Dependency-injection helpers for registering the audit options and user provider.
 /// </summary>
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Registers the audit interceptor, <typeparamref name="TUserProvider"/> as
-    /// <see cref="IAuditUserProvider"/>, and default serializers. The caller is
-    /// responsible for wiring the interceptor onto each <see cref="DbContext"/> via
-    /// <c>DbContextOptionsBuilder.AddInterceptors(...)</c> or by resolving it through DI.
+    /// Registers <see cref="AuditOptions"/> (as a singleton) and
+    /// <typeparamref name="TUserProvider"/> as <see cref="IAuditUserProvider"/>
+    /// (scoped). Consumers then call
+    /// <see cref="DbContextAuditExtensions.SaveChangesWithAuditAsync"/> on their
+    /// <c>DbContext</c> to perform a save that includes audit rows.
     /// </summary>
     public static IServiceCollection AddEfCoreAuditing<TUserProvider>
     (
@@ -38,7 +37,6 @@ public static class ServiceCollectionExtensions
 
         services.TryAddSingleton(options);
         services.TryAddScoped<IAuditUserProvider, TUserProvider>();
-        services.TryAddScoped<AuditSaveChangesInterceptor>();
 
         return services;
     }

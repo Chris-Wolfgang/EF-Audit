@@ -1,181 +1,176 @@
 # Wolfgang.Audit
 
-A library that add tracking of inserts, updates and deletes to apps that use Entity Framework
+An EF Core change-tracking library. Calling `context.SaveChangesWithAuditAsync(...)` instead of `SaveChangesAsync` captures every Insert / Update / Delete via `ChangeTracker` and writes a row-by-row audit history — one **header** per changed entity plus per-column **detail** rows — into the **same transaction** as the user's save. Either both commit or both roll back, atomically. Uses EF Core's `IExecutionStrategy` under the hood so transient retries still work.
+
+The header/detail-per-column schema is the same shape that [Z.EntityFramework.Plus.Audit](https://entityframework-plus.net/ef-core-audit) and the [ABP Framework auditing](https://abp.io/docs/latest/framework/infrastructure/audit-logging) use — chosen for queryability ("every change to `Customer.Email` ever") over the more common JSON-blob-per-change shape (Audit.NET, EntityFrameworkCore.AutoHistory).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![.NET](https://img.shields.io/badge/.NET-Multi--Targeted-purple.svg)](https://dotnet.microsoft.com/)
+[![.NET](https://img.shields.io/badge/.NET-6.0%20%7C%208.0%20%7C%2010.0-purple.svg)](https://dotnet.microsoft.com/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/Chris-Wolfgang/EF-Audit)
 
 ---
 
-## 📦 Installation
+## 📦 Packages
+
+| Package | Purpose |
+|---|---|
+| `Wolfgang.Audit.Abstractions` | Shared contracts (interfaces, attributes, entity types). No EF Core dependency. |
+| `Wolfgang.Audit.EFCore` | The `SaveChangesWithAuditAsync` extension method, default serializers, and DI helpers. Depends on EF Core 6+ Relational. |
+| `Wolfgang.Audit.TestKit.Xunit` | xunit contract-test bases (FsCheck-powered) for validating custom `IAuditValueSerializer` implementations. |
+
+All three are published to NuGet.org under the **`Wolfgang.Audit.*`** prefix.
 
 ```bash
-dotnet add package Wolfgang.Audit
+dotnet add package Wolfgang.Audit.EFCore
 ```
 
-**NuGet Package:** Coming soon to NuGet.org
-
 ---
 
-## 📄 License
+## 🚀 Quick start
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+```csharp
+using Microsoft.EntityFrameworkCore;
+using Wolfgang.Audit;
+using Wolfgang.Audit.Serializers;
 
----
+// 1. Configure options + serializers.
+var auditOptions = new AuditOptions
+{
+    Schema = null,                                   // null = provider default
+    ValueSerializer = new StringAuditValueSerializer(),
+    EntityKeySerializer = new PipeDelimitedEntityKeySerializer(),
+};
+IAuditUserProvider userProvider = new MyUserProvider();
 
-## 📚 Documentation
+// 2. Tell EF Core about the audit entity types in OnModelCreating.
+public class AppDbContext : DbContext
+{
+    private readonly AuditOptions _auditOptions;
+    public AppDbContext(DbContextOptions<AppDbContext> options, AuditOptions auditOptions)
+        : base(options) => _auditOptions = auditOptions;
 
-- **GitHub Repository:** [https://github.com/Chris-Wolfgang/EF-Audit](https://github.com/Chris-Wolfgang/EF-Audit)
-- **API Documentation:** https://Chris-Wolfgang.github.io/EF-Audit/
-- **Formatting Guide:** [README-FORMATTING.md](README-FORMATTING.md)
-- **Contributing Guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
+    public DbSet<Customer> Customers => Set<Customer>();
 
----
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        => modelBuilder.ApplyAuditing(_auditOptions);
+}
 
-## 🚀 Quick Start
+// 3. Call SaveChangesWithAuditAsync instead of SaveChangesAsync.
+await using var ctx = new AppDbContext(contextOptions, auditOptions);
+ctx.Customers.Add(new Customer { Name = "Alice" });
+await ctx.SaveChangesWithAuditAsync(userProvider, auditOptions);
+// AuditHeader + AuditDetail rows for the insert are now in the same transaction.
+```
 
-{{QUICK_START_EXAMPLE}}
+### Why an extension method instead of an interceptor?
+
+EF Core's implicit transaction commits *before* `SavedChangesAsync` fires (see [efcore#37131](https://github.com/dotnet/efcore/issues/37131)), so an interceptor cannot guarantee that audit rows commit in the same transaction as the user's data. Owning the transaction at the call site — what `SaveChangesWithAuditAsync` does via `IExecutionStrategy.ExecuteInTransactionAsync` — is the canonical pattern the EF Core team recommends. The cost is one extra method name to learn; the win is real atomicity, including for database-generated primary keys.
+
+Two end-to-end samples ship in [`examples/`](./examples):
+
+- [Console](./examples/Wolfgang.Audit.EFCore.Example.Console) — minimal SQLite demo that prints the audit history.
+- [Web API](./examples/Wolfgang.Audit.EFCore.Example.WebApi) — ASP.NET Core minimal API showing the on-behalf-of pattern (service account as `UserId`, authenticated human as `OnBehalfOfUserId`).
 
 ---
 
 ## ✨ Features
 
-{{FEATURES_TABLE}}
-
-**Examples:**
-{{FEATURE_EXAMPLES}}
-
----
-
-## 🎯 Target Frameworks
-
-| Framework | Versions |
-|-----------|----------|
-| .NET Framework | .NET 4.6.2, .NET 4.7.0, .NET 4.7.1, .NET 4.7.2, .NET 4.8, .NET 4.8.1 |
-| .NET Core | .NET Core 3.1 |
-| .NET | .NET 5.0, .NET 6.0, .NET 7.0, .NET 8.0, .NET 9.0, .NET 10.0 |
+| Feature | What it does |
+|---|---|
+| **Atomic audit writes** | Audit rows are persisted via the same `DbContext` as user data, so they share the user's transaction. Rollback = no orphaned audit history. |
+| **Two-phase capture** | Snapshots in `SavingChangesAsync`, persists in `SavedChangesAsync` — so database-generated identity keys are resolved by the time the audit header is written. |
+| **Pluggable value serializer** | `IAuditValueSerializer` owns the detail-row column shape. v1 ships `StringAuditValueSerializer`; future binary / hybrid variants slot in without changing the contract. |
+| **Pluggable entity-key serializer** | `IAuditEntityKeySerializer` controls how composite keys render into the `EntityKey` column. v1 default is pipe-delimited. |
+| **Opt-out via `[NotAudited]`** | Apply at the class level to exclude an entity; apply at the property level to exclude a single column. Mirrors EF Core's `[NotMapped]`. |
+| **Configurable schema + table names** | `AuditOptions.Schema`, `.HeaderTableName`, `.DetailTableName` — multiple apps can coexist in one database under different schemas. |
+| **Microsecond timestamps** | `AuditedAtUtc` is `DateTime` UTC with `HasPrecision(6)` so resolution is identical across SQL Server, PostgreSQL, MySQL, and SQLite. |
+| **On-behalf-of user identity** | `AuditHeader.UserId` records the service account; `OnBehalfOfUserId` records the authenticated human (web scenarios). |
+| **Configurable delete capture** | `CaptureDeletedValues = false` (default) writes header only on Delete; `true` writes pre-delete column values for forensic audits. |
+| **Same TransactionId per save** | All header rows produced by a single `SaveChanges` share a `Guid` so consumers can group "what changed together". |
 
 ---
 
-## 🔍 Code Quality & Static Analysis
+## 🎯 Target frameworks
 
-This project enforces **strict code quality standards** through **7 specialized analyzers** and custom async-first rules:
+| Package | TFMs |
+|---|---|
+| `Wolfgang.Audit.Abstractions` | `netstandard2.0`, `net8.0`, `net10.0` |
+| `Wolfgang.Audit.EFCore` | `net6.0`, `net8.0`, `net10.0` |
+| `Wolfgang.Audit.TestKit.Xunit` | `netstandard2.0`, `net8.0`, `net10.0` |
 
-### Analyzers in Use
-
-1. **Microsoft.CodeAnalysis.NetAnalyzers** - Built-in .NET analyzers for correctness and performance
-2. **Roslynator.Analyzers** - Advanced refactoring and code quality rules
-3. **AsyncFixer** - Async/await best practices and anti-pattern detection
-4. **Microsoft.VisualStudio.Threading.Analyzers** - Thread safety and async patterns
-5. **Microsoft.CodeAnalysis.BannedApiAnalyzers** - Prevents usage of banned synchronous APIs
-6. **Meziantou.Analyzer** - Comprehensive code quality rules
-7. **SonarAnalyzer.CSharp** - Industry-standard code analysis
-
-### Async-First Enforcement
-
-This library uses **`BannedSymbols.txt`** to prohibit synchronous APIs and enforce async-first patterns:
-
-**Blocked APIs Include:**
-- ❌ `Task.Wait()`, `Task.Result` - Use `await` instead
-- ❌ `Thread.Sleep()` - Use `await Task.Delay()` instead
-- ❌ Synchronous file I/O (`File.ReadAllText`) - Use async versions
-- ❌ Synchronous stream operations - Use `ReadAsync()`, `WriteAsync()`
-- ❌ `Parallel.For/ForEach` - Use `Task.WhenAll()` or `Parallel.ForEachAsync()`
-- ❌ Obsolete APIs (`WebClient`, `BinaryFormatter`)
-
-**Why?** To ensure all code is **truly async** and **non-blocking** for optimal performance in async contexts.
+EF Core 6, 7, 8, 9, and 10 are all supported (the library targets the LTS net6.0 / net8.0 / net10.0; an EF Core 7 consumer running on net6.0+ or net7.0+ resolves the appropriate TFM automatically).
 
 ---
 
-## 🛠️ Building from Source
+## 🧪 Testing
 
-### Prerequisites
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download) or later
-- Optional: [PowerShell Core](https://github.com/PowerShell/PowerShell) for formatting scripts
+Three test projects + the shipped TestKit contract base:
 
-### Build Steps
+- **`tests/Wolfgang.Audit.EFCore.Tests.Unit`** — SQLite in-memory, fast, runs on every PR.
+- **`tests/Wolfgang.Audit.EFCore.Tests.Integration`** — Testcontainers against SQL Server 2022, PostgreSQL 16, MySQL 8.0. Opt-in via `RunIntegrationTests=true`; the dedicated [`integration.yaml`](./.github/workflows/integration.yaml) workflow runs them on Linux with Docker pre-installed.
+- **`tests/Wolfgang.Audit.EFCore.Tests.Smoke`** — end-to-end order-lifecycle scenario validating history reconstruction.
+- **`src/Wolfgang.Audit.TestKit.Xunit`** — shipped NuGet package containing `AuditValueSerializerContractTests<TSut>`. Inherit + provide `CreateSut()` and you get FsCheck-powered property tests plus boundary-value theories for every supported CLR type.
 
 ```bash
-# Clone the repository
+# Unit + smoke tests
+dotnet test
+
+# Integration tests (Docker required)
+RunIntegrationTests=true dotnet test tests/Wolfgang.Audit.EFCore.Tests.Integration
+```
+
+---
+
+## 📈 Benchmarks
+
+[`benchmarks/Wolfgang.Audit.EFCore.Benchmarks`](./benchmarks/Wolfgang.Audit.EFCore.Benchmarks) ships BenchmarkDotNet comparisons of plain `SaveChanges` vs `SaveChangesWithAuditAsync` across Insert, full Lifecycle (I→U→D), and MixedStates workloads. `MemoryDiagnoser` is enabled so allocation deltas are visible.
+
+The [`benchmarks.yaml`](./.github/workflows/benchmarks.yaml) workflow runs them on every PR, fails the build if time or allocations regress beyond 2× the previous main-branch baseline, and auto-publishes the chart to [`gh-pages/dev/bench`](https://Chris-Wolfgang.github.io/EF-Audit/dev/bench/) on pushes to `main`.
+
+```bash
+dotnet run -c Release --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks -- --filter '*'
+```
+
+---
+
+## 🔍 Code quality
+
+Strict analyzer stack — see the template-inherited [Directory.Build.props](./Directory.Build.props):
+
+- **Microsoft.CodeAnalysis.NetAnalyzers** (built-in)
+- **Roslynator.Analyzers**, **AsyncFixer**, **Microsoft.VisualStudio.Threading.Analyzers**
+- **Microsoft.CodeAnalysis.BannedApiAnalyzers** + repo-wide [`BannedSymbols.txt`](./BannedSymbols.txt) enforcing async-first I/O
+- **Meziantou.Analyzer**, **SonarAnalyzer.CSharp**
+
+Warnings are errors in Release builds.
+
+---
+
+## 🛠️ Building from source
+
+```bash
 git clone https://github.com/Chris-Wolfgang/EF-Audit.git
 cd EF-Audit
-
-# Restore dependencies
-dotnet restore
-
-# Build the solution
-dotnet build --configuration Release
-
-# Run tests
-dotnet test --configuration Release
-
-# Run code formatting (PowerShell Core)
-pwsh ./format.ps1
+dotnet build EF-Audit.slnx -c Release
+dotnet test EF-Audit.slnx -c Release
 ```
 
-### Code Formatting
+---
 
-This project uses `.editorconfig` and `dotnet format`:
+## 📚 Documentation
 
-```bash
-# Format code
-dotnet format
-
-# Verify formatting (as CI does)
-dotnet format --verify-no-changes
-```
-
-See [README-FORMATTING.md](README-FORMATTING.md) for detailed formatting guidelines.
-
-### Building Documentation
-
-This project uses [DocFX](https://dotnet.github.io/docfx/) to generate API documentation:
-
-```bash
-# Install DocFX (one-time setup)
-dotnet tool install -g docfx
-
-# Generate API metadata and build documentation
-cd docfx_project
-docfx metadata  # Extract API metadata from source code
-docfx build     # Build HTML documentation
-
-# Documentation is generated in the docs/ folder at the repository root
-```
-
-The documentation is automatically built and deployed to GitHub Pages when changes are pushed to the `main` branch.
-
-**Local Preview:**
-```bash
-# Serve documentation locally (with live reload)
-cd docfx_project
-docfx build --serve
-
-# Open http://localhost:8080 in your browser
-```
-
-**Documentation Structure:**
-- `docfx_project/` - DocFX configuration and source files
-- `docs/` - Generated HTML documentation (published to GitHub Pages)
-- `docfx_project/index.md` - Main landing page content
-- `docfx_project/docs/` - Additional documentation articles
-- `docfx_project/api/` - Auto-generated API reference YAML files
+- **API reference:** <https://Chris-Wolfgang.github.io/EF-Audit/>
+- **Benchmark chart:** <https://Chris-Wolfgang.github.io/EF-Audit/dev/bench/>
+- **Contributing guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
-- Code quality standards
-- Build and test instructions
-- Pull request guidelines
-- Analyzer configuration details
+Pull requests welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for build/test/PR guidelines and the analyzer configuration details.
 
 ---
 
+## 📄 License
 
-## 🙏 Acknowledgments
-
-{{ACKNOWLEDGMENTS}}
-
+[MIT](LICENSE).
