@@ -21,11 +21,9 @@ public sealed class PipeDelimitedEntityKeySerializer : IAuditEntityKeySerializer
     {
         ArgumentNullException.ThrowIfNull(keyValues);
 
-        if (keyValues.Count == 0)
-        {
-            return string.Empty;
-        }
-
+        // Single-key fast path. Keyless entity types (HasNoKey) never reach this
+        // serializer because they can't be in Added/Modified/Deleted state in the
+        // change tracker — but if they ever did, the loop below produces "" naturally.
         if (keyValues.Count == 1)
         {
             return FormatPart(keyValues[0]);
