@@ -9,10 +9,14 @@ namespace Wolfgang.Audit;
 /// </summary>
 /// <remarks>
 /// <para>
-/// The serializer owns the column shape of the <c>AuditDetail</c> table's value
-/// column(s) via <see cref="Columns"/>. The schema installer reads this to build
-/// provider-appropriate DDL, so each implementation can choose between a single text
-/// column, a single binary column, or a hybrid layout.
+/// The serializer declares the value column(s) it expects on the <c>AuditDetail</c>
+/// table via <see cref="Columns"/>. v1's DDL path is just
+/// <c>Database.EnsureCreatedAsync</c> against the EF Core model — which contains the
+/// fixed <c>ValueText</c> / <c>ValueBinary</c> property set on <c>AuditDetail</c>
+/// regardless of which serializer is configured. <see cref="Columns"/> is therefore
+/// advisory in v1 (used by the serializer to keep its writes consistent with the
+/// entity properties); a future schema installer that emits per-serializer DDL is
+/// planned but not shipped.
 /// </para>
 /// <para>
 /// v1 ships <c>StringAuditValueSerializer</c> (text-only). Future implementations
@@ -22,8 +26,8 @@ namespace Wolfgang.Audit;
 public interface IAuditValueSerializer
 {
     /// <summary>
-    /// The columns this serializer requires on the <c>AuditDetail</c> table, in the
-    /// order they should appear. Used by the schema installer to build DDL.
+    /// The columns this serializer expects on the <c>AuditDetail</c> table, in the
+    /// order they should appear. Advisory in v1 — see remarks on the interface.
     /// </summary>
     IReadOnlyList<AuditValueColumn> Columns { get; }
 

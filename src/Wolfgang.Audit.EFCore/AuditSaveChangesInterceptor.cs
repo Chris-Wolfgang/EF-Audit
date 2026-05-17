@@ -27,15 +27,20 @@ namespace Wolfgang.Audit;
 ///     .UseAuditing(sp));
 /// </code>
 /// <para>
-/// <strong>Cancellation caveat.</strong> When <c>SaveChangesAsync</c> is cancelled
-/// via its <see cref="CancellationToken"/>, EF Core 7+ raises
-/// <c>SaveChangesCanceledAsync</c> (not <c>SaveChangesFailedAsync</c>); EF Core 6
-/// raises neither. The interceptor's failure cleanup hangs off
-/// <c>SaveChangesFailedAsync</c>, so a cancellation that fires after this
-/// interceptor opens its owned transaction may leak the transaction until the
-/// <see cref="DbContext"/> is disposed. Inherit from <see cref="AuditingDbContext"/>
-/// to avoid this — the base class owns the <c>SaveChangesAsync</c> override and
-/// can clean up on any exit path, including cancellation.
+/// <strong>Cancellation.</strong> If the <see cref="CancellationToken"/> is
+/// signalled while <c>SavingChangesAsync</c> is opening the audit transaction,
+/// the interceptor catches the resulting <c>OperationCanceledException</c>,
+/// disposes the owned transaction, and re-raises — no leak. Cancellation that
+/// fires later (during EF's own SQL execution between
+/// <c>SavingChangesAsync</c> and <c>SavedChangesAsync</c>) is handled via
+/// <c>SaveChangesFailedAsync</c> on EF Core 6 / pre-7-cancel-callback versions;
+/// on EF Core 7+ that routes through <c>SaveChangesCanceledAsync</c> instead,
+/// which this interceptor doesn't yet hook because that method isn't on the
+/// EF Core 6 <c>ISaveChangesInterceptor</c> surface. In that narrow window the
+/// owned transaction is disposed when the <see cref="DbContext"/> is.
+/// Inherit from <see cref="AuditingDbContext"/> for full cancellation
+/// robustness — it owns the <c>SaveChangesAsync</c> override and can clean up
+/// on every exit path.
 /// </para>
 /// <para>
 /// <strong>acceptAllChangesOnSuccess caveat.</strong> The interceptor does not
@@ -108,7 +113,17 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
             return result;
         }
 
-        BeginAudit(context);
+        try
+        {
+            BeginAudit(context);
+        }
+        catch
+        {
+            // Defensive cleanup mirroring SavingChangesAsync — see comment there.
+            AbortAudit(context);
+            throw;
+        }
+
         return result;
     }
 
@@ -129,6 +144,30 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
             return result;
         }
 
+        try
+        {
+            await BeginAuditAsyncCore(context, cancellationToken).ConfigureAwait(false);
+        }
+        catch
+        {
+            // Defensive cleanup: if BeginAuditAsync throws (most commonly
+            // OperationCanceledException via cancellationToken between opening the
+            // owned transaction and the rest of EF's save pipeline), we own the
+            // transaction at this point and EF won't necessarily call
+            // SaveChangesFailedAsync (EF Core 7+ routes cancellation through the
+            // separate SaveChangesCanceledAsync hook). AbortAudit disposes the
+            // transaction and clears the per-context state so nothing leaks.
+            await AbortAuditAsync(context, CancellationToken.None).ConfigureAwait(false);
+            throw;
+        }
+
+        return result;
+    }
+
+
+
+    private async Task BeginAuditAsyncCore(DbContext context, CancellationToken cancellationToken)
+    {
         var pending = AuditCapture.CapturePending(context, _options);
         context.SetItem(PendingItemsKey, pending);
         context.SetItem(TxIdItemsKey, Guid.NewGuid());
@@ -141,8 +180,6 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
                 .ConfigureAwait(false);
             context.SetItem(OwnedTxItemsKey, tx);
         }
-
-        return result;
     }
 
 
