@@ -33,6 +33,7 @@ public class EndToEndHistorySmokeTest
                 new DbContextOptionsBuilder<SmokeDbContext>()
                     .UseSqlite(connection)
                     .Options,
+                userProvider,
                 options);
 
             await using (var seed = NewContext())
@@ -47,7 +48,7 @@ public class EndToEndHistorySmokeTest
             {
                 var order = new Order { CustomerName = "Alice", Total = 100m };
                 ctx.Orders.Add(order);
-                await ctx.SaveChangesWithAuditAsync(userProvider, options);
+                await ctx.SaveChangesAsync();
                 orderId = order.OrderId;
             }
 
@@ -56,7 +57,7 @@ public class EndToEndHistorySmokeTest
             {
                 var order = await ctx.Orders.SingleAsync();
                 order.Status = "Processing";
-                await ctx.SaveChangesWithAuditAsync(userProvider, options);
+                await ctx.SaveChangesAsync();
             }
 
             // 3. Update total (price adjustment).
@@ -64,7 +65,7 @@ public class EndToEndHistorySmokeTest
             {
                 var order = await ctx.Orders.SingleAsync();
                 order.Total = 95m;
-                await ctx.SaveChangesWithAuditAsync(userProvider, options);
+                await ctx.SaveChangesAsync();
             }
 
             // 4. Update status: Processing -> Shipped.
@@ -72,7 +73,7 @@ public class EndToEndHistorySmokeTest
             {
                 var order = await ctx.Orders.SingleAsync();
                 order.Status = "Shipped";
-                await ctx.SaveChangesWithAuditAsync(userProvider, options);
+                await ctx.SaveChangesAsync();
             }
 
             // 5. Delete.
@@ -80,7 +81,7 @@ public class EndToEndHistorySmokeTest
             {
                 var order = await ctx.Orders.SingleAsync();
                 ctx.Orders.Remove(order);
-                await ctx.SaveChangesWithAuditAsync(userProvider, options);
+                await ctx.SaveChangesAsync();
             }
 
             await using var verify = NewContext();

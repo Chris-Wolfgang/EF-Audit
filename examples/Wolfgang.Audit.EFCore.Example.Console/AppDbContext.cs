@@ -11,22 +11,21 @@ public class Product
     public decimal Price { get; set; }
 }
 
-public class AppDbContext : DbContext
+public class AppDbContext : AuditingDbContext
 {
-    private readonly AuditOptions _auditOptions;
-
-    public AppDbContext(DbContextOptions<AppDbContext> options, AuditOptions auditOptions)
-        : base(options)
+    public AppDbContext
+    (
+        DbContextOptions<AppDbContext> options,
+        IAuditUserProvider userProvider,
+        AuditOptions auditOptions
+    )
+        : base(options, userProvider, auditOptions)
     {
-        _auditOptions = auditOptions;
     }
+
+
 
     public DbSet<Product> Products => Set<Product>();
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyAuditing(_auditOptions);
-    }
 }
 
 public sealed class StaticAuditUserProvider : IAuditUserProvider

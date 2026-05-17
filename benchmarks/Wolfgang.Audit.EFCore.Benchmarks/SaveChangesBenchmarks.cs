@@ -7,10 +7,13 @@ using Wolfgang.Audit.Serializers;
 namespace Wolfgang.Audit.Benchmarks;
 
 /// <summary>
-/// Compares <c>SaveChangesAsync</c> (unaudited baseline) with
-/// <c>SaveChangesWithAuditAsync</c> across Insert, Lifecycle, and MixedStates
-/// workloads. SQLite is used for a consistent, dependency-free baseline; the
-/// relative delta between the two is what matters, not the absolute numbers.
+/// Compares plain async <c>SaveChangesAsync</c> on an unaudited
+/// <see cref="DbContext"/> against async <c>SaveChangesAsync</c> on an
+/// <see cref="AuditingDbContext"/> across Insert, Lifecycle, and MixedStates
+/// workloads. Both baseline and audited variants run async so the measured
+/// delta isolates the audit cost from any sync-vs-async difference. SQLite is
+/// used for a consistent, dependency-free baseline; the relative delta between
+/// the two is what matters, not the absolute numbers.
 /// </summary>
 [MemoryDiagnoser]
 public class SaveChangesBenchmarks
@@ -109,6 +112,7 @@ public class SaveChangesBenchmarks
             new DbContextOptionsBuilder<AuditedBenchmarkDbContext>()
                 .UseSqlite(_connection)
                 .Options,
+            _userProvider,
             _options);
     }
 
@@ -120,33 +124,30 @@ public class SaveChangesBenchmarks
                 .Options);
     }
 
-    private void SaveAudited(AuditedBenchmarkDbContext ctx)
-        => ctx.SaveChangesWithAuditAsync(_userProvider, _options).GetAwaiter().GetResult();
-
     [Benchmark(Baseline = true)]
-    public void Insert_without_audit()
+    public async Task Insert_without_audit()
     {
         using var ctx = CreateUnauditedContext();
         for (var i = 0; i < BatchSize; i++)
         {
             ctx.Customers.Add(new Customer { Name = $"User{i}", Email = $"u{i}@x.com", LoyaltyPoints = i });
         }
-        ctx.SaveChanges();
+        await ctx.SaveChangesAsync().ConfigureAwait(false);
     }
 
     [Benchmark]
-    public void Insert_with_audit()
+    public async Task Insert_with_audit()
     {
         using var ctx = CreateAuditedContext();
         for (var i = 0; i < BatchSize; i++)
         {
             ctx.Customers.Add(new Customer { Name = $"User{i}", Email = $"u{i}@x.com", LoyaltyPoints = i });
         }
-        SaveAudited(ctx);
+        await ctx.SaveChangesAsync().ConfigureAwait(false);
     }
 
     [Benchmark]
-    public void Lifecycle_without_audit()
+    public async Task Lifecycle_without_audit()
     {
         using var ctx = CreateUnauditedContext();
         var rows = new Customer[BatchSize];
@@ -155,23 +156,23 @@ public class SaveChangesBenchmarks
             rows[i] = new Customer { Name = $"L{i}", Email = $"l{i}@x.com", LoyaltyPoints = i };
             ctx.Customers.Add(rows[i]);
         }
-        ctx.SaveChanges();
+        await ctx.SaveChangesAsync().ConfigureAwait(false);
 
         for (var i = 0; i < BatchSize; i++)
         {
             rows[i].Email = $"updated-{i}@x.com";
         }
-        ctx.SaveChanges();
+        await ctx.SaveChangesAsync().ConfigureAwait(false);
 
         for (var i = 0; i < BatchSize; i++)
         {
             ctx.Customers.Remove(rows[i]);
         }
-        ctx.SaveChanges();
+        await ctx.SaveChangesAsync().ConfigureAwait(false);
     }
 
     [Benchmark]
-    public void Lifecycle_with_audit()
+    public async Task Lifecycle_with_audit()
     {
         using var ctx = CreateAuditedContext();
         var rows = new Customer[BatchSize];
@@ -180,23 +181,23 @@ public class SaveChangesBenchmarks
             rows[i] = new Customer { Name = $"L{i}", Email = $"l{i}@x.com", LoyaltyPoints = i };
             ctx.Customers.Add(rows[i]);
         }
-        SaveAudited(ctx);
+        await ctx.SaveChangesAsync().ConfigureAwait(false);
 
         for (var i = 0; i < BatchSize; i++)
         {
             rows[i].Email = $"updated-{i}@x.com";
         }
-        SaveAudited(ctx);
+        await ctx.SaveChangesAsync().ConfigureAwait(false);
 
         for (var i = 0; i < BatchSize; i++)
         {
             ctx.Customers.Remove(rows[i]);
         }
-        SaveAudited(ctx);
+        await ctx.SaveChangesAsync().ConfigureAwait(false);
     }
 
     [Benchmark]
-    public void MixedStates_per_save_without_audit()
+    public async Task MixedStates_per_save_without_audit()
     {
         // _existingRows holds BatchSize rows seeded by ResetAndSeedBeforeMixedStates.
         // The measured save modifies the first half, deletes the second half, and
@@ -216,11 +217,11 @@ public class SaveChangesBenchmarks
         {
             ctx.Customers.Add(new Customer { Name = $"N{i}", LoyaltyPoints = i });
         }
-        ctx.SaveChanges();
+        await ctx.SaveChangesAsync().ConfigureAwait(false);
     }
 
     [Benchmark]
-    public void MixedStates_per_save_with_audit()
+    public async Task MixedStates_per_save_with_audit()
     {
         using var ctx = CreateAuditedContext();
         ctx.Customers.AttachRange(_existingRows);
@@ -237,6 +238,6 @@ public class SaveChangesBenchmarks
         {
             ctx.Customers.Add(new Customer { Name = $"N{i}", LoyaltyPoints = i });
         }
-        SaveAudited(ctx);
+        await ctx.SaveChangesAsync().ConfigureAwait(false);
     }
 }

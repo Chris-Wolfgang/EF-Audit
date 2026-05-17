@@ -31,14 +31,12 @@ using (var scope = app.Services.CreateScope())
 
 // Add a product. The acting human's identity (HTTP header X-User) is captured as
 // OnBehalfOfUserId; the running service account ("svc-orders") is captured as UserId.
-app.MapPost("/products", async (
-    Product product,
-    AppDbContext ctx,
-    IAuditUserProvider userProvider,
-    AuditOptions auditOptions) =>
+// AppDbContext derives from AuditingDbContext so plain SaveChangesAsync writes the
+// audit rows atomically in the same transaction.
+app.MapPost("/products", async (Product product, AppDbContext ctx) =>
 {
     ctx.Products.Add(product);
-    await ctx.SaveChangesWithAuditAsync(userProvider, auditOptions);
+    await ctx.SaveChangesAsync();
     return Results.Created($"/products/{product.ProductId}", product);
 });
 

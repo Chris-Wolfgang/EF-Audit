@@ -4,15 +4,19 @@ using Microsoft.EntityFrameworkCore;
 namespace Wolfgang.Audit.Tests.Unit.TestSupport;
 
 [ExcludeFromCodeCoverage]
-public class TestDbContext : DbContext
+public class TestDbContext : AuditingDbContext
 {
-    private readonly AuditOptions _auditOptions;
-
-    public TestDbContext(DbContextOptions<TestDbContext> options, AuditOptions auditOptions)
-        : base(options)
+    public TestDbContext
+    (
+        DbContextOptions<TestDbContext> options,
+        IAuditUserProvider userProvider,
+        AuditOptions auditOptions
+    )
+        : base(options, userProvider, auditOptions)
     {
-        _auditOptions = auditOptions;
     }
+
+
 
     public DbSet<Customer> Customers => Set<Customer>();
 
@@ -20,10 +24,12 @@ public class TestDbContext : DbContext
 
     public DbSet<OrderLine> OrderLines => Set<OrderLine>();
 
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         ArgumentNullException.ThrowIfNull(modelBuilder);
         modelBuilder.Entity<OrderLine>().HasKey(o => new { o.OrderId, o.LineNumber });
-        modelBuilder.ApplyAuditing(_auditOptions);
+        base.OnModelCreating(modelBuilder); // applies audit entity mappings
     }
 }
