@@ -2,8 +2,9 @@ namespace Wolfgang.Audit;
 
 /// <summary>
 /// Identifies the type of change captured on an <see cref="Entities.AuditHeader"/> row.
-/// The underlying byte values are the ASCII codes for <c>'I'</c>, <c>'U'</c>, and <c>'D'</c>
-/// so the operation reads naturally when the header table is queried directly.
+/// The underlying byte values are the ASCII codes for <c>'I'</c>, <c>'U'</c>, and <c>'D'</c>;
+/// the EF model converts the enum through <c>char</c> on the way out so the database
+/// column literally contains <c>'I'</c> / <c>'U'</c> / <c>'D'</c> when queried directly.
 /// </summary>
 public enum AuditOperation : byte
 {
