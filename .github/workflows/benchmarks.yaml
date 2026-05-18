@@ -76,7 +76,9 @@ jobs:
       - name: Locate full-report JSON
         id: locate
         run: |
-          report=$(find . -path '*/BenchmarkDotNet.Artifacts/results/*-report-full.json' | head -1)
+          # BDN 0.15.x emits *-report-full-compressed.json instead of the old
+          # *-report-full.json. Match either so we ride out BDN renames cleanly.
+          report=$(find . -path '*/BenchmarkDotNet.Artifacts/results/*-report-full*.json' | head -1)
           if [ -z "$report" ]; then
             echo "No BDN report found"
             exit 1
@@ -138,7 +140,9 @@ jobs:
       - name: Locate full-report JSON
         id: locate
         run: |
-          report=$(find . -path '*/BenchmarkDotNet.Artifacts/results/*-report-full.json' | head -1)
+          # BDN 0.15.x emits *-report-full-compressed.json instead of the old
+          # *-report-full.json. Match either so we ride out BDN renames cleanly.
+          report=$(find . -path '*/BenchmarkDotNet.Artifacts/results/*-report-full*.json' | head -1)
           if [ -z "$report" ]; then
             echo "No BDN report found"
             exit 1
