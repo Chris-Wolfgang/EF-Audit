@@ -41,7 +41,9 @@ internal class Program
                 {
                     services
                         .AddSingleton<IReporter, ConsoleReporter>()
-                        .AddSingleton<IMigrateRunner, StubMigrateRunner>();
+                        .AddSingleton<StubMigrateRunner>()
+                        .AddSingleton<SqlServerMigrateRunner>()
+                        .AddSingleton<IMigrateRunnerFactory, MigrateRunnerFactory>();
                 })
                 .RunCommandLineApplicationAsync<Program>(args).ConfigureAwait(false);
         }

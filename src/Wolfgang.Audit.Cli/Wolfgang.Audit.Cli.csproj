@@ -37,6 +37,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Wolfgang.Audit.EFCore\Wolfgang.Audit.EFCore.csproj" />
+    <ProjectReference Include="..\Wolfgang.Audit.EFCore.Migrations.SqlServer\Wolfgang.Audit.EFCore.Migrations.SqlServer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="5.1.0" />
     <PackageReference Include="McMaster.Extensions.Hosting.CommandLine" Version="5.1.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
