@@ -9,9 +9,11 @@ namespace Wolfgang.Audit.Tests.Integration.TestSupport;
 public sealed class MySqlFixture : IAsyncLifetime, IProviderFixture
 {
     // Pinned to a specific patch tag so test reruns are reproducible. Bump
-    // deliberately; do not float on `:8.0`.
+    // deliberately; do not float on `:8.0`. WithDatabase routes to a non-default
+    // "auditdb" so EnsureDeletedAsync can drop and recreate it freely.
     private readonly MySqlContainer _container = new MySqlBuilder()
         .WithImage("mysql:8.0.39")
+        .WithDatabase("auditdb")
         .Build();
 
     private ServerVersion? _serverVersion;

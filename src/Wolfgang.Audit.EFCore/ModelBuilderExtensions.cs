@@ -45,9 +45,14 @@ public static class ModelBuilderExtensions
         builder.Property(h => h.AuditedAtUtc).HasPrecision(6).IsRequired();
         builder.Property(h => h.UserId).HasMaxLength(256).IsRequired();
         builder.Property(h => h.OnBehalfOfUserId).HasMaxLength(256);
-        builder.Property(h => h.EntityType).HasMaxLength(512).IsRequired();
-        builder.Property(h => h.EntityTable).HasMaxLength(512).IsRequired();
-        builder.Property(h => h.EntityKey).HasMaxLength(512).IsRequired();
+        // EntityType, EntityTable, EntityKey lengths chosen so the composite
+        // (EntityType, EntityKey) index fits inside MySQL InnoDB's 3072-byte
+        // limit on utf8mb4: (384 + 384) * 4 = 3072 bytes. CLR full type names
+        // are typically <200 chars and serialized PKs <50 chars, so 384 is
+        // still well above realistic upper bounds for both columns.
+        builder.Property(h => h.EntityType).HasMaxLength(384).IsRequired();
+        builder.Property(h => h.EntityTable).HasMaxLength(384).IsRequired();
+        builder.Property(h => h.EntityKey).HasMaxLength(384).IsRequired();
 
         // Store Operation as the literal character 'I' / 'U' / 'D' so the column
         // reads naturally when querying directly. The cast chain enum → byte →

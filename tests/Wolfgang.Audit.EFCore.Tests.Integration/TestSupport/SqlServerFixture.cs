@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Testcontainers.MsSql;
 using Xunit;
@@ -22,8 +23,17 @@ public sealed class SqlServerFixture : IAsyncLifetime, IProviderFixture
 
     public DbContextOptions<TestDbContext> CreateContextOptions()
     {
+        // Route to a per-test "auditdb" database rather than the container's
+        // default "master". EnsureDeletedAsync runs ALTER DATABASE ... SET
+        // SINGLE_USER which fails on master ("Option 'SINGLE_USER' cannot be set
+        // in database 'master'"), so we have to use a non-system DB.
+        var builder = new SqlConnectionStringBuilder(_container.GetConnectionString())
+        {
+            InitialCatalog = "auditdb",
+        };
+
         return new DbContextOptionsBuilder<TestDbContext>()
-            .UseSqlServer(_container.GetConnectionString())
+            .UseSqlServer(builder.ConnectionString)
             .Options;
     }
 }
