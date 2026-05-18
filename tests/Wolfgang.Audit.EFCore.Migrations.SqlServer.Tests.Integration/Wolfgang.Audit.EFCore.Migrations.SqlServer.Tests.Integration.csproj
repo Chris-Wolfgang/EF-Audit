@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!--
+      Migrations package targets net10.0 + EF Core SqlServer 10.0.0 (the 8.x
+      floor pulled in vulnerable Azure.Identity/SqlClient transitives).
+      Mirrors the no-op default + RunIntegrationTests=true gate used by
+      Wolfgang.Audit.EFCore.Tests.Integration so pr.yaml does not run these
+      without a Docker host.
+    -->
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>false</IsTestProject>
+    <IsTestProject Condition="'$(RunIntegrationTests)' == 'true'">true</IsTestProject>
+    <NoWarn>$(NoWarn);VSTHRD200;CA1707;S6966;CA1515</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Wolfgang.Audit.EFCore\Wolfgang.Audit.EFCore.csproj" />
+    <ProjectReference Include="..\..\src\Wolfgang.Audit.EFCore.Migrations.SqlServer\Wolfgang.Audit.EFCore.Migrations.SqlServer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1" />
+    <PackageReference Include="Testcontainers.MsSql" Version="4.0.0" />
+  </ItemGroup>
+
+</Project>
