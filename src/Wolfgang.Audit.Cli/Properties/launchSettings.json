@@ -1,0 +1,20 @@
+{
+    "profiles": {
+        "<no options>": {
+            "commandName": "Project",
+            "commandLineArgs": ""
+        },
+        "-?": {
+            "commandName": "Project",
+            "commandLineArgs": "-?"
+        },
+        "sample -?": {
+            "commandName": "Project",
+            "commandLineArgs": "sample -?"
+        },
+        "sample": {
+            "commandName": "Project",
+            "commandLineArgs": "sample appsettings.json output.txt"
+        }
+    }
+}
