@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+
+    <PackageId>Wolfgang.Audit.EFCore.Migrations.Sqlite</PackageId>
+    <Version>0.1.0</Version>
+    <Title>Wolfgang.Audit.EFCore.Migrations.Sqlite</Title>
+    <Authors>Chris Wolfgang</Authors>
+    <Description>EF Core migrations for the Wolfgang.Audit.EFCore audit-table schema, targeting SQLite. Ships a runner the Wolfgang.Audit.Cli `audit migrate` command invokes; respects AuditOptions.HeaderTableName / DetailTableName overrides via Approach B. SQLite has no schemas; AuditOptions.Schema is ignored on this provider.</Description>
+    <PackageProjectUrl>https://github.com/Chris-Wolfgang/EF-Audit</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Chris-Wolfgang/EF-Audit</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>audit;ef-core;migrations;sqlite</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wolfgang.Audit.EFCore\Wolfgang.Audit.EFCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>
