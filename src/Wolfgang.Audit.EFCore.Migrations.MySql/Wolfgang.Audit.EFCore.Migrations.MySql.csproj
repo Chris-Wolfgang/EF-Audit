@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!--
+      Pomelo.EntityFrameworkCore.MySql lags EF Core by a major version. The
+      latest stable (9.0.0) targets EF Core 9.x; no EF Core 10 release exists
+      yet (2026-05-18). We target net8.0 + EF Core 8.x for now so the audit
+      tables can be installed against MySQL via the same Approach B as the
+      SqlServer and PostgreSQL siblings. Bump to net10.0 once Pomelo ships
+      a 10.x stable.
+    -->
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+
+    <PackageId>Wolfgang.Audit.EFCore.Migrations.MySql</PackageId>
+    <Version>0.1.0</Version>
+    <Title>Wolfgang.Audit.EFCore.Migrations.MySql</Title>
+    <Authors>Chris Wolfgang</Authors>
+    <Description>EF Core migrations for the Wolfgang.Audit.EFCore audit-table schema, targeting MySQL via Pomelo.EntityFrameworkCore.MySql. Ships a runner the Wolfgang.Audit.Cli `audit migrate` command invokes; respects AuditOptions.HeaderTableName / DetailTableName overrides via Approach B (hand-written Migration classes that read AuditOptions at apply time). Note: MySQL does not have schemas in the SQL Server sense; AuditOptions.Schema is ignored on this provider.</Description>
+    <PackageProjectUrl>https://github.com/Chris-Wolfgang/EF-Audit</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Chris-Wolfgang/EF-Audit</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>audit;ef-core;migrations;mysql;pomelo</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wolfgang.Audit.EFCore\Wolfgang.Audit.EFCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
+  </ItemGroup>
+
+</Project>
