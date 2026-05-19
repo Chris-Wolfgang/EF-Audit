@@ -155,12 +155,38 @@ RunIntegrationTests=true dotnet test tests/Wolfgang.Audit.EFCore.Tests.Integrati
 
 ## 📈 Benchmarks
 
-[`benchmarks/Wolfgang.Audit.EFCore.Benchmarks`](./benchmarks/Wolfgang.Audit.EFCore.Benchmarks) ships BenchmarkDotNet comparisons of plain `SaveChangesAsync` on an unaudited `DbContext` vs `SaveChangesAsync` on an `AuditingDbContext` across Insert, full Lifecycle (I→U→D), and MixedStates workloads. `MemoryDiagnoser` is enabled so allocation deltas are visible.
+[`benchmarks/Wolfgang.Audit.EFCore.Benchmarks`](./benchmarks/Wolfgang.Audit.EFCore.Benchmarks) ships BenchmarkDotNet comparisons of plain `SaveChangesAsync` on an unaudited `DbContext` vs `SaveChangesAsync` on an `AuditingDbContext` across Insert, full Lifecycle (I→U→D), and MixedStates workloads. `MemoryDiagnoser` is enabled so allocation deltas are visible. A separate `ProviderSaveChangesBenchmarks` class extends the comparison to SQL Server and PostgreSQL via Testcontainers (run locally with `--filter '*ProviderSaveChangesBenchmarks*'`).
 
-The [`benchmarks.yaml`](./.github/workflows/benchmarks.yaml) workflow runs them on every PR, fails the build if time or allocations regress beyond 2× the previous main-branch baseline, and auto-publishes the chart to [`gh-pages/dev/bench`](https://Chris-Wolfgang.github.io/EF-Audit/dev/bench/) on pushes to `main`.
+### Measured audit-write cost (insert workload, `--job short`)
+
+Numbers below are from a local run on a single 14700HX laptop; absolute values vary, but the **ratio** column is the load-bearing data — that's the cost of adding auditing to an existing save.
+
+| Provider | Batch | Without audit | With audit | **Time ratio** | **Alloc ratio** |
+|---|---:|---:|---:|---:|---:|
+| SQLite | 1 | 353 µs | 729 µs | 2.07× | 1.91× |
+| SQLite | 10 | 630 µs | 3.3 ms | 5.24× | 4.73× |
+| SQLite | 50 | 2.2 ms | 15.7 ms | 7.19× | 6.54× |
+| SQL Server | 1 | 9.9 ms | 11.7 ms | 1.18× | 1.42× |
+| SQL Server | 10 | 8.5 ms | 58.9 ms | 6.90× | 3.19× |
+| SQL Server | 50 | 56.3 ms | 295.4 ms | 5.25× | 5.59× |
+| PostgreSQL | 1 | 1.8 ms | 4.5 ms | 2.46× | 1.94× |
+| PostgreSQL | 10 | 3.9 ms | 53.6 ms | **14.0×** | 4.80× |
+| PostgreSQL | 50 | 4.1 ms | 110 ms | **26.7×** | 6.89× |
+
+> ⚠️ **PostgreSQL audit cost is disproportionately high at larger batch sizes** — see [issue #26](https://github.com/Chris-Wolfgang/EF-Audit/issues/26). Suspected cause: Npgsql doesn't batch INSERTs the way SqlClient does, so audit-pass round-trips compound. Tune Npgsql's `MaxBatchSize` if you hit this, or wait for a `COPY`-based bulk-insert path.
+
+### CI gating
+
+The [`benchmarks.yaml`](./.github/workflows/benchmarks.yaml) workflow runs the SQLite-only suite on every PR, fails the build if time or allocations regress beyond 2× the previous main-branch baseline, and auto-publishes the chart to [`gh-pages/dev/bench`](https://Chris-Wolfgang.github.io/EF-Audit/dev/bench/) on pushes to `main`. The multi-provider suite is opt-in (Docker required).
 
 ```bash
-dotnet run -c Release --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks -- --filter '*'
+# SQLite-only fast suite (no Docker required)
+dotnet run -c Release --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks -- \
+  --filter '*Wolfgang.Audit.Benchmarks.SaveChangesBenchmarks*'
+
+# Cross-RDBMS suite (Docker required for SQL Server + PostgreSQL)
+dotnet run -c Release --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks -- \
+  --filter '*ProviderSaveChangesBenchmarks*'
 ```
 
 ---
