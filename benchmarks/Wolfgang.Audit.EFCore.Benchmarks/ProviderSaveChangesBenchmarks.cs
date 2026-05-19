@@ -30,10 +30,11 @@ public enum BenchmarkProvider
 /// <remarks>
 /// <para>
 /// <strong>MySQL is intentionally excluded.</strong> Pomelo
-/// (<c>Pomelo.EntityFrameworkCore.MySql</c>) currently only ships stable for
-/// EF Core 8, but this benchmark project targets net10.0 / EF Core 10. Re-add
-/// once Pomelo ships a 10.x stable; the BenchmarkProvider enum just needs a
-/// MySQL value and the GlobalSetup switch needs the container wiring.
+/// (<c>Pomelo.EntityFrameworkCore.MySql</c>) ships stable for EF Core 8 and 9
+/// (latest stable as of 2026-05: <c>9.0.0</c>) but no EF Core 10 release yet,
+/// while this benchmark project targets net10.0 / EF Core 10. Re-add once
+/// Pomelo ships a 10.x stable; the BenchmarkProvider enum just needs a MySQL
+/// value and the GlobalSetup switch needs the container wiring.
 /// </para>
 /// <para>
 /// <strong>Docker required</strong> for SQL Server and PostgreSQL iterations
