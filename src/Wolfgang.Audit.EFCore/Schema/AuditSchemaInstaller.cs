@@ -40,6 +40,7 @@ public sealed class AuditSchemaInstaller
     /// let the consumer's migration pipeline handle the audit tables alongside its own.
     /// </para>
     /// </remarks>
+    [Obsolete("Use AuditingDbContext.MigrateAuditSchemaAsync (or AuditSchemaMigrator.RunAsync) — the new path uses EF Core's model differ + provider SQL generator, supports schema evolution, and creates only the audit tables instead of every table in the context's model.")]
     public Task CreateTablesAsync(DbContext context, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(context);

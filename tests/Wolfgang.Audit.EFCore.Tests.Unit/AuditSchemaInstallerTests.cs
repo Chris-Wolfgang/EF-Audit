@@ -16,8 +16,10 @@ public class AuditSchemaInstallerTests
 
         await using var context = fixture.CreateContext();
 
+#pragma warning disable CS0618 // Obsolete on purpose — covers the back-compat path until removed
         await installer.CreateTablesAsync(context);
         await installer.CreateTablesAsync(context);
+#pragma warning restore CS0618
 
         // The audited tables exist and the entity set is queryable.
         Assert.Empty(await context.Set<AuditHeader>().ToListAsync());

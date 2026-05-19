@@ -39,6 +39,15 @@ public abstract class AuditingDbContext : DbContext
 
 
     /// <summary>
+    /// Audit configuration applied to this context. Exposed so the schema
+    /// migrator can read schema and table-name overrides without going through
+    /// the model.
+    /// </summary>
+    public AuditOptions AuditOptions => _auditOptions;
+
+
+
+    /// <summary>
     /// Initializes a new <see cref="AuditingDbContext"/>.
     /// </summary>
     /// <param name="options">EF Core <see cref="DbContextOptions"/>.</param>
