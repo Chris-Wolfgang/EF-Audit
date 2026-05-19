@@ -1,7 +1,5 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.MsSql;
 using Wolfgang.Audit;
 using Wolfgang.Audit.Entities;
@@ -12,9 +10,9 @@ using Wolfgang.Audit.Serializers;
 // -------------------
 // Spins up a SQL Server container, restores the canonical AdventureWorks2022
 // sample database into it, then mutates a few realistic rows (rename a
-// salesperson, update an email, delete a contact). Prints the resulting audit
-// history so you can see exactly what the library captures against a real
-// production-style schema.
+// salesperson, update an email, insert + delete a secondary email). Prints
+// the resulting audit history so you can see exactly what the library captures
+// against a real production-style schema.
 //
 // Requires Docker. Run from the repo root:
 //   dotnet run --project examples/Wolfgang.Audit.EFCore.Example.AdventureWorks
@@ -23,18 +21,25 @@ using Wolfgang.Audit.Serializers;
 // .bak. Subsequent runs reuse the cached image so they're much faster.
 
 Console.WriteLine("📦 Starting SQL Server container + restoring AdventureWorks2022...");
-var container = new MsSqlBuilder()
+
+await using var container = new MsSqlBuilder()
     .WithImage("mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04")
     .Build();
 await container.StartAsync();
 await RestoreAdventureWorksAsync(container);
 
-var connStr = container.GetConnectionString().Replace("master", "AdventureWorks2022", StringComparison.Ordinal);
+// Switch InitialCatalog to AdventureWorks2022 via SqlConnectionStringBuilder
+// rather than string.Replace — safer (no risk of replacing substrings inside
+// the password or other values) and clearer about intent.
+var connStr = new SqlConnectionStringBuilder(container.GetConnectionString())
+{
+    InitialCatalog = "AdventureWorks2022",
+}.ConnectionString;
 
 var auditOptions = new AuditOptions
 {
-    Schema = "Audit",                      // keeps audit tables out of AdventureWorks's own schemas
-    ValueSerializer = new StringAuditValueSerializer(),
+    Schema              = "Audit",          // keeps audit tables out of AdventureWorks's own schemas
+    ValueSerializer     = new StringAuditValueSerializer(),
     EntityKeySerializer = new PipeDelimitedEntityKeySerializer(),
 };
 IAuditUserProvider userProvider = new StaticAuditUserProvider("hr-admin@adventure-works.com");
@@ -43,11 +48,8 @@ var dbOptions = new DbContextOptionsBuilder<AdventureWorksContext>()
     .UseSqlServer(connStr)
     .Options;
 
-// One-time: create the audit tables.
-await using (var setup = new AdventureWorksContext(dbOptions, userProvider, auditOptions))
-{
-    await CreateAuditTablesAsync(setup);
-}
+// One-time: create the audit tables (and only the audit tables).
+await CreateAuditTablesAsync(connStr, auditOptions);
 
 // 1. Update — a salesperson gets married and changes her last name.
 Console.WriteLine();
@@ -61,9 +63,9 @@ await using (var ctx = new AdventureWorksContext(dbOptions, userProvider, auditO
     Console.WriteLine($"  After:  {ken.FirstName} {ken.MiddleName} {ken.LastName}");
 }
 
-// 2. Update — change the email address for that same person.
+// 2. Update — change the primary email for that same person.
 Console.WriteLine();
-Console.WriteLine("📧  Updating their email...");
+Console.WriteLine("📧  Updating their primary email...");
 await using (var ctx = new AdventureWorksContext(dbOptions, userProvider, auditOptions))
 {
     var email = await ctx.EmailAddresses.FirstAsync(e => e.BusinessEntityID == 1);
@@ -73,28 +75,28 @@ await using (var ctx = new AdventureWorksContext(dbOptions, userProvider, auditO
     Console.WriteLine($"  After:  {email.EmailAddress1}");
 }
 
-// 3. Insert + immediate delete — onboard, then offboard, a contractor.
+// 3. Insert + immediate delete — add then remove a secondary email for that
+// same person. We use EmailAddress rather than Person because EmailAddress's
+// only FK is to an existing BusinessEntity (Person 1 already exists), so the
+// insert won't trip AdventureWorks's FK constraints. EmailAddressID is an
+// identity column in the real schema (configured in OnModelCreating), so SQL
+// Server assigns the key on insert.
 Console.WriteLine();
-Console.WriteLine("👤  Onboarding then immediately offboarding a contractor...");
-int newPersonId;
+Console.WriteLine("➕  Adding then immediately removing a secondary email...");
 await using (var ctx = new AdventureWorksContext(dbOptions, userProvider, auditOptions))
 {
-    // Pick an unused BusinessEntityID. AdventureWorks's max is ~20000 — using 99999 here.
-    var contractor = new Person
+    var secondary = new EmailAddress
     {
-        BusinessEntityID = 99999,
-        PersonType = "GC",                         // General Contact
-        FirstName = "Temp",
-        LastName = "Contractor",
+        BusinessEntityID = 1,
+        EmailAddress1    = "ken.alt@adventure-works.com",
     };
-    ctx.People.Add(contractor);
+    ctx.EmailAddresses.Add(secondary);
     await ctx.SaveChangesAsync();
-    newPersonId = contractor.BusinessEntityID;
-    Console.WriteLine($"  Onboarded BusinessEntityID={newPersonId}");
+    Console.WriteLine($"  Added secondary email id={secondary.EmailAddressID}");
 
-    ctx.People.Remove(contractor);
+    ctx.EmailAddresses.Remove(secondary);
     await ctx.SaveChangesAsync();
-    Console.WriteLine($"  Offboarded BusinessEntityID={newPersonId}");
+    Console.WriteLine($"  Removed secondary email id={secondary.EmailAddressID}");
 }
 
 // 4. Print the resulting audit history for those rows.
@@ -137,7 +139,8 @@ await using (var ctx = new AdventureWorksContext(dbOptions, userProvider, auditO
 Console.WriteLine();
 Console.WriteLine($"✅  Done — {auditRowCount} audit rows captured atomically with the user data.");
 
-await container.DisposeAsync();
+// container is disposed via `await using` at top — DisposeAsync runs even on
+// exception, keeping the SQL Server container from leaking.
 
 
 
@@ -170,12 +173,17 @@ static async Task RestoreAdventureWorksAsync(MsSqlContainer container)
                REPLACE;
     ";
 
+    // Pull the SA password out of the container's own connection string so it
+    // stays in sync if Testcontainers changes its default and so no credential
+    // literal sits in source for secret scanners to flag.
+    var saPassword = new SqlConnectionStringBuilder(container.GetConnectionString()).Password;
+
     var restore = await container.ExecAsync(new[]
     {
         "/opt/mssql-tools18/bin/sqlcmd",
         "-S", "localhost",
         "-U", "sa",
-        "-P", "yourStrong(!)Password",
+        "-P", saPassword,
         "-No",
         "-Q", sql,
     });
@@ -187,14 +195,28 @@ static async Task RestoreAdventureWorksAsync(MsSqlContainer container)
 
 
 
-static async Task CreateAuditTablesAsync(AdventureWorksContext context)
+static async Task CreateAuditTablesAsync(string connectionString, AuditOptions options)
 {
-    // Use the consumer's preferred installer. For brevity we go through the
-    // RelationalModelCreator EnsureCreated() path here, scoped to just the
-    // audit tables. In production you'd call AuditSchemaInstaller.CreateTablesAsync.
-    await context.Database.ExecuteSqlRawAsync("IF SCHEMA_ID('Audit') IS NULL EXEC('CREATE SCHEMA [Audit]')");
-    var creator = (IRelationalDatabaseCreator)context.GetInfrastructure().GetRequiredService<IDatabaseCreator>();
-    await creator.CreateTablesAsync();
+    // Use an audit-only DbContext so EnsureCreatedAsync emits CREATE TABLE for
+    // *just* AuditHeader / AuditDetail. Running this against AdventureWorksContext
+    // (which also has Person + EmailAddress) would try to create those tables
+    // too and fail because the restored .bak already has them.
+    //
+    // The schema is created up-front because EnsureCreatedAsync won't create the
+    // schema itself, only the tables under it. The schema name is read from the
+    // supplied options.Schema so it stays in sync with whatever the consumer
+    // configured rather than being hard-coded here.
+    var schema   = options.Schema ?? "dbo";
+    var setupOpts = new DbContextOptionsBuilder<AuditOnlyContext>()
+        .UseSqlServer(connectionString)
+        .Options;
+
+    await using var setup = new AuditOnlyContext(setupOpts, options);
+#pragma warning disable EF1002 // Schema name comes from in-process AuditOptions, not user input.
+    await setup.Database.ExecuteSqlRawAsync(
+        $"IF SCHEMA_ID('{schema}') IS NULL EXEC('CREATE SCHEMA [{schema}]')");
+#pragma warning restore EF1002
+    await setup.Database.EnsureCreatedAsync();
 }
 
 

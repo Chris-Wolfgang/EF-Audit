@@ -51,6 +51,9 @@ public class AdventureWorksContext : AuditingDbContext
         {
             b.ToTable("EmailAddress", "Person");
             b.HasKey(e => new { e.BusinessEntityID, e.EmailAddressID });
+            // EmailAddressID is identity in the real AdventureWorks schema —
+            // let SQL Server assign it on insert so demo rows don't collide.
+            b.Property(e => e.EmailAddressID).ValueGeneratedOnAdd();
             b.Property(e => e.EmailAddress1)
                 .HasColumnName("EmailAddress")
                 .HasMaxLength(50);
