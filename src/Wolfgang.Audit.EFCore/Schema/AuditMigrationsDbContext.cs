@@ -1,4 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+#if NET8_0_OR_GREATER
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+#endif
 
 namespace Wolfgang.Audit.Schema;
 
@@ -38,6 +42,24 @@ public sealed class AuditMigrationsDbContext : DbContext
     {
         Options = options ?? throw new ArgumentNullException(nameof(options));
     }
+
+
+
+#if NET8_0_OR_GREATER
+    /// <summary>
+    /// Replaces the default <see cref="IModelCacheKeyFactory"/> with one that
+    /// folds <see cref="AuditOptions.Schema"/> / <see cref="AuditOptions.HeaderTableName"/>
+    /// / <see cref="AuditOptions.DetailTableName"/> into the cache key. Without
+    /// this, two contexts with different table-name overrides would share the
+    /// first instance's cached model and route DDL + queries to the wrong tables.
+    /// </summary>
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        ArgumentNullException.ThrowIfNull(optionsBuilder);
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.ReplaceService<IModelCacheKeyFactory, AuditMigrationsModelCacheKeyFactory>();
+    }
+#endif
 
 
 
