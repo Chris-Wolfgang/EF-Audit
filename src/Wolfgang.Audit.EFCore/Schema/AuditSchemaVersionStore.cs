@@ -34,11 +34,13 @@ internal static class AuditSchemaVersionStore
 
             return row?.Version ?? 0;
         }
-        catch (DbException)
+        catch (DbException ex) when (TableNotFoundIndicators.IsTableNotFound(ex))
         {
-            // Table doesn't exist yet — treat as a fresh install. The narrowest
-            // exception type that every provider's ADO.NET layer surfaces for
-            // "object not found"; broader handler would mask real errors.
+            // Version table doesn't exist yet — treat as a fresh install. We
+            // only swallow the narrow "table not found" case; permission
+            // denied, network errors, or malformed SQL still propagate so a
+            // misconfigured environment fails loudly instead of pretending the
+            // schema is missing.
             return 0;
         }
     }

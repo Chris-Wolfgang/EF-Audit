@@ -63,11 +63,78 @@ public sealed class AuditSchemaMigratorTests : IDisposable
             await AuditSchemaMigrator.RunAsync(context);
         }
 
+        var tables = await GetSqliteTableNamesAsync();
+        Assert.Contains("AuditHeader", tables, StringComparer.Ordinal);
+        Assert.Contains("AuditDetail", tables, StringComparer.Ordinal);
+        Assert.Contains(AuditSchemaConstants.VersionTableName, tables, StringComparer.Ordinal);
+
         await using var verify = CreateContext();
-        Assert.Empty(await verify.Set<Entities.AuditHeader>().ToListAsync());
-        Assert.Empty(await verify.Set<Entities.AuditDetail>().ToListAsync());
         var version = await verify.Set<AuditSchemaVersion>().SingleAsync();
         Assert.Equal(AuditSchemaConstants.CurrentSchemaVersion, version.Version);
+    }
+
+
+
+    [Fact]
+    public async Task ModelCacheKey_distinguishes_contexts_by_table_name_overrides()
+    {
+        // Two contexts on different connections / table names. Without the
+        // AuditMigrationsModelCacheKeyFactory the second would reuse the first's
+        // cached model and the migrator would generate DDL for the wrong table
+        // names.
+        var defaultOpts = new AuditOptions
+        {
+            ValueSerializer     = new StringAuditValueSerializer(),
+            EntityKeySerializer = new PipeDelimitedEntityKeySerializer(),
+        };
+        var customOpts = new AuditOptions
+        {
+            HeaderTableName     = "CustomHeader",
+            DetailTableName     = "CustomDetail",
+            ValueSerializer     = new StringAuditValueSerializer(),
+            EntityKeySerializer = new PipeDelimitedEntityKeySerializer(),
+        };
+
+        using var connA = new SqliteConnection("DataSource=:memory:");
+        connA.Open();
+        using var connB = new SqliteConnection("DataSource=:memory:");
+        connB.Open();
+
+        await using (var a = new AuditMigrationsDbContext(
+            new DbContextOptionsBuilder<AuditMigrationsDbContext>().UseSqlite(connA).Options,
+            defaultOpts))
+        {
+            await AuditSchemaMigrator.RunAsync(a);
+        }
+        await using (var b = new AuditMigrationsDbContext(
+            new DbContextOptionsBuilder<AuditMigrationsDbContext>().UseSqlite(connB).Options,
+            customOpts))
+        {
+            await AuditSchemaMigrator.RunAsync(b);
+        }
+
+        var tablesA = await ReadTableNamesAsync(connA);
+        var tablesB = await ReadTableNamesAsync(connB);
+
+        Assert.Contains("AuditHeader", tablesA, StringComparer.Ordinal);
+        Assert.Contains("CustomHeader", tablesB, StringComparer.Ordinal);
+        Assert.DoesNotContain("CustomHeader", tablesA, StringComparer.Ordinal);
+        Assert.DoesNotContain("AuditHeader", tablesB, StringComparer.Ordinal);
+    }
+
+
+
+    private static async Task<List<string>> ReadTableNamesAsync(SqliteConnection connection)
+    {
+        var tables = new List<string>();
+        await using var cmd = connection.CreateCommand();
+        cmd.CommandText = "SELECT name FROM sqlite_master WHERE type='table'";
+        await using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            tables.Add(reader.GetString(0));
+        }
+        return tables;
     }
 
 
@@ -125,12 +192,21 @@ public sealed class AuditSchemaMigratorTests : IDisposable
             await AuditSchemaMigrator.RunAsync(context);
         }
 
-        await using var verify = CreateContext();
-        // If table-name overrides flowed into the diff, the entity sets will
-        // resolve. If they didn't, EF would still talk to MyHeader/MyDetail and
-        // get "no such table" because the migrator created AuditHeader/AuditDetail.
-        Assert.Empty(await verify.Set<Entities.AuditHeader>().ToListAsync());
-        Assert.Empty(await verify.Set<Entities.AuditDetail>().ToListAsync());
+        // Query SQLite's own metadata directly so the assertion proves the
+        // tables were created with the overridden names; querying the entity
+        // sets here would let an EF model cache silently route to AuditHeader /
+        // AuditDetail and pass for the wrong reason.
+        var tables = await GetSqliteTableNamesAsync();
+
+        Assert.Contains("MyHeader", tables, StringComparer.Ordinal);
+        Assert.Contains("MyDetail", tables, StringComparer.Ordinal);
+        Assert.Contains(AuditSchemaConstants.VersionTableName, tables, StringComparer.Ordinal);
+        Assert.DoesNotContain("AuditHeader", tables, StringComparer.Ordinal);
+        Assert.DoesNotContain("AuditDetail", tables, StringComparer.Ordinal);
     }
+
+
+
+    private Task<List<string>> GetSqliteTableNamesAsync() => ReadTableNamesAsync(_connection);
 }
 #endif
