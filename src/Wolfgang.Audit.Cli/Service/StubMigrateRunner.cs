@@ -1,3 +1,4 @@
+using System.Reflection;
 using McMaster.Extensions.CommandLineUtils;
 using Wolfgang.Audit.Cli.Model;
 
@@ -19,8 +20,12 @@ internal sealed class StubMigrateRunner : IMigrateRunner
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(console);
 
+        // Read from the assembly so the stub greeting tracks the real csproj
+        // <Version>; otherwise the embedded literal drifts every release.
+        var version = typeof(StubMigrateRunner).Assembly.GetName().Version?.ToString() ?? "unknown";
+
 #pragma warning disable CA1849, VSTHRD103 // McMaster IConsole has no async overloads
-        console.WriteLine($"audit migrate (stub — v1.0; real runner ships with Wolfgang.Audit.EFCore.Migrations.*)");
+        console.WriteLine($"audit migrate (stub — v{version}; real runner ships with Wolfgang.Audit.EFCore.Migrations.*)");
         console.WriteLine($"  Provider:      {options.Provider}");
         console.WriteLine($"  Schema:        {options.Schema ?? "<provider default>"}");
         console.WriteLine($"  Header table:  {options.HeaderTableName}");
