@@ -8,13 +8,13 @@
             "commandName": "Project",
             "commandLineArgs": "-?"
         },
-        "sample -?": {
+        "migrate -?": {
             "commandName": "Project",
-            "commandLineArgs": "sample -?"
+            "commandLineArgs": "migrate -?"
         },
-        "sample": {
+        "migrate --dry-run": {
             "commandName": "Project",
-            "commandLineArgs": "sample appsettings.json output.txt"
+            "commandLineArgs": "migrate -c \"Server=(localdb)\\MSSQLLocalDB;Database=auditdemo;Trusted_Connection=True;\" --provider sqlserver --dry-run"
         }
     }
 }

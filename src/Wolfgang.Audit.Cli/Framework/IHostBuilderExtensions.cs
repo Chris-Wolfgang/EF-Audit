@@ -1,91 +1,68 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace Wolfgang.Audit.Cli.Framework
+namespace Wolfgang.Audit.Cli.Framework;
+
+
+
+internal enum ConfigurationFileMethod
 {
-    internal enum ConfigurationFileMethod
+    SingleFile,
+}
+
+
+
+// ReSharper disable once InconsistentNaming
+internal static class IHostBuilderExtensions
+{
+    /// <summary>
+    /// Adds <c>AppSettings.json</c> to the host's configuration, layered with
+    /// environment variables on top.
+    /// </summary>
+    /// <param name="builder">Host builder to extend.</param>
+    /// <param name="method">
+    /// Which file-loading strategy to use. Only <see cref="ConfigurationFileMethod.SingleFile"/>
+    /// is supported today; the enum is kept so a future per-environment overlay
+    /// can be wired in without changing call sites.
+    /// </param>
+    /// <param name="optional">Whether the JSON file is required to exist.</param>
+    /// <param name="reloadOnChange">Whether to re-read the file when it changes on disk.</param>
+    /// <exception cref="ArgumentNullException">If <paramref name="builder"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">If <paramref name="method"/> is not a recognised value.</exception>
+    public static IHostBuilder AddConfigurationFile
+    (
+        this IHostBuilder builder,
+        ConfigurationFileMethod method,
+        bool optional = false,
+        bool reloadOnChange = false
+    )
     {
-        SingleFile,
-        OneFilePerEnvironment
+        ArgumentNullException.ThrowIfNull(builder);
+
+        return method switch
+        {
+            ConfigurationFileMethod.SingleFile => AddSingleConfigFile(builder, optional, reloadOnChange),
+            _ => throw new ArgumentOutOfRangeException(nameof(method), method, null),
+        };
     }
 
 
 
-    internal static class IHostBuilderExtensions
+    private static IHostBuilder AddSingleConfigFile
+    (
+        IHostBuilder builder,
+        bool optional,
+        bool reloadOnChange
+    )
     {
-        /// <summary>
-        /// Adds a configuration file to the host builder.
-        /// </summary>
-        /// <param name="builder"> </param>
-        /// <param name="method"> </param>
-        /// <param name="optional" ></param>
-        /// <param name="reloadOnChange"> </param>
-        /// <returns>IHostBuilder</returns>
-        /// <exception cref="ArgumentNullException">builder is null</exception>
-        /// <exception cref="ArgumentOutOfRangeException">method was not a valid value</exception>
-        public static IHostBuilder AddConfigurationFile
-        (
-            this IHostBuilder builder, 
-            ConfigurationFileMethod method,
-            bool optional = false,
-            bool reloadOnChange = false
-        )
+        builder.ConfigureAppConfiguration((context, configurationBuilder) =>
         {
-            ArgumentNullException.ThrowIfNull(builder);
+            configurationBuilder
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("AppSettings.json", optional, reloadOnChange)
+                .AddEnvironmentVariables();
+        });
 
-            return method switch
-            {
-                ConfigurationFileMethod.SingleFile => AddSingleConfigFile(builder, optional, reloadOnChange),
-                ConfigurationFileMethod.OneFilePerEnvironment => AddConfigFileForEnvironment(builder, optional, reloadOnChange),
-                _ => throw new ArgumentOutOfRangeException(nameof(method), method, null)
-            };
-        }
-
-
-
-        private static IHostBuilder AddSingleConfigFile
-        (
-            this IHostBuilder builder,
-            bool optional,
-            bool reloadOnChange 
-        )
-         {
-            builder
-                .ConfigureAppConfiguration((context, configurationBuilder) =>
-                {
-                    configurationBuilder
-                        .SetBasePath(AppContext.BaseDirectory)
-                        .AddJsonFile("AppSettings.json", optional, reloadOnChange)
-                        .AddEnvironmentVariables();
-                });
-
-            return builder;
-        }
-
-
-
-        private static IHostBuilder AddConfigFileForEnvironment
-            (
-                this IHostBuilder builder,
-                bool optional,
-                bool reloadOnChange
-            )
-        {
-            var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
-            if (string.IsNullOrWhiteSpace(environment))
-            {
-                Environment.FailFast("System variable DOTNET_ENVIRONMENT is not set.");
-            }
-
-            builder
-                .ConfigureAppConfiguration((context, configurationBuilder) =>
-                {
-                    configurationBuilder
-                        .SetBasePath(AppContext.BaseDirectory)
-                        .AddJsonFile($"AppSettings.{environment}.json", optional, reloadOnChange)
-                        .AddEnvironmentVariables();
-                });
-            return builder;
-        }
+        return builder;
     }
 }

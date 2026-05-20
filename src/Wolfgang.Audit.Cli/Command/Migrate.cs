@@ -46,7 +46,7 @@ internal class Migrate
         IMigrateRunner runner
     )
     {
-        logger.LogDebug("Starting {command}", GetType().Name);
+        logger.LogDebug("Starting {Command}", GetType().Name);
 
         try
         {
@@ -67,13 +67,40 @@ internal class Migrate
             return ExitCode.ApplicationError;
         }
 
-        logger.LogDebug("Completed {command}", GetType().Name);
+        logger.LogDebug("Completed {Command}", GetType().Name);
         return ExitCode.Success;
     }
 
 
 
     private MigrateOptions? ResolveOptions(IConsole console)
+    {
+        var connectionString = ResolveConnectionString(console);
+        if (connectionString is null)
+        {
+            return null;
+        }
+
+        var provider = ResolveProvider(console, connectionString);
+        if (provider is null)
+        {
+            return null;
+        }
+
+        return new MigrateOptions
+        (
+            ConnectionString:  connectionString,
+            Provider:          provider.Value,
+            Schema:            string.IsNullOrWhiteSpace(Schema) ? null : Schema,
+            HeaderTableName:   HeaderTable,
+            DetailTableName:   DetailTable,
+            DryRun:            DryRun
+        );
+    }
+
+
+
+    private string? ResolveConnectionString(IConsole console)
     {
         var connectionString = ConnectionString;
         if (!string.IsNullOrWhiteSpace(ConnectionStringEnv))
@@ -103,34 +130,49 @@ internal class Migrate
             return null;
         }
 
-        var provider = !string.IsNullOrWhiteSpace(Provider)
-            ? Provider.ToUpperInvariant() switch
+        return connectionString;
+    }
+
+
+
+    private DatabaseProvider? ResolveProvider(IConsole console, string connectionString)
+    {
+        if (!string.IsNullOrWhiteSpace(Provider))
+        {
+            var explicitProvider = Provider.ToUpperInvariant() switch
             {
                 "SQLSERVER" or "MSSQL" => DatabaseProvider.SqlServer,
                 "POSTGRESQL" or "POSTGRES" or "PG" => DatabaseProvider.PostgreSql,
                 "MYSQL" => DatabaseProvider.MySql,
                 "SQLITE" => DatabaseProvider.Sqlite,
                 _ => DatabaseProvider.Unknown,
-            }
-            : DetectProvider(connectionString);
+            };
 
-        if (provider == DatabaseProvider.Unknown)
+            if (explicitProvider == DatabaseProvider.Unknown)
+            {
+#pragma warning disable CA1849, VSTHRD103
+                console.Error.WriteLine(
+                    $"Error: unrecognized provider '{Provider}'. " +
+                    "Valid values: sqlserver, postgresql, mysql, sqlite.");
+#pragma warning restore CA1849, VSTHRD103
+                return null;
+            }
+
+            return explicitProvider;
+        }
+
+        var detected = DetectProvider(connectionString);
+        if (detected == DatabaseProvider.Unknown)
         {
 #pragma warning disable CA1849, VSTHRD103
-            console.Error.WriteLine("Error: could not auto-detect provider from the connection string. Specify --provider explicitly (sqlserver|postgresql|mysql|sqlite).");
+            console.Error.WriteLine(
+                "Error: could not auto-detect provider from the connection string. " +
+                "Specify --provider explicitly (sqlserver|postgresql|mysql|sqlite).");
 #pragma warning restore CA1849, VSTHRD103
             return null;
         }
 
-        return new MigrateOptions
-        (
-            ConnectionString:  connectionString!,
-            Provider:          provider,
-            Schema:            string.IsNullOrWhiteSpace(Schema) ? null : Schema,
-            HeaderTableName:   HeaderTable,
-            DetailTableName:   DetailTable,
-            DryRun:            DryRun
-        );
+        return detected;
     }
 
 
