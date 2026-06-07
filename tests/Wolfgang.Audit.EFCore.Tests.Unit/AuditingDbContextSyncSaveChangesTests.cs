@@ -184,6 +184,27 @@ public class AuditingDbContextSyncSaveChangesTests
 
 
     [Fact]
+    public async Task SaveChangesAsync_when_user_transaction_already_open_runs_inline_and_respects_consumer_commit()
+    {
+        // Async counterpart to the sync version above. Drives the
+        // `Database.CurrentTransaction is not null` branch in SaveChangesAsync.
+        using var fixture = new AuditFixture();
+
+        await using (var context = fixture.CreateContext())
+        {
+            await using var tx = await context.Database.BeginTransactionAsync();
+            context.Customers.Add(new Customer { Name = "Alice", Email = "a@example.com" });
+            await context.SaveChangesAsync();
+            await tx.CommitAsync();
+        }
+
+        await using var verify = fixture.CreateContext();
+        Assert.Single(await verify.Set<AuditHeader>().ToListAsync());
+    }
+
+
+
+    [Fact]
     public void SaveChanges_when_user_transaction_rolled_back_writes_nothing()
     {
         using var fixture = new AuditFixture();

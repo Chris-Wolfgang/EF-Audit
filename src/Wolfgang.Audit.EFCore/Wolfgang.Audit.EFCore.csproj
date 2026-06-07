@@ -30,6 +30,17 @@
     <ProjectReference Include="..\Wolfgang.Audit.Abstractions\Wolfgang.Audit.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!--
+      InternalsVisibleTo for unit tests. SDK csproj doesn't natively support
+      <InternalsVisibleTo Include="..."/> — emit the attribute via the
+      AssemblyAttribute item the SDK targets understand.
+    -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Wolfgang.Audit.EFCore.Tests.Unit</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <!--
       EF Core 6.0.36 is the latest patched release of the 6.x LTS line. Earlier
