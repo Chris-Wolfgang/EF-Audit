@@ -183,7 +183,8 @@ internal class Migrate
 
         if (lower.Contains("filename=", StringComparison.Ordinal)
             || lower.Contains(".sqlite", StringComparison.Ordinal)
-            || lower.Contains(".db;", StringComparison.Ordinal))
+            || lower.Contains(".db;", StringComparison.Ordinal)
+            || lower.EndsWith(".db", StringComparison.Ordinal))
         {
             return DatabaseProvider.Sqlite;
         }
