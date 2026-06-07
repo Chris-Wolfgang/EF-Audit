@@ -12,6 +12,21 @@
     
     <!-- Treat warnings as errors in Release builds -->
     <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+
+    <!--
+      NuGet package quality knobs (apply to every project; only packable ones
+      actually emit .nupkg / .snupkg). Required for SourceLink + reproducible
+      build + symbol packages.
+    -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Deterministic>true</Deterministic>
+    <!-- ContinuousIntegrationBuild gets set automatically by GitHub Actions
+         via the matching env var; setting it here would clobber that. -->
+
+    <!-- Modern .snupkg symbol packages, not legacy .symbols.nupkg. -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
@@ -52,6 +67,17 @@
 
     <!-- SonarAnalyzer - Industry-standard analysis -->
     <PackageReference Include="SonarAnalyzer.CSharp" Version="10.25.0.139117">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <!--
+      SourceLink — embeds source-fetch metadata into the .pdb so consumers can
+      step into our source from their debugger. GitHub host => GitHub source.
+      Marked PrivateAssets=All so the package doesn't show up as a transitive
+      dependency of our consumers.
+    -->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
