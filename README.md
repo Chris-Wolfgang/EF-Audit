@@ -4,6 +4,9 @@ An EF Core change-tracking library. Derive your `DbContext` from `AuditingDbCont
 
 The header/detail-per-column schema is the same shape that [Z.EntityFramework.Plus.Audit](https://entityframework-plus.net/ef-core-audit) and the [ABP Framework auditing](https://abp.io/docs/latest/framework/infrastructure/audit-logging) use — chosen for queryability ("every change to `Customer.Email` ever") over the more common JSON-blob-per-change shape (Audit.NET, EntityFrameworkCore.AutoHistory).
 
+[![PR Checks](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/pr.yaml/badge.svg)](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/pr.yaml)
+[![CodeQL](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/codeql.yaml/badge.svg)](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/codeql.yaml)
+[![Benchmarks](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/benchmarks.yaml/badge.svg)](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/benchmarks.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-6.0%20%7C%208.0%20%7C%2010.0-purple.svg)](https://dotnet.microsoft.com/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/Chris-Wolfgang/EF-Audit)
