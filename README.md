@@ -173,7 +173,7 @@ Numbers below are from a local run on a single 14700HX laptop; absolute values v
 | PostgreSQL | 10 | 3.9 ms | 53.6 ms | **14.0×** | 4.80× |
 | PostgreSQL | 50 | 4.1 ms | 110 ms | **26.7×** | 6.89× |
 
-> ⚠️ **PostgreSQL audit cost is disproportionately high at larger batch sizes** — see [issue #26](https://github.com/Chris-Wolfgang/EF-Audit/issues/26). Suspected cause: Npgsql doesn't batch INSERTs the way SqlClient does, so audit-pass round-trips compound. Tune Npgsql's `MaxBatchSize` if you hit this, or wait for a `COPY`-based bulk-insert path.
+> ⚠️ **PostgreSQL audit cost is disproportionately high at larger batch sizes.** The fix is consumer-side: pass `MaxBatchSize(100)` to your `UseNpgsql(...)` call. See [`docs/POSTGRES-PERFORMANCE.md`](./docs/POSTGRES-PERFORMANCE.md) for the recipe, the mechanism (Npgsql batches INSERTs less aggressively than SqlClient out-of-the-box), and benchmark numbers. Tracked: [#26](https://github.com/Chris-Wolfgang/EF-Audit/issues/26).
 
 ### CI gating
 
