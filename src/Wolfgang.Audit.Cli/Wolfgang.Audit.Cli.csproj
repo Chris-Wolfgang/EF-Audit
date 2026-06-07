@@ -37,6 +37,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Wolfgang.Audit.EFCore\Wolfgang.Audit.EFCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--
+      Per-provider EF Core packages. Each one supplies its IMigrationsSqlGenerator
+      so the same AuditSchemaMigrator works against every RDBMS we list.
+      Adding a new provider (Oracle, DB2, …) is one PackageReference here plus
+      one switch arm in SchemaMigrateRunner.BuildDbContextOptions.
+    -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+    <!--
+      MySQL: deferred. Pomelo.EntityFrameworkCore.MySql 9.0.0 is the latest
+      stable and caps at EF Core 9.x; the rest of this CLI is on EF Core 10.
+      Re-enable when Pomelo ships 10.x (or switch to MySql.EntityFrameworkCore
+      if Oracle's provider proves a viable swap). Tracked: integration tests
+      and benchmarks still cover MySQL via the net8.0-pinned projects.
+    -->
+    <!-- <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" /> -->
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="5.1.0" />
     <PackageReference Include="McMaster.Extensions.Hosting.CommandLine" Version="5.1.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
