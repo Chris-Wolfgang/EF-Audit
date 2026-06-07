@@ -48,7 +48,12 @@ public static class DbContextAuditSchemaExtensions
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        var sourceOptions = context.GetService<DbContextOptions>();
+        // IDbContextOptions is the interface EF Core's internal container
+        // always registers; the concrete DbContextOptions is only resolvable
+        // when the context was built through AddDbContext (it gets registered
+        // as part of that pipeline). Going through the interface works for
+        // both new-up'd contexts and DI-provided ones.
+        var sourceOptions = context.GetService<IDbContextOptions>();
         var builder       = new DbContextOptionsBuilder<AuditMigrationsDbContext>();
 
         // Carry over only the provider-specific relational extension (the one
