@@ -1,0 +1,141 @@
+# Code-coverage trend chart published to gh-pages/dev/coverage.
+#
+# Mirrors the security model used by benchmarks.yaml:
+#   - PR runs: read-only on contents; the workflow only generates the
+#     coverage report for the PR's own CI summary. It does NOT push.
+#   - Push-to-main runs: contents:write so the generated HTML report
+#     can be auto-pushed to gh-pages/dev/coverage. Trusted: main-branch
+#     code only.
+#
+# Reporting tool: ReportGenerator (danielpalme/ReportGenerator) which
+# converts cobertura.xml → static HTML + history trend.
+#
+# Why this is separate from pr.yaml (which already collects coverage):
+#   pr.yaml's coverage step is a gate (≥ 90% required), not a publisher.
+#   It runs as part of the matrix and would fan out to N artifacts. This
+#   workflow runs once per push, generates a single merged report, and
+#   publishes the chart.
+
+name: Coverage
+
+on:
+  pull_request:
+    branches:
+      - main
+      - initial-dev
+  push:
+    branches:
+      - main
+      - initial-dev
+  workflow_dispatch:
+
+# Default least-privilege; per-job permissions override below.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # PR runs: collect coverage, generate the HTML report as a workflow artifact.
+  # Read-only on contents — no gh-pages push.
+  # ---------------------------------------------------------------------------
+  coverage-pr:
+    if: github.event_name == 'pull_request'
+    name: Coverage report (PR, artifact only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Run tests with coverage
+        run: |
+          dotnet test \
+            tests/Wolfgang.Audit.EFCore.Tests.Unit/Wolfgang.Audit.EFCore.Tests.Unit.csproj \
+            --configuration Release \
+            --framework net10.0 \
+            --collect:"XPlat Code Coverage" \
+            --logger "console;verbosity=minimal" \
+            --results-directory ./TestResults
+
+      - name: Generate HTML coverage report
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.0
+        with:
+          reports: '**/coverage.cobertura.xml'
+          targetdir: 'coverage-report'
+          reporttypes: 'Html;TextSummary;Badges'
+          assemblyfilters: '+Wolfgang.Audit.*;-*.Tests.*;-*.Benchmarks*'
+
+      - name: Upload report as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage-report
+          retention-days: 14
+
+  # ---------------------------------------------------------------------------
+  # Push-to-main runs: same generation, then publish to gh-pages/dev/coverage.
+  # ---------------------------------------------------------------------------
+  coverage-publish:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    name: Coverage report + publish to gh-pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Run tests with coverage
+        run: |
+          dotnet test \
+            tests/Wolfgang.Audit.EFCore.Tests.Unit/Wolfgang.Audit.EFCore.Tests.Unit.csproj \
+            --configuration Release \
+            --framework net10.0 \
+            --collect:"XPlat Code Coverage" \
+            --logger "console;verbosity=minimal" \
+            --results-directory ./TestResults
+
+      - name: Generate HTML coverage report
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.0
+        with:
+          reports: '**/coverage.cobertura.xml'
+          targetdir: 'coverage-report'
+          # History accumulates trend points so consecutive runs show a chart.
+          historydir: 'coverage-history'
+          reporttypes: 'Html;TextSummary;Badges'
+          assemblyfilters: '+Wolfgang.Audit.*;-*.Tests.*;-*.Benchmarks*'
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e  # v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: coverage-report
+          publish_branch: gh-pages
+          destination_dir: dev/coverage
+          keep_files: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'docs: coverage report for ${{ github.sha }}'
