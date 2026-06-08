@@ -41,6 +41,22 @@
     </AssemblyAttribute>
   </ItemGroup>
 
+  <!--
+    PublicApiAnalyzers: track the public API surface to catch unintended
+    additions/changes. Scoped to the net10.0 TFM only because EFCore's
+    Schema/* feature set is gated on NET8_0_OR_GREATER, so the net6 surface
+    is a strict subset of net10's. Maintaining per-TFM PublicAPI files isn't
+    worth the bookkeeping when the net10 build covers every symbol.
+  -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <!--
       EF Core 6.0.36 is the latest patched release of the 6.x LTS line. Earlier

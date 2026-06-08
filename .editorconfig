@@ -354,6 +354,20 @@ dotnet_diagnostic.SA1600.severity = warning
 dotnet_diagnostic.SA1601.severity = warning
 dotnet_diagnostic.SA1602.severity = warning
 
+# PublicApiAnalyzers — enforce the PublicAPI.{Shipped,Unshipped}.txt files
+# on every src project so accidental public-API additions / changes get
+# caught at build time. Release builds (which set TreatWarningsAsErrors)
+# turn these into hard failures.
+dotnet_diagnostic.RS0016.severity = warning   # Missing declared API
+dotnet_diagnostic.RS0017.severity = warning   # Declared API not present
+dotnet_diagnostic.RS0024.severity = warning   # API file is empty or invalid
+dotnet_diagnostic.RS0025.severity = warning   # Duplicated declared API entry
+dotnet_diagnostic.RS0026.severity = warning   # Removed declared API
+dotnet_diagnostic.RS0027.severity = warning   # Public API with optional parameter(s)
+dotnet_diagnostic.RS0036.severity = warning   # Annotate nullability on declared API
+dotnet_diagnostic.RS0037.severity = warning   # Enable nullability in PublicAPI files
+dotnet_diagnostic.RS0041.severity = warning   # Public members should not use oblivious types
+
 # Library code should preserve synchronization context by default
 # Consumers decide whether to use ConfigureAwait(false) when calling library methods
 dotnet_diagnostic.MA0004.severity = none     # Meziantou: Use ConfigureAwait
