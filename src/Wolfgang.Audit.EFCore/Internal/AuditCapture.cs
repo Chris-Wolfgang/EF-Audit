@@ -32,47 +32,71 @@ internal static class AuditCapture
 
         foreach (var entry in entries)
         {
-            var clrType = entry.Metadata.ClrType;
-            if (clrType == typeof(AuditHeader) || clrType == typeof(AuditDetail))
+            var captured = TryCaptureEntry(entry, options);
+            if (captured is not null)
             {
-                continue;
+                pending.Add(captured);
             }
-
-            if (clrType.GetCustomAttribute<NotAuditedAttribute>(inherit: false) is not null)
-            {
-                continue;
-            }
-
-            var operation = entry.State switch
-            {
-                EntityState.Added    => (AuditOperation?)AuditOperation.Insert,
-                EntityState.Modified => AuditOperation.Update,
-                EntityState.Deleted  => AuditOperation.Delete,
-                _                    => null,
-            };
-
-            if (operation is null)
-            {
-                continue;
-            }
-
-            var keyProperties = entry.Metadata.FindPrimaryKey()?.Properties;
-            var keyValuesBeforeSave = keyProperties is null
-                ? (IReadOnlyList<object?>)Array.Empty<object?>()
-                : keyProperties.Select(p => entry.Property(p.Name).CurrentValue).ToList();
-
-            pending.Add(new PendingAuditEntry
-            {
-                Entry = entry,
-                Operation = operation.Value,
-                EntityType = clrType.FullName ?? clrType.Name,
-                EntityTable = entry.Metadata.GetSchemaQualifiedTableName() ?? entry.Metadata.GetTableName() ?? clrType.Name,
-                ChangedValues = CaptureValues(entry, operation.Value, options),
-                KeyValuesBeforeSave = keyValuesBeforeSave,
-            });
         }
 
         return pending;
+    }
+
+
+
+    private static PendingAuditEntry? TryCaptureEntry(EntityEntry entry, AuditOptions options)
+    {
+        var clrType = entry.Metadata.ClrType;
+        if (clrType == typeof(AuditHeader) || clrType == typeof(AuditDetail))
+        {
+            return null;
+        }
+
+        if (clrType.GetCustomAttribute<NotAuditedAttribute>(inherit: false) is not null)
+        {
+            return null;
+        }
+
+        var operation = entry.State switch
+        {
+            EntityState.Added    => (AuditOperation?)AuditOperation.Insert,
+            EntityState.Modified => AuditOperation.Update,
+            EntityState.Deleted  => AuditOperation.Delete,
+            _                    => null,
+        };
+
+        if (operation is null)
+        {
+            return null;
+        }
+
+        var changedValues = CaptureValues(entry, operation.Value, options);
+
+        // Skip Updates whose only modified properties are [NotAudited] —
+        // CaptureValues filters them out and returns an empty list. A header
+        // with zero detail rows isn't informative ("something on this row
+        // changed but we can't tell you what") and pollutes the audit table.
+        // Inserts and Deletes still produce a header (record-of-creation /
+        // record-of-deletion is meaningful even without column-level changes).
+        if (operation.Value == AuditOperation.Update && changedValues.Count == 0)
+        {
+            return null;
+        }
+
+        var keyProperties = entry.Metadata.FindPrimaryKey()?.Properties;
+        var keyValuesBeforeSave = keyProperties is null
+            ? (IReadOnlyList<object?>)Array.Empty<object?>()
+            : keyProperties.Select(p => entry.Property(p.Name).CurrentValue).ToList();
+
+        return new PendingAuditEntry
+        {
+            Entry = entry,
+            Operation = operation.Value,
+            EntityType = clrType.FullName ?? clrType.Name,
+            EntityTable = entry.Metadata.GetSchemaQualifiedTableName() ?? entry.Metadata.GetTableName() ?? clrType.Name,
+            ChangedValues = changedValues,
+            KeyValuesBeforeSave = keyValuesBeforeSave,
+        };
     }
 
 

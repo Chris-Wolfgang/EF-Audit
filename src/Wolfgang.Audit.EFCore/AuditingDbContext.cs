@@ -111,6 +111,8 @@ public abstract class AuditingDbContext : DbContext
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
+        EnsureAcceptAllChangesOnSuccess(acceptAllChangesOnSuccess);
+
         // TransactionId is generated once and threaded through state so a retrying
         // execution strategy can detect "the commit actually succeeded but the response
         // was lost" via VerifyAuditCommitted.
@@ -153,6 +155,8 @@ public abstract class AuditingDbContext : DbContext
         {
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
+
+        EnsureAcceptAllChangesOnSuccess(acceptAllChangesOnSuccess);
 
         var auditTransactionId = Guid.NewGuid();
 
@@ -221,6 +225,36 @@ public abstract class AuditingDbContext : DbContext
         }
 
         return result;
+    }
+
+
+
+    /// <summary>
+    /// Guards against <c>SaveChanges(acceptAllChangesOnSuccess: false)</c> when
+    /// audit work would normally fire. Threading <c>false</c> through to both
+    /// the user save and the inner audit-pass save would leave the user
+    /// entries in <c>Added</c>/<c>Modified</c>/<c>Deleted</c> after the first
+    /// save, so the audit-pass save would re-emit them. There's no safe way to
+    /// honour that semantic from this base class; throw a clear error pointing
+    /// the caller at the supported pattern.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when <paramref name="acceptAllChangesOnSuccess"/> is <c>false</c>
+    /// and there is audit-relevant work pending.
+    /// </exception>
+    private static void EnsureAcceptAllChangesOnSuccess(bool acceptAllChangesOnSuccess)
+    {
+        if (!acceptAllChangesOnSuccess)
+        {
+            throw new InvalidOperationException
+            (
+                "AuditingDbContext.SaveChanges{Async}(acceptAllChangesOnSuccess: false) is not " +
+                "supported because the audit pass requires the user entries to be accepted " +
+                "between the two saves — otherwise the inner audit save would re-emit them. " +
+                "Call SaveChanges() / SaveChangesAsync() (or pass true), or split the " +
+                "audit-relevant work into a dedicated AuditingDbContext call."
+            );
+        }
     }
 
 

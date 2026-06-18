@@ -172,7 +172,9 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
         context.SetItem(PendingItemsKey, pending);
         context.SetItem(TxIdItemsKey, Guid.NewGuid());
 
-        if (context.Database.CurrentTransaction is null)
+        // Symmetric short-circuit with BeginAudit (sync): no pending audit
+        // entries means no audit transaction.
+        if (pending.Count > 0 && context.Database.CurrentTransaction is null)
         {
             EnsureNonRetryingStrategy(context);
             var tx = await context.Database
@@ -263,7 +265,12 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
         context.SetItem(PendingItemsKey, pending);
         context.SetItem(TxIdItemsKey, Guid.NewGuid());
 
-        if (context.Database.CurrentTransaction is null)
+        // No audit work means no transaction. Opening an owned BEGIN/COMMIT
+        // when CapturePending returns empty just burns a database round-trip
+        // on every no-audit save. FinishAudit already short-circuits on
+        // pending.Count == 0, so the symmetric guard here keeps the two paths
+        // aligned.
+        if (pending.Count > 0 && context.Database.CurrentTransaction is null)
         {
             EnsureNonRetryingStrategy(context);
             var tx = context.Database.BeginTransaction();
