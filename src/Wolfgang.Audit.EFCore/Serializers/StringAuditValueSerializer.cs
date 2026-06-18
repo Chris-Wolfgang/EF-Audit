@@ -122,7 +122,11 @@ public sealed class StringAuditValueSerializer : IAuditValueSerializer
     {
         if (underlying.IsEnum)
         {
-            return "Enum:" + underlying.FullName;
+            // AssemblyQualifiedName (not FullName): Type.GetType only resolves
+            // FullName for types in mscorlib/System.Private.CoreLib. Consumer-
+            // assembly enums need the assembly hint, otherwise Decode silently
+            // falls back to returning the raw text instead of the enum value.
+            return "Enum:" + (underlying.AssemblyQualifiedName ?? underlying.FullName);
         }
 
         if (underlying == typeof(byte[]))

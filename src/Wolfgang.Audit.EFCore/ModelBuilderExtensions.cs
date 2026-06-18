@@ -88,7 +88,11 @@ public static class ModelBuilderExtensions
         builder.Property(d => d.HeaderId).IsRequired();
         builder.Property(d => d.ColumnName).HasMaxLength(256).IsRequired();
         builder.Property(d => d.ValueText);
-        builder.Property(d => d.ValueType).HasMaxLength(20).IsRequired();
+        // 256 (not the historical 20) so the StringAuditValueSerializer's
+        // "Enum:<AssemblyQualifiedName>" discriminator fits for any realistic
+        // namespaced enum type. AssemblyQualifiedName is bounded by the CLR
+        // type-name limit, which is comfortably under 256 for practical types.
+        builder.Property(d => d.ValueType).HasMaxLength(256).IsRequired();
 
         builder.HasOne(d => d.Header)
             .WithMany(h => h.Details)

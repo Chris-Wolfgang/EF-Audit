@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Wolfgang.Audit.Entities;
 
 namespace Wolfgang.Audit.Internal;
@@ -164,7 +165,7 @@ internal static class AuditCapture
                 case AuditOperation.Insert:
                     values.Add(new PendingAuditValue
                     {
-                        ColumnName = property.Metadata.Name,
+                        ColumnName = GetMappedColumnName(property),
                         ClrType    = property.Metadata.ClrType,
                         Value      = property.CurrentValue,
                     });
@@ -175,7 +176,7 @@ internal static class AuditCapture
                     {
                         values.Add(new PendingAuditValue
                         {
-                            ColumnName = property.Metadata.Name,
+                            ColumnName = GetMappedColumnName(property),
                             ClrType    = property.Metadata.ClrType,
                             Value      = property.CurrentValue,
                         });
@@ -185,7 +186,7 @@ internal static class AuditCapture
                 case AuditOperation.Delete:
                     values.Add(new PendingAuditValue
                     {
-                        ColumnName = property.Metadata.Name,
+                        ColumnName = GetMappedColumnName(property),
                         ClrType    = property.Metadata.ClrType,
                         Value      = property.OriginalValue,
                     });
@@ -194,6 +195,44 @@ internal static class AuditCapture
         }
 
         return values;
+    }
+
+
+
+    /// <summary>
+    /// Returns the database column name EF Core mapped the property to, honouring
+    /// <c>[Column]</c> / <c>HasColumnName(...)</c> overrides. Falls back to the
+    /// CLR property name for providers / shapes where no column mapping exists
+    /// (e.g. owned-entity edge cases), matching pre-fix behaviour.
+    /// </summary>
+    private static string GetMappedColumnName(PropertyEntry property)
+    {
+        // Use the StoreObjectIdentifier overload (available net6+ and not
+        // obsolete) — the parameterless GetColumnName() was marked obsolete
+        // on EF Core 7+ because it didn't disambiguate inheritance / table-
+        // sharing scenarios. The StoreObjectIdentifier created here resolves
+        // to the property's primary table mapping. EF Core 8+ moved the
+        // declaring-type accessor from DeclaringEntityType (obsolete) to
+        // DeclaringType (returns ITypeBase) which the conditional below picks
+        // depending on TFM.
+#if NET8_0_OR_GREATER
+        if (property.Metadata.DeclaringType is IEntityType entityType)
+#else
+        var entityType = property.Metadata.DeclaringEntityType;
+        if (entityType is not null)
+#endif
+        {
+            var storeObject = StoreObjectIdentifier.Create(entityType, StoreObjectType.Table);
+            if (storeObject is not null)
+            {
+                var name = property.Metadata.GetColumnName(storeObject.Value);
+                if (!string.IsNullOrEmpty(name))
+                {
+                    return name;
+                }
+            }
+        }
+        return property.Metadata.Name;
     }
 
 
