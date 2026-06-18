@@ -21,7 +21,7 @@ The header/detail-per-column schema is the same shape that [Z.EntityFramework.Pl
 | `Wolfgang.Audit.EFCore` | `AuditingDbContext` base class, auto-transaction `AuditSaveChangesInterceptor`, default serializers, DI helpers. Depends on EF Core 6+ Relational. |
 | `Wolfgang.Audit.TestKit.Xunit` | xunit contract-test bases (FsCheck-powered) for validating custom `IAuditValueSerializer` implementations. |
 
-All three are published to NuGet.org under the **`Wolfgang.Audit.*`** prefix.
+All three packages will be published to NuGet.org under the **`Wolfgang.Audit.*`** prefix when the first release tag ships. Until then, build from source or consume via project reference.
 
 ```bash
 dotnet add package Wolfgang.Audit.EFCore
@@ -76,12 +76,24 @@ services.AddEfCoreAuditing<MyUserProvider>();
 
 services.AddDbContext<AppDbContext>((sp, opts) => opts
     .UseSqlServer(connStr)
-    .UseAuditing(sp));        // <-- the only new line
+    .UseAuditing(sp));        // <-- the only new DI line
 
-// AppDbContext stays whatever it already was.
+// AppDbContext stays whatever it already was — EXCEPT for the
+// modelBuilder.ApplyAuditing(...) call below. The interceptor can't
+// reach into a sealed EF Core model, so the audit entity mappings
+// have to be registered alongside the consumer's own model.
 public class AppDbContext : IdentityDbContext<AppUser>
 {
-    // ... existing code unchanged
+    private readonly AuditOptions _auditOptions;
+
+    public AppDbContext(DbContextOptions options, AuditOptions auditOptions)
+        : base(options) => _auditOptions = auditOptions;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyAuditing(_auditOptions);   // <-- the only other line
+    }
 }
 
 // Save call sites are unchanged.

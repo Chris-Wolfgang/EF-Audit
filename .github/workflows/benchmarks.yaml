@@ -53,6 +53,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Do not persist the GITHUB_TOKEN into the checkout's git config.
+          # The PR job runs arbitrary contributor code via `dotnet run`; a
+          # persisted token would be readable from that code. The push job
+          # below uses peaceiris/actions-gh-pages, which receives the token
+          # explicitly — it doesn't need the persisted credential either.
+          persist-credentials: false
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -106,7 +113,13 @@ jobs:
   # Only runs from the trusted main branch.
   # ---------------------------------------------------------------------------
   benchmark-main:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    # contents:write must only be granted to runs from the trusted main
+    # branch. workflow_dispatch can fire against any ref (including PR
+    # branches via the API), so guard explicitly on github.ref in addition
+    # to the event name.
+    if: |
+      (github.event_name == 'push' && github.ref == 'refs/heads/main')
+      || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
     name: Benchmark + publish chart (main)
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -117,6 +130,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Do not persist the GITHUB_TOKEN into the checkout's git config.
+          # The PR job runs arbitrary contributor code via `dotnet run`; a
+          # persisted token would be readable from that code. The push job
+          # below uses peaceiris/actions-gh-pages, which receives the token
+          # explicitly — it doesn't need the persisted credential either.
+          persist-credentials: false
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
