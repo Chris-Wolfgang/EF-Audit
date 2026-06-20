@@ -147,8 +147,10 @@ internal static class AuditCapture
                     ColumnName = changed.ColumnName,
                 };
 
+                var detailValue = ResolveDetailValue(entry, changed);
+
                 var writer = new ColumnValueWriter(detail);
-                detail.ValueType = valueSerializer.Encode(changed.Value, changed.ClrType, writer);
+                detail.ValueType = valueSerializer.Encode(detailValue, changed.ClrType, writer);
                 header.Details.Add(detail);
             }
 
@@ -184,37 +186,10 @@ internal static class AuditCapture
                 continue;
             }
 
-            switch (operation)
+            var captured = CapturePropertyValue(property, operation);
+            if (captured is not null)
             {
-                case AuditOperation.Insert:
-                    values.Add(new PendingAuditValue
-                    {
-                        ColumnName = GetMappedColumnName(property),
-                        ClrType    = property.Metadata.ClrType,
-                        Value      = property.CurrentValue,
-                    });
-                    break;
-
-                case AuditOperation.Update:
-                    if (property.IsModified)
-                    {
-                        values.Add(new PendingAuditValue
-                        {
-                            ColumnName = GetMappedColumnName(property),
-                            ClrType    = property.Metadata.ClrType,
-                            Value      = property.CurrentValue,
-                        });
-                    }
-                    break;
-
-                case AuditOperation.Delete:
-                    values.Add(new PendingAuditValue
-                    {
-                        ColumnName = GetMappedColumnName(property),
-                        ClrType    = property.Metadata.ClrType,
-                        Value      = property.OriginalValue,
-                    });
-                    break;
+                values.Add(captured);
             }
         }
 
@@ -257,6 +232,82 @@ internal static class AuditCapture
             }
         }
         return property.Metadata.Name;
+    }
+
+
+
+    /// <summary>
+    /// Builds the per-operation <see cref="PendingAuditValue"/> for one property.
+    /// Inserts/Updates record <c>CurrentValue</c> (re-read post-save), Deletes
+    /// record <c>OriginalValue</c> (the only authoritative source after detach),
+    /// and Updates with <c>!IsModified</c> are skipped.
+    /// </summary>
+    private static PendingAuditValue? CapturePropertyValue(PropertyEntry property, AuditOperation operation)
+    {
+        switch (operation)
+        {
+            case AuditOperation.Insert:
+                return new PendingAuditValue
+                {
+                    ColumnName   = GetMappedColumnName(property),
+                    ClrType      = property.Metadata.ClrType,
+                    PropertyName = property.Metadata.Name,
+                    Value        = property.CurrentValue,
+                };
+
+            case AuditOperation.Update:
+                return property.IsModified
+                    ? new PendingAuditValue
+                    {
+                        ColumnName   = GetMappedColumnName(property),
+                        ClrType      = property.Metadata.ClrType,
+                        PropertyName = property.Metadata.Name,
+                        Value        = property.CurrentValue,
+                    }
+                    : null;
+
+            case AuditOperation.Delete:
+                return new PendingAuditValue
+                {
+                    ColumnName   = GetMappedColumnName(property),
+                    ClrType      = property.Metadata.ClrType,
+                    PropertyName = property.Metadata.Name,
+                    Value        = property.OriginalValue,
+                };
+
+            default:
+                return null;
+        }
+    }
+
+
+
+    /// <summary>
+    /// For Inserts and Updates, re-reads <c>CurrentValue</c> from the still-tracked
+    /// <see cref="EntityEntry"/> after the user's <c>SaveChanges</c> has run.
+    /// This is the only way to capture database-generated values (defaults,
+    /// computed columns, identity columns, server-side <c>ValueConverter</c>
+    /// output) — the pre-save snapshot only has the CLR default.
+    /// For Deletes the snapshot is authoritative (the entry has detached).
+    /// </summary>
+    private static object? ResolveDetailValue(PendingAuditEntry entry, PendingAuditValue changed)
+    {
+        if (entry.Operation == AuditOperation.Delete)
+        {
+            return changed.Value;
+        }
+
+        try
+        {
+            return entry.Entry.Property(changed.PropertyName).CurrentValue;
+        }
+        catch (InvalidOperationException)
+        {
+            // The entry is no longer tracking this property (rare — e.g. owned
+            // entity re-shaping mid-save). Fall back to the pre-save snapshot
+            // so the audit row is still emitted, just with the pre-save value.
+            return changed.Value;
+        }
     }
 
 
