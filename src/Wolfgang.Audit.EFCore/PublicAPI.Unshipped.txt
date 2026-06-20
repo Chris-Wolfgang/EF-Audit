@@ -4,6 +4,7 @@ Wolfgang.Audit.AuditingDbContext.AuditingDbContext(Microsoft.EntityFrameworkCore
 Wolfgang.Audit.AuditingDbContext.AuditOptions.get -> Wolfgang.Audit.AuditOptions!
 Wolfgang.Audit.AuditSaveChangesInterceptor
 Wolfgang.Audit.AuditSaveChangesInterceptor.AuditSaveChangesInterceptor(Wolfgang.Audit.IAuditUserProvider! userProvider, Wolfgang.Audit.AuditOptions! options) -> void
+Wolfgang.Audit.AuditSaveChangesInterceptor.SaveChangesCanceledAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData! eventData, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
 Wolfgang.Audit.AuditSaveChangesInterceptor.SaveChangesFailed(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData! eventData) -> void
 Wolfgang.Audit.AuditSaveChangesInterceptor.SaveChangesFailedAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData! eventData, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
 Wolfgang.Audit.AuditSaveChangesInterceptor.SavedChanges(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData! eventData, int result) -> int

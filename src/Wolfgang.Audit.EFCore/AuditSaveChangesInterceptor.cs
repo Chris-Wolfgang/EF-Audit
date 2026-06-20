@@ -55,11 +55,32 @@ namespace Wolfgang.Audit;
 /// <strong>Retry-strategy caveat.</strong> EF Core's retrying execution strategies
 /// (e.g. <c>SqlServerRetryingExecutionStrategy</c> from
 /// <c>EnableRetryOnFailure</c>) refuse user-initiated transactions opened outside
-/// <c>strategy.ExecuteAsync(...)</c>. If your consumer uses a retrying strategy
-/// you must either wrap your saves in <c>strategy.ExecuteAsync(...)</c> yourself
-/// (in which case this interceptor enlists in the strategy's transaction) or
-/// inherit from <see cref="AuditingDbContext"/> instead — which handles the
-/// retry wrapping internally.
+/// a strategy delegate. <em>Important:</em> <c>strategy.ExecuteAsync(...)</c> by
+/// itself does NOT open a transaction — <c>Database.CurrentTransaction</c>
+/// remains <c>null</c> inside it, and this interceptor would still try to
+/// open its own owned transaction (then throw via <c>EnsureNonRetryingStrategy</c>).
+/// The supported integration is either:
+/// <list type="bullet">
+///   <item>Call <c>strategy.ExecuteInTransactionAsync(...)</c> so the strategy
+///         opens a transaction the interceptor can enlist in, OR</item>
+///   <item>Inside your <c>ExecuteAsync</c> delegate, call
+///         <c>context.Database.BeginTransactionAsync(...)</c> yourself before
+///         <c>SaveChangesAsync</c>, OR</item>
+///   <item>Inherit from <see cref="AuditingDbContext"/> instead — it composes
+///         with retrying strategies correctly out of the box.</item>
+/// </list>
+/// </para>
+/// <para>
+/// <strong>Rollback / ChangeTracker divergence.</strong> If the audit-pass
+/// <c>SaveChanges</c> throws after the user-pass <c>SaveChanges</c> has
+/// already accepted the user entries (entries are now <c>Unchanged</c>),
+/// rolling back the owned transaction puts the database back to the
+/// pre-save state but the in-memory <c>ChangeTracker</c> still reflects
+/// the accepted state. The interceptor calls
+/// <see cref="Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.Clear"/>
+/// on the rollback path so a stale-state reuse fails loudly the next save —
+/// but the safer pattern is to dispose the <see cref="DbContext"/> after a
+/// save failure and create a new one.
 /// </para>
 /// </remarks>
 public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
@@ -303,6 +324,10 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
         catch
         {
             ownedTx?.Rollback();
+            // ChangeTracker still reflects the user-pass-accepted state but the
+            // DB just got rolled back. Clear so a downstream reuse can't
+            // silently no-op a re-save of stale entries. See class XML doc.
+            context.ChangeTracker.Clear();
             throw;
         }
         finally
@@ -349,6 +374,10 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
             {
                 await ownedTx.RollbackAsync(cancellationToken).ConfigureAwait(false);
             }
+            // ChangeTracker still reflects the user-pass-accepted state but
+            // the DB just got rolled back. Clear so a downstream reuse can't
+            // silently no-op a re-save of stale entries. See class XML doc.
+            context.ChangeTracker.Clear();
             throw;
         }
         finally
@@ -360,6 +389,35 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
             ClearItems(context);
         }
     }
+
+
+
+#if NET8_0_OR_GREATER
+    /// <summary>
+    /// EF Core 7+ raises this when a save is cancelled mid-flight (after
+    /// SavingChangesAsync but before SavedChangesAsync). On net6 / EF Core 6
+    /// the same cleanup happens through SaveChangesFailedAsync; this method
+    /// only exists on EF Core 7+ targets so we gate it on net8+.
+    /// </summary>
+    /// <inheritdoc/>
+    public async Task SaveChangesCanceledAsync
+    (
+        DbContextEventData eventData,
+        CancellationToken cancellationToken = default
+    )
+    {
+        ArgumentNullException.ThrowIfNull(eventData);
+        var context = eventData.Context;
+        if (context is null || IsSuppressed(context))
+        {
+            return;
+        }
+
+        // CancellationToken.None — the supplied token is already cancelled
+        // and we still need to dispose the owned transaction synchronously.
+        await AbortAuditAsync(context, CancellationToken.None).ConfigureAwait(false);
+    }
+#endif
 
 
 
