@@ -1,0 +1,183 @@
+# BenchmarkDotNet runs the audit perf suite and publishes results to gh-pages.
+# A PR comment alerts when the audited variant regresses >2x time or allocations
+# vs the previous main-branch baseline (the perf gate the plan calls for).
+#
+# Security model: PR runs execute arbitrary contributor code (`dotnet run`), so
+# they must NOT be able to push to gh-pages or otherwise mutate the repo. We
+# split the work into two jobs with different permissions:
+#
+#   - `benchmark-pr` runs on pull_request. Read-only contents + pull-requests:
+#     write (only for the alert comment). It only ALERTS — never pushes chart
+#     data — so a malicious PR can't reach gh-pages via this workflow's token.
+#   - `benchmark-main` runs on push to main. It gets contents: write so it can
+#     auto-push the chart history to gh-pages. Trusted: main-branch code only.
+#
+# First-time setup requirements (one-time, by repo owner):
+#   - A `gh-pages` branch must exist (the chart pushes to dev/bench/ under it).
+#   - GH Actions permissions must allow workflow writes to the repo (Settings ->
+#     Actions -> General -> Workflow permissions -> Read and write).
+
+name: Benchmarks
+
+# Default least-privilege; per-job permissions override below.
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # PR runs: read-only on contents (no gh-pages push); pull-requests:write only
+  # so the perf-gate action can leave a regression comment.
+  # ---------------------------------------------------------------------------
+  benchmark-pr:
+    if: github.event_name == 'pull_request'
+    name: Benchmark PR alert (read-only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Do not persist the GITHUB_TOKEN into the checkout's git config.
+          # The PR job runs arbitrary contributor code via `dotnet run`; a
+          # persisted token would be readable from that code. The push job
+          # below uses peaceiris/actions-gh-pages, which receives the token
+          # explicitly — it doesn't need the persisted credential either.
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Run benchmarks
+        run: |
+          dotnet run \
+            --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj \
+            --configuration Release \
+            -- \
+            --exporters json \
+            --filter '*Wolfgang.Audit.Benchmarks.SaveChangesBenchmarks*' \
+            --memory
+        # Filter scoped to the SQLite-only SaveChangesBenchmarks. The
+        # ProviderSaveChangesBenchmarks class spins Testcontainers for
+        # SQL Server / PostgreSQL and is intentionally excluded from CI —
+        # run it locally with --filter '*ProviderSaveChangesBenchmarks*'.
+
+      - name: Locate full-report JSON
+        id: locate
+        run: |
+          # BDN 0.15.x emits *-report-full-compressed.json instead of the old
+          # *-report-full.json. Match either so we ride out BDN renames cleanly.
+          report=$(find . -path '*/BenchmarkDotNet.Artifacts/results/*-report-full*.json' | head -1)
+          if [ -z "$report" ]; then
+            echo "No BDN report found"
+            exit 1
+          fi
+          echo "report=$report" >> "$GITHUB_OUTPUT"
+
+      - name: Compare against main + alert
+        uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7 # v1.20.4
+        with:
+          name: Audit Interceptor Benchmarks
+          tool: 'benchmarkdotnet'
+          output-file-path: ${{ steps.locate.outputs.report }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: dev/bench
+          alert-threshold: '200%'
+          fail-on-alert: true
+          comment-on-alert: true
+          alert-comment-cc-users: '@Chris-Wolfgang'
+          # PR-side: alert only, never push chart history.
+          auto-push: false
+
+  # ---------------------------------------------------------------------------
+  # Main-branch runs: contents:write so the chart can be auto-pushed to gh-pages.
+  # Only runs from the trusted main branch.
+  # ---------------------------------------------------------------------------
+  benchmark-main:
+    # contents:write must only be granted to runs from the trusted main
+    # branch. workflow_dispatch can fire against any ref (including PR
+    # branches via the API), so guard explicitly on github.ref in addition
+    # to the event name.
+    if: |
+      (github.event_name == 'push' && github.ref == 'refs/heads/main')
+      || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    name: Benchmark + publish chart (main)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      deployments: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Do not persist the GITHUB_TOKEN into the checkout's git config.
+          # The PR job runs arbitrary contributor code via `dotnet run`; a
+          # persisted token would be readable from that code. The push job
+          # below uses peaceiris/actions-gh-pages, which receives the token
+          # explicitly — it doesn't need the persisted credential either.
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Run benchmarks
+        run: |
+          dotnet run \
+            --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj \
+            --configuration Release \
+            -- \
+            --exporters json \
+            --filter '*Wolfgang.Audit.Benchmarks.SaveChangesBenchmarks*' \
+            --memory
+        # Filter scoped to the SQLite-only SaveChangesBenchmarks. The
+        # ProviderSaveChangesBenchmarks class spins Testcontainers for
+        # SQL Server / PostgreSQL and is intentionally excluded from CI —
+        # run it locally with --filter '*ProviderSaveChangesBenchmarks*'.
+
+      - name: Locate full-report JSON
+        id: locate
+        run: |
+          # BDN 0.15.x emits *-report-full-compressed.json instead of the old
+          # *-report-full.json. Match either so we ride out BDN renames cleanly.
+          report=$(find . -path '*/BenchmarkDotNet.Artifacts/results/*-report-full*.json' | head -1)
+          if [ -z "$report" ]; then
+            echo "No BDN report found"
+            exit 1
+          fi
+          echo "report=$report" >> "$GITHUB_OUTPUT"
+
+      - name: Store + push chart history
+        uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7 # v1.20.4
+        with:
+          name: Audit Interceptor Benchmarks
+          tool: 'benchmarkdotnet'
+          output-file-path: ${{ steps.locate.outputs.report }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: dev/bench
+          alert-threshold: '200%'
+          fail-on-alert: true
+          auto-push: true
