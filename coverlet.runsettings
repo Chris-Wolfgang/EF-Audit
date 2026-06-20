@@ -7,6 +7,13 @@
           <Format>cobertura</Format>
           <ExcludeByFile>**/bin/**/*.cs;**/obj/**/*.cs</ExcludeByFile>
           <ExcludeByAttribute>ExcludeFromCodeCoverageAttribute</ExcludeByAttribute>
+          <!--
+            Compiler-emitted polyfill: `required` modifier on net6/netstandard
+            synthesises this attribute under System.Runtime.CompilerServices.
+            It's never executed; without exclusion it shows up at 0% and trips
+            the 90% gate. See https://github.com/dotnet/runtime/issues/91398.
+          -->
+          <Exclude>[*]System.Runtime.CompilerServices.CompilerFeatureRequiredAttribute,[*]System.Runtime.CompilerServices.RequiredMemberAttribute,[*]System.Runtime.CompilerServices.IsExternalInit</Exclude>
         </Configuration>
       </DataCollector>
     </DataCollectors>

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.EntityFrameworkCore;
 using Wolfgang.Audit;
@@ -21,6 +22,7 @@ namespace Wolfgang.Audit.Cli.Service;
 /// in the csproj. No new service classes, no per-provider runners, no separate
 /// migrations packages.
 /// </remarks>
+[ExcludeFromCodeCoverage] // Real EF Core + provider connection. Exercised by integration tests (Testcontainers).
 internal sealed class SchemaMigrateRunner : IMigrateRunner
 {
     public async Task RunAsync(MigrateOptions options, IConsole console)
