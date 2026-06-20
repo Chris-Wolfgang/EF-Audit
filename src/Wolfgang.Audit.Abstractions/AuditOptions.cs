@@ -28,6 +28,21 @@ public sealed class AuditOptions
     /// rows containing the pre-delete column values. When <c>false</c> (the default),
     /// Delete operations write only a header row.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// <strong>Important — stub-attached deletes:</strong> the captured values come
+    /// from <c>PropertyEntry.OriginalValue</c>, which is meaningful only when the
+    /// entity was actually loaded (or had its originals seeded) before deletion.
+    /// The classic "stub delete" pattern —
+    /// <code>context.Set&lt;Customer&gt;().Remove(new Customer { Id = 5 })</code>
+    /// — attaches an entity whose non-key properties are CLR defaults, so the
+    /// detail rows would record those defaults rather than the actual row state.
+    /// When this flag is on, consumers should load the row first (or call
+    /// <c>entry.Reload()</c>) before removing it. The captured values are
+    /// fundamentally a snapshot of what EF Core knew at delete time, not a
+    /// database read-back.
+    /// </para>
+    /// </remarks>
     public bool CaptureDeletedValues { get; set; }
 
     /// <summary>
