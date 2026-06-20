@@ -1,22 +1,22 @@
 Summary
-  Generated on: 06/20/2026 - 23:43:07
-  Coverage date: 06/20/2026 - 23:43:03
+  Generated on: 06/20/2026 - 23:45:07
+  Coverage date: 06/20/2026 - 23:45:03
   Parser: Cobertura
   Assemblies: 3
   Classes: 28
   Files: 28
-  Line coverage: 97.5%
-  Covered lines: 833
-  Uncovered lines: 21
-  Coverable lines: 854
-  Total lines: 2827
-  Branch coverage: 90.7% (361 of 398)
-  Covered branches: 361
-  Total branches: 398
-  Method coverage: 98.7% (152 of 154)
-  Covered methods: 152
-  Total methods: 154
-  Tag: 36_27887450559
+  Line coverage: 97.3%
+  Covered lines: 845
+  Uncovered lines: 23
+  Coverable lines: 868
+  Total lines: 2856
+  Branch coverage: 90.4% (369 of 408)
+  Covered branches: 369
+  Total branches: 408
+  Method coverage: 98.7% (153 of 155)
+  Covered methods: 153
+  Total methods: 155
+  Tag: 38_27887490586
 
 Wolfgang.Audit.Abstractions                                           91.6%
   Wolfgang.Audit.AuditOptions                                        100.0%
@@ -25,7 +25,7 @@ Wolfgang.Audit.Abstractions                                           91.6%
   Wolfgang.Audit.Entities.AuditDetail                                 66.6%
   Wolfgang.Audit.Entities.AuditHeader                                100.0%
 
-Wolfgang.Audit.EFCore                                                 97.5%
+Wolfgang.Audit.EFCore                                                 97.3%
   Wolfgang.Audit.AuditingDbContext                                    97.4%
   Wolfgang.Audit.AuditSaveChangesInterceptor                          97.0%
   Wolfgang.Audit.DbContextOptionsBuilderExtensions                   100.0%
@@ -44,7 +44,7 @@ Wolfgang.Audit.EFCore                                                 97.5%
   Wolfgang.Audit.Schema.AuditSchemaVersionStore                       95.6%
   Wolfgang.Audit.Schema.DbContextAuditSchemaExtensions                76.4%
   Wolfgang.Audit.Schema.TableNotFoundIndicators                      100.0%
-  Wolfgang.Audit.Serializers.PipeDelimitedEntityKeySerializer        100.0%
+  Wolfgang.Audit.Serializers.PipeDelimitedEntityKeySerializer         93.1%
   Wolfgang.Audit.Serializers.StringAuditValueSerializer              100.0%
   Wolfgang.Audit.ServiceCollectionExtensions                         100.0%
 
