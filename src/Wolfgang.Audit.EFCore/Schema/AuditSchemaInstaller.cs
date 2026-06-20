@@ -58,22 +58,63 @@ public sealed class AuditSchemaInstaller
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        var schemaPrefix = string.IsNullOrWhiteSpace(_options.Schema)
-            ? string.Empty
-            : $"{EnsureSafeIdentifier(_options.Schema, nameof(_options.Schema))}.";
-
         var detailTable = EnsureSafeIdentifier(_options.DetailTableName, nameof(_options.DetailTableName));
         var headerTable = EnsureSafeIdentifier(_options.HeaderTableName, nameof(_options.HeaderTableName));
+        var schema      = string.IsNullOrWhiteSpace(_options.Schema)
+            ? null
+            : EnsureSafeIdentifier(_options.Schema!, nameof(_options.Schema));
 
-#pragma warning disable EF1002 // Schema and table names are validated above; values come from AuditOptions, not user input.
+        var detailFqn = QuoteIdentifier(context.Database.ProviderName, schema, detailTable);
+        var headerFqn = QuoteIdentifier(context.Database.ProviderName, schema, headerTable);
+
+#pragma warning disable EF1002 // Identifiers validated + provider-quoted above; values come from AuditOptions, not user input.
         await context.Database
-            .ExecuteSqlRawAsync($"DROP TABLE IF EXISTS {schemaPrefix}{detailTable}", cancellationToken)
+            .ExecuteSqlRawAsync($"DROP TABLE IF EXISTS {detailFqn}", cancellationToken)
             .ConfigureAwait(false);
 
         await context.Database
-            .ExecuteSqlRawAsync($"DROP TABLE IF EXISTS {schemaPrefix}{headerTable}", cancellationToken)
+            .ExecuteSqlRawAsync($"DROP TABLE IF EXISTS {headerFqn}", cancellationToken)
             .ConfigureAwait(false);
 #pragma warning restore EF1002
+    }
+
+
+
+    /// <summary>
+    /// Quotes the table identifier (and optional schema prefix) using the syntax
+    /// of the active EF Core provider so the raw-SQL <c>DROP TABLE</c> resolves
+    /// to the same table EF Core creates via the model. PostgreSQL/SQLite quote
+    /// mixed-case identifiers with double-quotes; SQL Server uses square brackets;
+    /// MySQL uses backticks. Unquoted PascalCase names silently fold to lowercase
+    /// on PostgreSQL — the source of issue cluster #1 on PR #2.
+    /// </summary>
+    internal static string QuoteIdentifier(string? providerName, string? schema, string table)
+    {
+        providerName ??= string.Empty;
+
+        // SQL Server: [schema].[table]
+        if (providerName.Contains("SqlServer", StringComparison.Ordinal))
+        {
+            return schema is null
+                ? $"[{table}]"
+                : $"[{schema}].[{table}]";
+        }
+
+        // MySQL (Pomelo or otherwise): `schema`.`table`
+        if (providerName.Contains("MySql", StringComparison.OrdinalIgnoreCase)
+            || providerName.Contains("MariaDb", StringComparison.OrdinalIgnoreCase))
+        {
+            return schema is null
+                ? $"`{table}`"
+                : $"`{schema}`.`{table}`";
+        }
+
+        // PostgreSQL, SQLite, and the ANSI default: "schema"."table".
+        // EF Core creates mixed-case PascalCase identifiers using this exact
+        // quoting on these providers, so we must match it byte-for-byte.
+        return schema is null
+            ? $"\"{table}\""
+            : $"\"{schema}\".\"{table}\"";
     }
 
     /// <summary>
