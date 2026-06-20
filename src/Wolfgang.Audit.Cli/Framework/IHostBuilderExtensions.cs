@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
@@ -13,6 +14,7 @@ internal enum ConfigurationFileMethod
 
 
 // ReSharper disable once InconsistentNaming
+[ExcludeFromCodeCoverage]
 internal static class IHostBuilderExtensions
 {
     /// <summary>
