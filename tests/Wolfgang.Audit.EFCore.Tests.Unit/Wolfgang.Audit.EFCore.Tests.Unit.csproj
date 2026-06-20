@@ -20,6 +20,14 @@
     <PackageReference Include="coverlet.collector" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+
+    <!--
+      Pin SQLitePCLRaw.bundle_e_sqlite3 ahead of EF Core's transitive 2.1.x,
+      which carries advisory GHSA-2m69-gcr7-jv3q (high severity, NU1903).
+      EF Core Sqlite 6.0.36 / 8.0.11 / 10.0.0 all accept the 3.x bump because
+      their dependency constraint is `[2.0.4, )`. Tracked: issue #121.
+    -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
