@@ -48,8 +48,37 @@ public sealed class PipeDelimitedEntityKeySerializer : IAuditEntityKeySerializer
         return value switch
         {
             null => string.Empty,
+            // byte[]: ToString() returns the type name ("System.Byte[]"), so
+            // every binary key would collide. Hex-encode for a stable,
+            // collision-free representation.
+            byte[] bytes => FormatBytes(bytes),
+            // DateTime / DateTimeOffset: IFormattable.ToString(null, Invariant)
+            // uses the "G" format which truncates fractional seconds — distinct
+            // instants can collide. Force "o" (round-trip ISO 8601).
+            DateTime dt => dt.ToString("o", CultureInfo.InvariantCulture),
+            DateTimeOffset dto => dto.ToString("o", CultureInfo.InvariantCulture),
+#if NET6_0_OR_GREATER
+            DateOnly d => d.ToString("o", CultureInfo.InvariantCulture),
+            TimeOnly t => t.ToString("o", CultureInfo.InvariantCulture),
+#endif
             IFormattable f => f.ToString(format: null, CultureInfo.InvariantCulture),
             _ => value.ToString() ?? string.Empty,
         };
+    }
+
+
+
+    private static string FormatBytes(byte[] bytes)
+    {
+#if NET6_0_OR_GREATER
+        return Convert.ToHexString(bytes);
+#else
+        var sb = new StringBuilder(bytes.Length * 2);
+        foreach (var b in bytes)
+        {
+            sb.Append(b.ToString("X2", CultureInfo.InvariantCulture));
+        }
+        return sb.ToString();
+#endif
     }
 }
