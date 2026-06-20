@@ -1,22 +1,22 @@
 Summary
-  Generated on: 06/20/2026 - 23:02:37
-  Coverage date: 06/20/2026 - 23:02:30
+  Generated on: 06/20/2026 - 23:39:05
+  Coverage date: 06/20/2026 - 23:38:59
   Parser: Cobertura
   Assemblies: 3
   Classes: 28
   Files: 28
-  Line coverage: 97.0%
-  Covered lines: 801
-  Uncovered lines: 24
+  Line coverage: 97.8%
+  Covered lines: 807
+  Uncovered lines: 18
   Coverable lines: 825
   Total lines: 2706
-  Branch coverage: 90.2% (343 of 380)
-  Covered branches: 343
+  Branch coverage: 90.5% (344 of 380)
+  Covered branches: 344
   Total branches: 380
   Method coverage: 98.6% (148 of 150)
   Covered methods: 148
   Total methods: 150
-  Tag: 23_27886562486
+  Tag: 32_27887361831
 
 Wolfgang.Audit.Abstractions                                           91.6%
   Wolfgang.Audit.AuditOptions                                        100.0%
@@ -25,12 +25,12 @@ Wolfgang.Audit.Abstractions                                           91.6%
   Wolfgang.Audit.Entities.AuditDetail                                 66.6%
   Wolfgang.Audit.Entities.AuditHeader                                100.0%
 
-Wolfgang.Audit.EFCore                                                 97.0%
+Wolfgang.Audit.EFCore                                                 97.9%
   Wolfgang.Audit.AuditingDbContext                                    97.4%
   Wolfgang.Audit.AuditSaveChangesInterceptor                          97.0%
   Wolfgang.Audit.DbContextOptionsBuilderExtensions                   100.0%
   Wolfgang.Audit.Internal.AuditCapture                                97.2%
-  Wolfgang.Audit.Internal.ColumnValueWriter                           50.0%
+  Wolfgang.Audit.Internal.ColumnValueWriter                          100.0%
   Wolfgang.Audit.Internal.DbContextItemBag                           100.0%
   Wolfgang.Audit.Internal.PendingAuditEntry                          100.0%
   Wolfgang.Audit.Internal.PendingAuditValue                          100.0%
