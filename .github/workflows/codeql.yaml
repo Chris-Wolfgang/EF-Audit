@@ -80,6 +80,11 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
+        # security-extended adds the precision-medium queries that the default
+        # pack omits to keep PR-time runs cheap. We're happy to trade extra CodeQL
+        # time on a scheduled scan for catching more real issues. See
+        # https://docs.github.com/en/code-security/code-scanning/managing-your-code-scanning-configuration/codeql-query-suites
+        queries: security-extended
 
     - name: Setup .NET
       if: steps.check-csharp.outputs.has-csharp == 'true'
