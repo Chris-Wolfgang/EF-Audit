@@ -17,6 +17,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+    <!--
+      Pin the SQLite native bundle to a version without GHSA-2m69-gcr7-jv3q.
+      Microsoft.EntityFrameworkCore.Sqlite 10.0.0 still pulls in the
+      vulnerable 2.1.x line transitively, which trips NU1903 (warning as
+      error). Override here forces the safe 3.0.x bundle.
+    -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
   </ItemGroup>
 
 </Project>
