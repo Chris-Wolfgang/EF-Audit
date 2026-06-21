@@ -7,7 +7,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
     <!-- CA1001 suppressed because BDN owns disposable lifecycle via [GlobalSetup]/[GlobalCleanup]. -->
-    <NoWarn>$(NoWarn);MA0004;VSTHRD200;S6966;CA1515;CA1001</NoWarn>
+    <!-- MA0048 (file-name == type-name) suppressed: benchmark entities are
+         co-located in BenchmarkEntities.cs for navigability. -->
+    <NoWarn>$(NoWarn);MA0004;VSTHRD200;S6966;CA1515;CA1001;MA0048</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

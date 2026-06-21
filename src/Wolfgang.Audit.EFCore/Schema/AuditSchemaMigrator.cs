@@ -1,3 +1,4 @@
+#if NET8_0_OR_GREATER
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -5,8 +6,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Wolfgang.Audit.Schema;
-
-#if NET8_0_OR_GREATER
 
 
 

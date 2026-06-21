@@ -46,3 +46,23 @@ dotnet_diagnostic.S1144.severity = none
 
 # xUnit2013: Use Assert.Single instead of Assert.Equal for collection size
 dotnet_diagnostic.xUnit2013.severity = none
+
+# S3459: Unassigned members should be removed — test stubs/builders leave members unassigned by design
+dotnet_diagnostic.S3459.severity = none
+
+# S2325: Method can be made static — instance shape preserved for test ergonomics
+dotnet_diagnostic.S2325.severity = none
+
+# MA0026 / S1135: TODO comments — informational notes for test maintainers
+dotnet_diagnostic.MA0026.severity = none
+dotnet_diagnostic.S1135.severity = none
+
+# VSTHRD103: Call async version inside async method — test fakes intentionally call sync overload
+dotnet_diagnostic.VSTHRD103.severity = none
+
+# MA0061 / S1006: Method overrides cannot change default parameter values — fake EF strategies match the base API contract
+dotnet_diagnostic.MA0061.severity = none
+dotnet_diagnostic.S1006.severity = none
+
+# RCS1194: Exception type should have ctor(string,Exception) — test exception types are minimal sentinels
+dotnet_diagnostic.RCS1194.severity = none
