@@ -1,9 +1,8 @@
+#if NET8_0_OR_GREATER
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Wolfgang.Audit.Schema;
-
-#if NET8_0_OR_GREATER
 
 
 

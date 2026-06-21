@@ -8,7 +8,14 @@
     <IsPackable>false</IsPackable>
     <RootNamespace>Wolfgang.Audit.Example.Console</RootNamespace>
     <AssemblyName>Wolfgang.Audit.Example.Console</AssemblyName>
-    <NoWarn>$(NoWarn);CA1515;CA1812</NoWarn>
+    <!--
+      Example/demo code: relax the strict-library analyzers that don't apply
+      to runnable samples. MA0004 (ConfigureAwait) is library-side guidance;
+      example console apps don't have a SynchronizationContext to worry about.
+      MA0048 (file-name == type-name) collides with the sample's convention
+      of bundling a small DbContext + entities in one file for readability.
+    -->
+    <NoWarn>$(NoWarn);CA1515;CA1812;MA0004;MA0048</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

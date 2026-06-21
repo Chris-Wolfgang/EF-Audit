@@ -7,7 +7,8 @@
     <IsPackable>false</IsPackable>
     <RootNamespace>Wolfgang.Audit.Example.WebApi</RootNamespace>
     <AssemblyName>Wolfgang.Audit.Example.WebApi</AssemblyName>
-    <NoWarn>$(NoWarn);CA1515;CA1812</NoWarn>
+    <!-- See Console example csproj for rationale. -->
+    <NoWarn>$(NoWarn);CA1515;CA1812;MA0004;MA0048</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
