@@ -1,3 +1,4 @@
+#if NET8_0_OR_GREATER
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Wolfgang.Audit.Schema;
@@ -5,10 +6,6 @@ using Wolfgang.Audit.Serializers;
 using Xunit;
 
 namespace Wolfgang.Audit.Tests.Unit;
-
-
-
-#if NET8_0_OR_GREATER
 /// <summary>
 /// Covers <see cref="AuditSchemaMigrator"/> end-to-end against an in-memory
 /// SQLite database. SQLite is the right provider for unit tests because it
