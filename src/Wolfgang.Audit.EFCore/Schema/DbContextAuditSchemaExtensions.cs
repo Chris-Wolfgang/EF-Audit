@@ -75,10 +75,17 @@ public static class DbContextAuditSchemaExtensions
 
         ((IDbContextOptionsBuilderInfrastructure)builder).AddOrUpdateExtension(relationalExtension);
 
-        await using var migrationsContext = new AuditMigrationsDbContext(builder.Options, context.AuditOptions);
-        return await AuditSchemaMigrator
-            .RunAsync(migrationsContext, dryRun, cancellationToken)
-            .ConfigureAwait(false);
+        // MA0004 false-positive on `await using var` — the disposal `await` cannot
+        // be ConfigureAwait'd via that syntax. Use the explicit ConfiguredAsyncDisposable
+        // form so both the construction and the implicit DisposeAsync run without
+        // resuming on the captured SynchronizationContext.
+        var migrationsContext = new AuditMigrationsDbContext(builder.Options, context.AuditOptions);
+        await using (migrationsContext.ConfigureAwait(false))
+        {
+            return await AuditSchemaMigrator
+                .RunAsync(migrationsContext, dryRun, cancellationToken)
+                .ConfigureAwait(false);
+        }
     }
 }
 #endif

@@ -40,7 +40,12 @@ public sealed class AuditSchemaInstaller
     /// let the consumer's migration pipeline handle the audit tables alongside its own.
     /// </para>
     /// </remarks>
+    // S1133: yes, this is deprecated — that's the contract. Removal happens at
+    // the next MAJOR; until then we keep the obsolete API alive so callers
+    // get the warning instead of a hard break.
+#pragma warning disable S1133
     [Obsolete("Use AuditingDbContext.MigrateAuditSchemaAsync (or AuditSchemaMigrator.RunAsync) — the new path uses EF Core's model differ + provider SQL generator, supports schema evolution, and creates only the audit tables instead of every table in the context's model.")]
+#pragma warning restore S1133
     public Task CreateTablesAsync(DbContext context, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(context);
@@ -142,13 +147,10 @@ public sealed class AuditSchemaInstaller
                 $"Invalid SQL identifier '{identifier}' supplied via {parameterName}: identifiers cannot start with a digit.");
         }
 
-        foreach (var ch in identifier)
+        if (identifier.Any(ch => !char.IsLetterOrDigit(ch) && ch != '_'))
         {
-            if (!char.IsLetterOrDigit(ch) && ch != '_')
-            {
-                throw new InvalidOperationException(
-                    $"Invalid SQL identifier '{identifier}' supplied via {parameterName}: identifiers may contain only letters, digits, and underscores.");
-            }
+            throw new InvalidOperationException(
+                $"Invalid SQL identifier '{identifier}' supplied via {parameterName}: identifiers may contain only letters, digits, and underscores.");
         }
 
         return identifier;

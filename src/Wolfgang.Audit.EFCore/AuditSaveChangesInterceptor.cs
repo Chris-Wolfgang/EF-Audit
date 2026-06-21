@@ -167,7 +167,7 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
 
         try
         {
-            await BeginAuditAsyncCore(context, cancellationToken).ConfigureAwait(false);
+            await BeginAuditCoreAsync(context, cancellationToken).ConfigureAwait(false);
         }
         catch
         {
@@ -187,7 +187,7 @@ public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor
 
 
 
-    private async Task BeginAuditAsyncCore(DbContext context, CancellationToken cancellationToken)
+    private async Task BeginAuditCoreAsync(DbContext context, CancellationToken cancellationToken)
     {
         var pending = AuditCapture.CapturePending(context, _options);
         context.SetItem(PendingItemsKey, pending);

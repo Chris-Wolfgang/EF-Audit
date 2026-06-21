@@ -247,9 +247,13 @@ public abstract class AuditValueSerializerContractTests<TSut>
 
     /// <summary>
     /// A small enum used exclusively by the contract tests so consumers inheriting this
-    /// base get coverage of the <c>Enum:&lt;FullName&gt;</c> discriminator path.
+    /// base get coverage of the <c>Enum:&lt;FullName&gt;</c> discriminator path. The
+    /// <c>Enum</c> suffix is intentional — the type name appears in tests that read
+    /// "Sample enum value Beta" and the suffix keeps that wording precise.
     /// </summary>
+#pragma warning disable S2344 // Intentional naming — see XML doc above.
     public enum SampleEnum
+#pragma warning restore S2344
     {
         Alpha,
         Beta,

@@ -34,13 +34,10 @@ internal static class TableNotFoundIndicators
         var message  = exception.Message ?? string.Empty;
         var sqlState = exception.SqlState ?? string.Empty;
 
-        foreach (var p in Patterns)
+        if (Patterns.Any(p => message.Contains(p, StringComparison.OrdinalIgnoreCase)
+                              || sqlState.Contains(p, StringComparison.OrdinalIgnoreCase)))
         {
-            if (message.Contains(p, StringComparison.OrdinalIgnoreCase)
-                || sqlState.Contains(p, StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
+            return true;
         }
         return false;
     }

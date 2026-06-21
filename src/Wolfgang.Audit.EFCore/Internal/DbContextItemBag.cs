@@ -55,6 +55,6 @@ internal static class DbContextItemBag
 
     private static Dictionary<string, object> Get(DbContext context)
     {
-        return _state.GetValue(context, _ => new Dictionary<string, object>());
+        return _state.GetValue(context, _ => new Dictionary<string, object>(StringComparer.Ordinal));
     }
 }

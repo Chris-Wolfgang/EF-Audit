@@ -118,9 +118,12 @@ public static class AuditSchemaMigrator
                 await state.Context.Database.OpenConnectionAsync(ct).ConfigureAwait(false);
                 try
                 {
-                    await using var transaction = await state.Context.Database
+                    // MA0004: see the matching note in DbContextAuditSchemaExtensions —
+                    // `await using var` cannot ConfigureAwait the implicit DisposeAsync.
+                    var transaction = await state.Context.Database
                         .BeginTransactionAsync(ct)
                         .ConfigureAwait(false);
+                    await using var configuredTx = transaction.ConfigureAwait(false);
 
                     foreach (var command in state.Commands)
                     {
