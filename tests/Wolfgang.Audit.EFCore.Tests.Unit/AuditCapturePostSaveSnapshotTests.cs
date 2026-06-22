@@ -37,10 +37,10 @@ public class AuditCapturePostSaveSnapshotTests
 
         await using var verify = fixture.CreateContext();
 
-        var rowVersionDetail = verify.Set<AuditDetail>()
+        var rowVersionDetail = await verify.Set<AuditDetail>()
             .Where(d => d.ColumnName == "RowVersion")
             .OrderByDescending(d => d.DetailId)
-            .First();
+            .FirstAsync();
 
         // Pre-fix this would have been "0" (the CLR default at pre-save snapshot
         // time). The post-save read picks up the DB-applied default.
@@ -72,10 +72,10 @@ public class AuditCapturePostSaveSnapshotTests
 
         await using var verify = fixture.CreateContext();
 
-        var nameDetail = verify.Set<AuditDetail>()
+        var nameDetail = await verify.Set<AuditDetail>()
             .Where(d => d.ColumnName == "Name" && d.Header!.Operation == AuditOperation.Update)
             .OrderByDescending(d => d.DetailId)
-            .First();
+            .FirstAsync();
 
         Assert.Equal("after", nameDetail.ValueText);
     }
@@ -108,10 +108,10 @@ public class AuditCapturePostSaveSnapshotTests
 
         await using var verify = fixture.CreateContext();
 
-        var nameDetail = verify.Set<AuditDetail>()
+        var nameDetail = await verify.Set<AuditDetail>()
             .Where(d => d.ColumnName == "Name" && d.Header!.Operation == AuditOperation.Delete)
             .OrderByDescending(d => d.DetailId)
-            .First();
+            .FirstAsync();
 
         Assert.Equal("to-delete", nameDetail.ValueText);
     }

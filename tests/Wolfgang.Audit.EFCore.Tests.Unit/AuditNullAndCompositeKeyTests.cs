@@ -24,7 +24,7 @@ public class AuditNullAndCompositeKeyTests
             .Include(h => h.Details)
             .SingleAsync();
 
-        var emailDetail = Assert.Single(header.Details.Where(d => string.Equals(d.ColumnName, "Email", StringComparison.Ordinal)));
+        var emailDetail = Assert.Single(header.Details, d => string.Equals(d.ColumnName, "Email", StringComparison.Ordinal));
         Assert.Null(emailDetail.ValueText);
         Assert.Equal("String", emailDetail.ValueType);
     }

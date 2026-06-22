@@ -46,8 +46,8 @@ public class AuditSaveChangesInterceptorFailedHooksTests
         await ctx.SaveChangesAsync();
 
         await using var verify = fixture.CreateContext();
-        Assert.Single(verify.Customers.ToList());
-        Assert.Single(verify.Set<AuditHeader>().ToList());
+        Assert.Single(await verify.Customers.ToListAsync());
+        Assert.Single(await verify.Set<AuditHeader>().ToListAsync());
     }
 
 
