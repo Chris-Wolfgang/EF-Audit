@@ -61,9 +61,9 @@ internal class Migrate
         catch (Exception e)
         {
             logger.LogCritical(e, "Unhandled error: {Message}", e.Message);
-#pragma warning disable CA1849, VSTHRD103
+#pragma warning disable CA1849, VSTHRD103, S6966
             console.Error.WriteLine($"Error: {e.Message}");
-#pragma warning restore CA1849, VSTHRD103
+#pragma warning restore CA1849, VSTHRD103, S6966
             return ExitCode.ApplicationError;
         }
 
@@ -107,26 +107,26 @@ internal class Migrate
         {
             if (!string.IsNullOrWhiteSpace(ConnectionString))
             {
-#pragma warning disable CA1849, VSTHRD103
+#pragma warning disable CA1849, VSTHRD103, S6966
                 console.Error.WriteLine("Error: --connection-string and --connection-string-env are mutually exclusive.");
-#pragma warning restore CA1849, VSTHRD103
+#pragma warning restore CA1849, VSTHRD103, S6966
                 return null;
             }
             connectionString = Environment.GetEnvironmentVariable(ConnectionStringEnv);
             if (string.IsNullOrWhiteSpace(connectionString))
             {
-#pragma warning disable CA1849, VSTHRD103
+#pragma warning disable CA1849, VSTHRD103, S6966
                 console.Error.WriteLine($"Error: environment variable '{ConnectionStringEnv}' is not set or is empty.");
-#pragma warning restore CA1849, VSTHRD103
+#pragma warning restore CA1849, VSTHRD103, S6966
                 return null;
             }
         }
 
         if (string.IsNullOrWhiteSpace(connectionString))
         {
-#pragma warning disable CA1849, VSTHRD103
+#pragma warning disable CA1849, VSTHRD103, S6966
             console.Error.WriteLine("Error: one of --connection-string or --connection-string-env is required.");
-#pragma warning restore CA1849, VSTHRD103
+#pragma warning restore CA1849, VSTHRD103, S6966
             return null;
         }
 
@@ -150,11 +150,11 @@ internal class Migrate
 
             if (explicitProvider == DatabaseProvider.Unknown)
             {
-#pragma warning disable CA1849, VSTHRD103
+#pragma warning disable CA1849, VSTHRD103, S6966
                 console.Error.WriteLine(
                     $"Error: unrecognized provider '{Provider}'. " +
                     "Valid values: sqlserver, postgresql, mysql, sqlite.");
-#pragma warning restore CA1849, VSTHRD103
+#pragma warning restore CA1849, VSTHRD103, S6966
                 return null;
             }
 
@@ -164,11 +164,11 @@ internal class Migrate
         var detected = DetectProvider(connectionString);
         if (detected == DatabaseProvider.Unknown)
         {
-#pragma warning disable CA1849, VSTHRD103
+#pragma warning disable CA1849, VSTHRD103, S6966
             console.Error.WriteLine(
                 "Error: could not auto-detect provider from the connection string. " +
                 "Specify --provider explicitly (sqlserver|postgresql|mysql|sqlite).");
-#pragma warning restore CA1849, VSTHRD103
+#pragma warning restore CA1849, VSTHRD103, S6966
             return null;
         }
 

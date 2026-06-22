@@ -44,16 +44,20 @@ internal sealed class SchemaMigrateRunner : IMigrateRunner
 
         var dbContextOptions = BuildDbContextOptions(options);
 
-#pragma warning disable CA1849, VSTHRD103 // McMaster IConsole has no async overloads
+#pragma warning disable CA1849, VSTHRD103, S6966 // McMaster IConsole has no async overloads
         console.WriteLine($"audit migrate — provider: {options.Provider}");
         console.WriteLine($"  Schema:        {options.Schema ?? "<provider default>"}");
         console.WriteLine($"  Header table:  {options.HeaderTableName}");
         console.WriteLine($"  Detail table:  {options.DetailTableName}");
         console.WriteLine($"  Dry run:       {options.DryRun}");
         console.WriteLine();
-#pragma warning restore CA1849, VSTHRD103
+#pragma warning restore CA1849, VSTHRD103, S6966
 
-        await using var context = new AuditMigrationsDbContext(dbContextOptions, auditOptions);
+        // MA0004: `await using var` cannot ConfigureAwait the implicit DisposeAsync.
+        // Use the explicit ConfiguredAsyncDisposable form so dispose doesn't resume
+        // on a captured SynchronizationContext.
+        var context = new AuditMigrationsDbContext(dbContextOptions, auditOptions);
+        await using var configured = context.ConfigureAwait(false);
         var script = await AuditSchemaMigrator
             .RunAsync(context, options.DryRun)
             .ConfigureAwait(false);
@@ -70,7 +74,7 @@ internal sealed class SchemaMigrateRunner : IMigrateRunner
         {
             console.WriteLine("Migrations applied (or already current).");
         }
-#pragma warning restore CA1849, VSTHRD103
+#pragma warning restore CA1849, VSTHRD103, S6966
     }
 
 
