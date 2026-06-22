@@ -66,3 +66,9 @@ dotnet_diagnostic.S1006.severity = none
 
 # RCS1194: Exception type should have ctor(string,Exception) — test exception types are minimal sentinels
 dotnet_diagnostic.RCS1194.severity = none
+
+# S125: Sections of code should not be commented out — test files contain explanatory comments that read like code
+dotnet_diagnostic.S125.severity = none
+
+# MA0093: EventArgs.Empty should be used — test fake console raises events with sentinel null args
+dotnet_diagnostic.MA0093.severity = none
