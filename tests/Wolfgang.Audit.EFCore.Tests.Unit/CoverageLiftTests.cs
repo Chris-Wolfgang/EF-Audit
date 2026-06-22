@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage;
 using Wolfgang.Audit.Entities;
+using Wolfgang.Audit.Internal;
 using Wolfgang.Audit.Schema;
 using Wolfgang.Audit.Serializers;
 using Wolfgang.Audit.Tests.Unit.TestSupport;
@@ -63,28 +64,26 @@ public class CoverageLiftTests
     [Fact]
     public async Task MigrateAuditSchemaAsync_throws_for_non_relational_provider()
     {
-        // Build a DbContextOptions WITHOUT calling any UseX() — no
-        // RelationalOptionsExtension lands in options.Extensions, so the
-        // extension method must throw InvalidOperationException. This is
-        // the same effective config a consumer would have with the
-        // in-memory provider, without taking on that package as a dep.
+        // UseInMemoryDatabase configures a real provider that has no
+        // RelationalOptionsExtension — so we get past EF Core's own
+        // "must configure a provider" guard and reach OUR throw at line 69.
         var auditOptions = new AuditOptions
         {
             ValueSerializer     = new StringAuditValueSerializer(),
             EntityKeySerializer = new PipeDelimitedEntityKeySerializer(),
         };
-        var dbOpts = new DbContextOptionsBuilder<ProviderlessContext>().Options;
+        var dbOpts = new DbContextOptionsBuilder<ProviderlessContext>()
+            .UseInMemoryDatabase("non-relational-coverage-lift")
+            .Options;
         await using var ctx = new ProviderlessContext(
             dbOpts,
             new StaticAuditUserProvider("u"),
             auditOptions);
 
-        // EF Core throws an InvalidOperationException before our code runs
-        // because OnModelCreating needs a provider to resolve relational
-        // metadata. The result is the same shape (the call fails loudly when
-        // no relational provider is configured) but at the EF Core layer.
-        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(() =>
             ctx.MigrateAuditSchemaAsync());
+
+        Assert.Contains("non-relational provider", ex.Message, StringComparison.Ordinal);
     }
 
 
@@ -135,6 +134,125 @@ public class CoverageLiftTests
         Assert.Equal(2, await AuditSchemaVersionStore.ReadInstalledVersionAsync(ctx, CancellationToken.None));
     }
 #endif
+
+
+
+    // ── SaveChangesCanceledAsync (net8+) ───────────────────────────────────
+    // EF Core 7+ added this hook to ISaveChangesInterceptor; the production
+    // override routes to AbortAuditAsync. Invoke the interceptor directly
+    // with a DbContextEventData so the async state machine actually runs.
+
+#if NET8_0_OR_GREATER
+    [Fact]
+    public async Task SaveChangesCanceledAsync_with_null_context_returns_without_throwing()
+    {
+        var sut = new AuditSaveChangesInterceptor(
+            new StaticAuditUserProvider("u"),
+            new AuditOptions
+            {
+                ValueSerializer     = new StringAuditValueSerializer(),
+                EntityKeySerializer = new PipeDelimitedEntityKeySerializer(),
+            });
+
+        var eventData = new DbContextEventData(
+            eventDefinition:  null!,
+            messageGenerator: static (_, _) => string.Empty,
+            context:          null);
+
+        await sut.SaveChangesCanceledAsync(eventData);
+        // Reaching here means the "context is null" early-return ran cleanly.
+    }
+
+
+
+    [Fact]
+    public async Task SaveChangesCanceledAsync_with_live_context_runs_AbortAuditAsync()
+    {
+        // No owned transaction in the bag → AbortAuditAsync's null-tx branch
+        // runs to completion. This covers the full success path of the cancel
+        // hook (the catch-swallow branch is covered by a separate test below).
+        using var fixture = new InterceptorFixture();
+        await using var ctx = fixture.CreateContext();
+
+        var sut = new AuditSaveChangesInterceptor(fixture.UserProvider, fixture.Options);
+
+        var eventData = new DbContextEventData(
+            eventDefinition:  null!,
+            messageGenerator: static (_, _) => string.Empty,
+            context:          ctx);
+
+        await sut.SaveChangesCanceledAsync(eventData);
+    }
+#endif
+
+
+
+    // ── AbortAuditAsync exception-during-rollback ──────────────────────────
+    // The catch block (lines 445-456) is hit when ownedTx.RollbackAsync()
+    // itself throws. Plant a fake IDbContextTransaction that throws on
+    // RollbackAsync, then trigger the abort via SaveChangesFailedAsync.
+
+    [Fact]
+    public async Task AbortAuditAsync_swallows_rollback_exception()
+    {
+        using var fixture = new InterceptorFixture();
+        await using var ctx = fixture.CreateContext();
+
+        var throwingTx = new ThrowingTransaction();
+        ctx.SetItem("Wolfgang.Audit.OwnedTransaction", throwingTx);
+
+        var sut = new AuditSaveChangesInterceptor(fixture.UserProvider, fixture.Options);
+
+        var errorData = new DbContextErrorEventData(
+            eventDefinition:  null!,
+            messageGenerator: static (_, _) => string.Empty,
+            context:          ctx,
+            exception:        new InvalidOperationException("simulated user-pass failure"));
+
+        // SaveChangesFailedAsync → AbortAuditAsync → throwingTx.RollbackAsync
+        // throws → catch swallows → finally disposes. The interceptor must
+        // not propagate the rollback exception.
+        await sut.SaveChangesFailedAsync(errorData);
+
+        Assert.True(throwingTx.RollbackAttempted);
+        Assert.True(throwingTx.Disposed);
+        // OwnedTransaction key cleared on the way out.
+        Assert.Null(ctx.GetItem<IDbContextTransaction>("Wolfgang.Audit.OwnedTransaction"));
+    }
+
+
+
+    /// <summary>Minimal IDbContextTransaction that throws on rollback.</summary>
+    private sealed class ThrowingTransaction : IDbContextTransaction
+    {
+        public bool RollbackAttempted { get; private set; }
+        public bool Disposed { get; private set; }
+
+        public Guid TransactionId { get; } = Guid.NewGuid();
+
+        public void Commit()  => throw new NotSupportedException();
+        public void Rollback()
+        {
+            RollbackAttempted = true;
+            throw new InvalidOperationException("simulated rollback failure");
+        }
+
+        public Task CommitAsync(CancellationToken cancellationToken = default)
+            => throw new NotSupportedException();
+
+        public Task RollbackAsync(CancellationToken cancellationToken = default)
+        {
+            RollbackAttempted = true;
+            throw new InvalidOperationException("simulated rollback failure");
+        }
+
+        public void Dispose() => Disposed = true;
+        public ValueTask DisposeAsync()
+        {
+            Disposed = true;
+            return ValueTask.CompletedTask;
+        }
+    }
 
 
 
