@@ -101,7 +101,75 @@ public class CoverageLiftTests
         {
         }
     }
+
+
+
+    // ── AuditSchemaVersionStore.UpsertInstalledVersionAsync UPDATE branch ──
+    // The "existing.Version = version" else-branch only fires on the second
+    // Upsert; the first call goes through the INSERT branch.
+
+    [Fact]
+    public async Task UpsertInstalledVersionAsync_updates_existing_row_on_second_call()
+    {
+        using var connection = new SqliteConnection("Filename=:memory:");
+        await connection.OpenAsync();
+
+        var auditOptions = new AuditOptions
+        {
+            ValueSerializer     = new StringAuditValueSerializer(),
+            EntityKeySerializer = new PipeDelimitedEntityKeySerializer(),
+        };
+        var dbOpts = new DbContextOptionsBuilder<AuditMigrationsDbContext>()
+            .UseSqlite(connection)
+            .Options;
+
+        await using var ctx = new AuditMigrationsDbContext(dbOpts, auditOptions);
+        await ctx.Database.EnsureCreatedAsync();
+
+        // First call -> INSERT
+        await AuditSchemaVersionStore.UpsertInstalledVersionAsync(ctx, version: 1, CancellationToken.None);
+        Assert.Equal(1, await AuditSchemaVersionStore.ReadInstalledVersionAsync(ctx, CancellationToken.None));
+
+        // Second call -> UPDATE (the previously-uncovered branch)
+        await AuditSchemaVersionStore.UpsertInstalledVersionAsync(ctx, version: 2, CancellationToken.None);
+        Assert.Equal(2, await AuditSchemaVersionStore.ReadInstalledVersionAsync(ctx, CancellationToken.None));
+    }
 #endif
+
+
+
+    // ── AuditCapture.TryCaptureEntry skips AuditHeader entries ─────────────
+
+    [Fact]
+    public async Task CapturePending_skips_AuditHeader_entries_in_change_tracker()
+    {
+        using var fixture = new AuditFixture();
+        await using var context = fixture.CreateContext();
+
+        // Manually add an AuditHeader to the change tracker. TryCaptureEntry's
+        // "if (clrType == AuditHeader || AuditDetail) return null" guard must
+        // skip it so we don't audit the audit table itself.
+        context.Set<AuditHeader>().Add(new AuditHeader
+        {
+            HeaderId      = Guid.NewGuid(),
+            TransactionId = Guid.NewGuid(),
+            AuditedAtUtc  = DateTime.UtcNow,
+            UserId        = "manual",
+            EntityType    = "Manual",
+            EntityTable   = "Manual",
+            EntityKey     = "1",
+            Operation     = AuditOperation.Insert,
+        });
+        // Plus a real entity so the save actually does audit work.
+        context.Customers.Add(new Customer { Name = "Real", Email = "r@example.com" });
+
+        await context.SaveChangesAsync();
+
+        await using var verify = fixture.CreateContext();
+        // Two AuditHeader rows expected: the manual one + the audit row for
+        // the Customer Insert. The manual header was NOT itself audited.
+        Assert.Equal(2, await verify.Set<AuditHeader>().CountAsync());
+    }
 
 
 
