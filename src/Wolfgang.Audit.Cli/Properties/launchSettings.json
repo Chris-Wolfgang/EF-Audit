@@ -1,0 +1,20 @@
+{
+    "profiles": {
+        "<no options>": {
+            "commandName": "Project",
+            "commandLineArgs": ""
+        },
+        "-?": {
+            "commandName": "Project",
+            "commandLineArgs": "-?"
+        },
+        "migrate -?": {
+            "commandName": "Project",
+            "commandLineArgs": "migrate -?"
+        },
+        "migrate --dry-run": {
+            "commandName": "Project",
+            "commandLineArgs": "migrate -c \"Server=(localdb)\\MSSQLLocalDB;Database=auditdemo;Trusted_Connection=True;\" --provider sqlserver --dry-run"
+        }
+    }
+}

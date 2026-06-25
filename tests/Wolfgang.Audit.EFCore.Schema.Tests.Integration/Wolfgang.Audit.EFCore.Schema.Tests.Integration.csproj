@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!--
+      Targets net10.0 because AuditSchemaMigrator itself is net8.0+ (EF Core 7+
+      design-time model requirement). MySQL is omitted from this project for
+      the same reason it's omitted from the CLI: Pomelo 9.0.0 caps at EF Core
+      9.x and the rest of the stack is on 10. SQL Server + PostgreSQL via
+      Testcontainers; SQLite covered by Wolfgang.Audit.EFCore.Tests.Unit.
+    -->
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <!--
+      Mirrors Wolfgang.Audit.EFCore.Tests.Integration: default to a no-op so
+      pr.yaml's blanket `dotnet test` doesn't try to spin Docker on a runner
+      without it. The integration.yaml workflow sets RunIntegrationTests=true.
+    -->
+    <IsTestProject>false</IsTestProject>
+    <IsTestProject Condition="'$(RunIntegrationTests)' == 'true'">true</IsTestProject>
+    <NoWarn>$(NoWarn);VSTHRD200;CA1707;S6966;CA1515</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Wolfgang.Audit.EFCore\Wolfgang.Audit.EFCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1" />
+    <PackageReference Include="Npgsql" Version="10.0.2" />
+
+    <PackageReference Include="Testcontainers.MsSql" Version="4.0.0" />
+    <PackageReference Include="Testcontainers.PostgreSql" Version="4.0.0" />
+  </ItemGroup>
+
+</Project>
