@@ -30,6 +30,9 @@
       {
         "files": [
           "logo.svg",
+          "favicon.svg",
+          "favicon.ico",
+          "apple-touch-icon.png",
           "images/**"
         ]
       }
@@ -44,6 +47,7 @@
       "_appName": "Wolfgang.Audit",
       "_appTitle": "Wolfgang.Audit Documentation",
       "_appLogoPath": "logo.svg",
+      "_appFaviconPath": "favicon.svg",
       "_enableSearch": true,
       "_appFooter": "Made with DocFX",
       "_disableSidebar": false,

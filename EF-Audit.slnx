@@ -42,9 +42,22 @@
     <File Path="scripts/Setup-Labels.ps1" />
     <File Path="scripts/setup.ps1" />
   </Folder>
-  <Folder Name="/benchmarks/" />
-  <Folder Name="/examples/" />
-  <Folder Name="/src/" />
-  <Folder Name="/tests/" />
+  <Folder Name="/benchmarks/">
+    <Project Path="benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/examples/">
+    <Project Path="examples/Wolfgang.Audit.EFCore.Example.Console/Wolfgang.Audit.EFCore.Example.Console.csproj" />
+    <Project Path="examples/Wolfgang.Audit.EFCore.Example.WebApi/Wolfgang.Audit.EFCore.Example.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Wolfgang.Audit.Abstractions/Wolfgang.Audit.Abstractions.csproj" />
+    <Project Path="src/Wolfgang.Audit.EFCore/Wolfgang.Audit.EFCore.csproj" />
+    <Project Path="src/Wolfgang.Audit.TestKit.Xunit/Wolfgang.Audit.TestKit.Xunit.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Wolfgang.Audit.EFCore.Tests.Unit/Wolfgang.Audit.EFCore.Tests.Unit.csproj" />
+    <Project Path="tests/Wolfgang.Audit.EFCore.Tests.Integration/Wolfgang.Audit.EFCore.Tests.Integration.csproj" />
+    <Project Path="tests/Wolfgang.Audit.EFCore.Tests.Smoke/Wolfgang.Audit.EFCore.Tests.Smoke.csproj" />
+  </Folder>
 </Solution>
 

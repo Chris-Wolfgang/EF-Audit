@@ -1,0 +1,91 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <Version>0.1.0</Version>
+    <Authors>Chris Wolfgang</Authors>
+    <Copyright>Copyright 2026 Chris Wolfgang</Copyright>
+    <Title>Wolfgang.Audit.Cli</Title>
+    <Description>Command-line companion for Wolfgang.Audit.EFCore. Applies and maintains audit-table schemas via EF Core migrations against SQL Server, PostgreSQL, MySQL, or SQLite targets.</Description>
+    <RepositoryUrl>https://github.com/Chris-Wolfgang/EF-Audit</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/Chris-Wolfgang/EF-Audit</PackageProjectUrl>
+
+    <!--
+      Self-contained single-file native publish. Per the new-console-app skill:
+      do NOT set SelfContained true in the csproj because that would break test
+      and benchmark ProjectReferences. Pass the self-contained flag on the
+      publish command line instead.
+    -->
+    <AssemblyName>audit</AssemblyName>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <!-- SYSLIB1104: source-gen for IConfiguration.Get<T>() with PublishSingleFile (runtime fallback works).
+         RCS1163, S3257: the cwconsole template Framework files take a `context` parameter even when
+           unused; suppressing is preferable to forking template code. -->
+    <NoWarn>$(NoWarn);SYSLIB1104;RCS1163;S3257;MA0003;MA0048</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Wolfgang.Audit.Cli.Tests.Unit" />
+    <!-- Required for NSubstitute to proxy internal interfaces -->
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wolfgang.Audit.EFCore\Wolfgang.Audit.EFCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--
+      Per-provider EF Core packages. Each one supplies its IMigrationsSqlGenerator
+      so the same AuditSchemaMigrator works against every RDBMS we list.
+      Adding a new provider (Oracle, DB2, …) is one PackageReference here plus
+      one switch arm in SchemaMigrateRunner.BuildDbContextOptions.
+    -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+    <!-- NU1903 transitive override — see issue #121. -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
+    <!--
+      MySQL: deferred. Pomelo.EntityFrameworkCore.MySql 9.0.0 is the latest
+      stable and caps at EF Core 9.x; the rest of this CLI is on EF Core 10.
+      Re-enable when Pomelo ships 10.x (or switch to MySql.EntityFrameworkCore
+      if Oracle's provider proves a viable swap). Tracked: integration tests
+      and benchmarks still cover MySQL via the net8.0-pinned projects.
+    -->
+    <!-- <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" /> -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="5.1.0" />
+    <PackageReference Include="McMaster.Extensions.Hosting.CommandLine" Version="5.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
+    <PackageReference Include="Serilog" Version="4.3.1" />
+    <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AppSettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="AppSettings.Production.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="AppSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
