@@ -20,11 +20,16 @@ The header/detail-per-column schema is the same shape that [Z.EntityFramework.Pl
 | `Wolfgang.Audit.Abstractions` | Shared contracts (interfaces, attributes, entity types). No EF Core dependency. |
 | `Wolfgang.Audit.EFCore` | `AuditingDbContext` base class, auto-transaction `AuditSaveChangesInterceptor`, default serializers, DI helpers. Depends on EF Core 6+ Relational. |
 | `Wolfgang.Audit.TestKit.Xunit` | xunit contract-test bases (FsCheck-powered) for validating custom `IAuditValueSerializer` implementations. |
+| `Wolfgang.Audit.Cli` | `audit` command-line tool. Installs schema (provider-agnostic via `AuditSchemaMigrator`) without invoking application code. |
 
-All three packages will be published to NuGet.org under the **`Wolfgang.Audit.*`** prefix when the first release tag ships. Until then, build from source or consume via project reference.
+All four packages are published to NuGet.org under the **`Wolfgang.Audit.*`** prefix from v0.1.0 onward.
 
 ```bash
+# Library
 dotnet add package Wolfgang.Audit.EFCore
+
+# CLI (global tool)
+dotnet tool install -g Wolfgang.Audit.Cli
 ```
 
 ---
@@ -144,6 +149,7 @@ Two end-to-end samples ship in [`examples/`](./examples):
 | `Wolfgang.Audit.Abstractions` | `netstandard2.0`, `net8.0`, `net10.0` |
 | `Wolfgang.Audit.EFCore` | `net6.0`, `net8.0`, `net10.0` |
 | `Wolfgang.Audit.TestKit.Xunit` | `netstandard2.0`, `net8.0`, `net10.0` |
+| `Wolfgang.Audit.Cli` | `net10.0` (global dotnet tool) |
 
 EF Core 6, 7, 8, 9, and 10 are all supported (the library targets the LTS net6.0 / net8.0 / net10.0; an EF Core 7 consumer running on net6.0+ or net7.0+ resolves the appropriate TFM automatically).
 
