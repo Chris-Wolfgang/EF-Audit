@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-The repo is pre-release; everything is currently landing on the `initial-dev`
-integration branch. This section will be split into the first tagged release
-(targeted **0.1.0**) when `initial-dev` merges to `main`.
+_(empty — open this section as work for v0.2.0 begins.)_
+
+## [0.1.0] — 2026-06-28
+
+First tagged release. The `Wolfgang.Audit.*` package family is published to
+NuGet.org. Multi-targets `netstandard2.0`, `net6.0`, `net8.0`, `net10.0` for
+source projects; tests cover net462 → net10.0 inclusive.
 
 ### Added
 
