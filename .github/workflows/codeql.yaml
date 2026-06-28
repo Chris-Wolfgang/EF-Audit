@@ -27,7 +27,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp' ]
+        # 'actions' analyzes GitHub Actions workflows; required by the repo's
+        # default-setup gate that expects an `actions` result. 'csharp' is the
+        # project source language. The csharp-specific build steps below are
+        # gated to language == csharp; actions is a no-build analysis.
+        language: [ 'csharp', 'actions' ]
 
     steps:
     - name: Checkout repository
@@ -37,6 +41,7 @@ jobs:
 
     - name: Check for C# source code
       id: check-csharp
+      if: matrix.language == 'csharp'
       shell: pwsh
       run: |
         Write-Host "=== CodeQL C# Source Code Detection ===" -ForegroundColor Cyan
@@ -76,7 +81,9 @@ jobs:
         Write-Host "========================================" -ForegroundColor Cyan
 
     - name: Initialize CodeQL
-      if: steps.check-csharp.outputs.has-csharp == 'true'
+      # csharp runs only when C# source exists; actions runs unconditionally
+      # (workflow files are always present and the analyzer is fast).
+      if: matrix.language == 'actions' || steps.check-csharp.outputs.has-csharp == 'true'
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
@@ -87,13 +94,13 @@ jobs:
         queries: security-extended
 
     - name: Setup .NET
-      if: steps.check-csharp.outputs.has-csharp == 'true'
+      if: matrix.language == 'csharp' && steps.check-csharp.outputs.has-csharp == 'true'
       uses: actions/setup-dotnet@v5
       with:
         dotnet-version: '10.0.x'
 
     - name: Restore .NET workloads
-      if: steps.check-csharp.outputs.has-csharp == 'true'
+      if: matrix.language == 'csharp' && steps.check-csharp.outputs.has-csharp == 'true'
       shell: pwsh
       run: |
         # Some projects (MAUI / MauiHybrid / Android / iOS / WPF) declare workloads
@@ -114,7 +121,7 @@ jobs:
 
     - name: Build for CodeQL Analysis
       id: build
-      if: steps.check-csharp.outputs.has-csharp == 'true'
+      if: matrix.language == 'csharp' && steps.check-csharp.outputs.has-csharp == 'true'
       shell: pwsh
       run: |
         Write-Host "Building solution for CodeQL analysis..."
@@ -152,7 +159,9 @@ jobs:
 
     - name: Perform CodeQL Analysis
       id: perform-codeql-analysis
-      if: steps.check-csharp.outputs.has-csharp == 'true'
+      # csharp analyzes only when source exists; actions always analyzes
+      # (workflow files always exist and satisfy the actions analyzer).
+      if: matrix.language == 'actions' || steps.check-csharp.outputs.has-csharp == 'true'
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
