@@ -1255,3 +1255,85 @@ jobs:
           name: devskim-results
           path: devskim-results.txt
           if-no-files-found: warn
+
+  # ============================================================================
+  # RESHARPER INSPECTCODE: JetBrains static analysis, parallel to the test stages.
+  # Runs a non-Roslyn ruleset (data-flow, dead-code, structural) that the existing
+  # analyzer stack doesn't cover. Findings upload to GitHub Code Scanning and
+  # inline-annotate the PR diff. The job fails on ERROR-level findings only;
+  # WARNING-level findings surface in Security → Code scanning without blocking.
+  #
+  # NOTE: this job is NOT yet in the branch-protection required-status-checks set.
+  # Promoting it to a required check is a separate ruleset change, done once the
+  # baseline is reviewed. The canonical home for this job is repo-template; this
+  # copy should be kept in sync when the template adopts it (see #141).
+  # ============================================================================
+  inspectcode:
+    name: "ReSharper InspectCode"
+    runs-on: ubuntu-latest
+    if: github.repository != 'Chris-Wolfgang/repo-template'
+    permissions:
+      contents: read
+      security-events: write   # required for upload-sarif
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
+          persist-credentials: false
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore + build (Release)
+        run: |
+          dotnet restore
+          dotnet build -c Release --no-restore
+
+      - name: Install JetBrains.ReSharper.GlobalTools
+        run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
+
+      - name: Run InspectCode
+        run: |
+          # EF-Audit.slnx is the single root solution; resolve it dynamically so
+          # the step survives a rename.
+          SLN=$(ls *.slnx 2>/dev/null | head -1)
+          if [ -z "$SLN" ]; then
+            echo "::error::No .slnx solution found at repo root"
+            exit 1
+          fi
+          echo "Inspecting $SLN"
+          jb inspectcode "$SLN" \
+            --output=inspect.sarif \
+            --format=sarif \
+            --severity=WARNING \
+            --no-build
+
+      - name: Upload SARIF to code scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: inspect.sarif
+
+      - name: Gate on error-level findings
+        run: |
+          # Fail only on ERROR-level results. WARNING-level findings are uploaded
+          # for visibility but don't block — flip --severity / this threshold once
+          # the baseline is triaged and the job is promoted to a required check.
+          count=$(jq '[.runs[].results[]? | select(.level=="error")] | length' inspect.sarif)
+          echo "InspectCode error-level findings: $count"
+          if [ "$count" -gt 0 ]; then
+            echo "::error::$count InspectCode error(s) — see Security → Code scanning"
+            exit 1
+          fi
+
+      - name: Upload InspectCode SARIF artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: inspectcode-sarif
+          path: inspect.sarif
+          if-no-files-found: warn
