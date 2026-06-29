@@ -563,23 +563,26 @@ jobs:
           if-no-files-found: warn
 
   # Publish to NuGet (only if validation passed)
+  #
+  # Uses NuGet.org TRUSTED PUBLISHING (OIDC) — no long-lived API-key secret.
+  # The NuGet/login action exchanges this run's GitHub OIDC token for a
+  # short-lived push key, validated against the trusted-publishing policy
+  # configured on nuget.org for (owner=Chris-Wolfgang, repo=EF-Audit,
+  # workflow=release.yaml). The nuget.org account username is supplied via the
+  # repo variable `vars.NUGET_USER` so it isn't hard-coded in the workflow.
   publish-nuget:
     name: Publish to NuGet.org
     needs: pack-and-validate
     if: needs.pack-and-validate.outputs.has-packages == 'true'
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # REQUIRED: lets the runner mint a GitHub OIDC token
+      contents: read
     steps:
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: |
-            3.1.x
-            5.0.x
-            6.0.x
-            7.0.x
-            8.0.x
-            9.0.x
-            10.0.x
+          dotnet-version: '10.0.x'
 
       - name: Download packages
         uses: actions/download-artifact@v8.0.1
@@ -587,47 +590,48 @@ jobs:
           name: nuget-packages
           path: ./packages
 
-      - name: Validate NuGet API key
-        shell: pwsh
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      - name: Verify trusted-publishing username is configured
         run: |
-          if ([string]::IsNullOrEmpty($env:NUGET_API_KEY)) {
-            Write-Error "❌ NUGET_API_KEY secret not configured!"
-            Write-Host "Please add it in: Repository Settings → Secrets and variables → Actions → New repository secret"
+          if [ -z "${{ vars.NUGET_USER }}" ]; then
+            echo "::error::vars.NUGET_USER is not set. Add the nuget.org account username under Settings → Secrets and variables → Actions → Variables, and create a Trusted Publishing policy on nuget.org for Chris-Wolfgang/EF-Audit / release.yaml."
             exit 1
-          }
-          Write-Host "✅ NUGET_API_KEY is configured" -ForegroundColor Green
+          fi
+
+      - name: NuGet trusted-publishing login (OIDC)
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ vars.NUGET_USER }}
 
       - name: Publish to NuGet
         shell: pwsh
         env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+          NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
         run: |
           $packages = Get-ChildItem -Path './packages' -Filter '*.nupkg' -ErrorAction SilentlyContinue
-          
+
           if ($packages.Count -eq 0) {
             Write-Warning "No .nupkg files found - nothing to publish"
             exit 0
           }
-          
+
           foreach ($package in $packages) {
             Write-Host "📤 Publishing $($package.Name) to NuGet.org" -ForegroundColor Cyan
-            
+
             dotnet nuget push $package.FullName `
               --api-key $env:NUGET_API_KEY `
               --source https://api.nuget.org/v3/index.json `
               --skip-duplicate
-            
+
             # Exit code 0 = success, 409 would be duplicate (handled by --skip-duplicate flag)
             if ($LASTEXITCODE -ne 0) {
               Write-Error "❌ Failed to publish $($package.Name)"
               exit $LASTEXITCODE
             }
-            
+
             Write-Host "✅ Successfully published $($package.Name)" -ForegroundColor Green
           }
-          
+
           Write-Host ""
           Write-Host "==========================================" -ForegroundColor Green
           Write-Host "✅ All packages published to NuGet.org" -ForegroundColor Green
