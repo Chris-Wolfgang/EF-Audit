@@ -1,0 +1,79 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net8.0;net10.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>true</IsPackable>
+
+    <PackageId>Wolfgang.Audit.EFCore</PackageId>
+    <Version>0.1.0</Version>
+    <Title>Wolfgang.Audit.EFCore</Title>
+    <Authors>Chris Wolfgang</Authors>
+    <Description>EF Core audit/change-tracking library. Intercepts SaveChanges, captures every Insert/Update/Delete via ChangeTracker, and writes audit rows to a header/detail table pair inside the same transaction as the user's save. Configurable schema, pluggable value and entity-key serializers, opt-out via [NotAudited].</Description>
+    <Copyright>Copyright (c) Chris Wolfgang</Copyright>
+    <PackageProjectUrl>https://github.com/Chris-Wolfgang/EF-Audit</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Chris-Wolfgang/EF-Audit</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>audit;ef;ef-core;change-tracking;interceptor</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wolfgang.Audit.Abstractions\Wolfgang.Audit.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--
+      InternalsVisibleTo for unit tests. SDK csproj doesn't natively support
+      <InternalsVisibleTo Include="..."/> — emit the attribute via the
+      AssemblyAttribute item the SDK targets understand.
+    -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Wolfgang.Audit.EFCore.Tests.Unit</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <!--
+    PublicApiAnalyzers: track the public API surface to catch unintended
+    additions/changes. Scoped to the net10.0 TFM only because EFCore's
+    Schema/* feature set is gated on NET8_0_OR_GREATER, so the net6 surface
+    is a strict subset of net10's. Maintaining per-TFM PublicAPI files isn't
+    worth the bookkeeping when the net10 build covers every symbol.
+  -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <!--
+      EF Core 6.0.36 is the latest patched release of the 6.x LTS line. Earlier
+      6.0.x versions transitively pull a vulnerable Microsoft.Extensions.Caching.Memory.
+    -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.36" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.11" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>
