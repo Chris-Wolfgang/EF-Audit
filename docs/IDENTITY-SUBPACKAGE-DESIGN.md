@@ -1,4 +1,4 @@
-# `Wolfgang.Audit.EFCore.Identity` — design sketch
+# `Wolfgang.AuditTrail.EntityFrameworkCore.Identity` — design sketch
 
 ## Why this exists
 
@@ -16,7 +16,7 @@ This pattern matches what [Audit.NET](https://github.com/thepirat000/Audit.NET) 
 
 ## What ships
 
-New project: **`src/Wolfgang.Audit.EFCore.Identity/`** — a thin add-on package that depends on `Wolfgang.Audit.EFCore` + `Microsoft.AspNetCore.Identity.EntityFrameworkCore`. Exposes pre-derived `AuditingIdentity*DbContext` classes — one per Identity base — that re-implement the same audit-aware `SaveChanges`/`SaveChangesAsync` overrides as `AuditingDbContext`.
+New project: **`src/Wolfgang.AuditTrail.EntityFrameworkCore.Identity/`** — a thin add-on package that depends on `Wolfgang.AuditTrail.EntityFrameworkCore` + `Microsoft.AspNetCore.Identity.EntityFrameworkCore`. Exposes pre-derived `AuditingIdentity*DbContext` classes — one per Identity base — that re-implement the same audit-aware `SaveChanges`/`SaveChangesAsync` overrides as `AuditingDbContext`.
 
 | Identity base | Audit-aware variant |
 |---|---|
@@ -32,7 +32,7 @@ Seven variants total. Each inherits from its corresponding `IdentityDbContext`/`
 
 ## Shared helper
 
-To avoid copy-pasting the override across seven classes, factor the audit-pass logic out of `AuditingDbContext` into an internal helper inside `Wolfgang.Audit.EFCore`:
+To avoid copy-pasting the override across seven classes, factor the audit-pass logic out of `AuditingDbContext` into an internal helper inside `Wolfgang.AuditTrail.EntityFrameworkCore`:
 
 ```csharp
 internal static class AuditingSaveHelper
@@ -110,7 +110,7 @@ No interceptor wiring, no `ApplyAuditing` to remember, no `UseAuditing` call. Th
 
 1. **Maintenance surface.** Seven pre-derived classes is a real package to maintain across EF Core versions. When Microsoft adds a new Identity overload (rare, but happens), this package needs a corresponding new flavor.
 2. **Test matrix.** Each variant needs its own integration test (at minimum a smoke test confirming audit rows get written through that base). FsCheck-style contract tests would be appropriate.
-3. **Package-discovery cost.** Yet another package on NuGet under the `Wolfgang.Audit.*` umbrella. Users have to know it exists — README docs and the integration matrix table need to point at it.
+3. **Package-discovery cost.** Yet another package on NuGet under the `Wolfgang.AuditTrail.*` umbrella. Users have to know it exists — README docs and the integration matrix table need to point at it.
 4. **Identity version matrix.** ASP.NET Core Identity has had API churn across .NET 6/7/8/9/10. The package needs to either pin to one Identity version (limiting consumers) or multi-target.
 
 ## Suggested implementation path
@@ -118,8 +118,8 @@ No interceptor wiring, no `ApplyAuditing` to remember, no `UseAuditing` call. Th
 1. Land v1 with just `AuditingDbContext` + interceptor (current state).
 2. Wait for consumer demand signal — issues / discussions asking for Identity support.
 3. Extract `AuditingSaveHelper` from `AuditingDbContext` in a refactor PR (no behavior change). Confirms the helper API works on one consumer before fanning out.
-4. Land `Wolfgang.Audit.EFCore.Identity` as a separate sub-package. Use the same csproj conventions as the main library (net6.0/net8.0/net10.0 TFMs, same analyzer stack).
-5. Update README integration matrix: "Identity-based context → use `Wolfgang.Audit.EFCore.Identity`'s pre-derived variant" replacing the interceptor recommendation for that case.
+4. Land `Wolfgang.AuditTrail.EntityFrameworkCore.Identity` as a separate sub-package. Use the same csproj conventions as the main library (net6.0/net8.0/net10.0 TFMs, same analyzer stack).
+5. Update README integration matrix: "Identity-based context → use `Wolfgang.AuditTrail.EntityFrameworkCore.Identity`'s pre-derived variant" replacing the interceptor recommendation for that case.
 
 ## Scope NOT for the Identity sub-package
 

@@ -19,5 +19,5 @@ When you run `docfx docfx_project/docfx.json` from the repository root, DocFX wi
 ## Template Placeholders
 
 The `index.md` file uses the following template placeholder:
-- `Wolfgang.Audit` - Will be replaced with your project name
+- `Wolfgang.AuditTrail` - Will be replaced with your project name
 

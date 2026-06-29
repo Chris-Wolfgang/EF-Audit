@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to Wolfgang.Audit!
+Welcome to Wolfgang.AuditTrail!
 
 ## Overview
 
@@ -18,9 +18,9 @@ A library that add tracking of inserts, updates and deletes to apps that use Ent
 
 ## Getting Help
 
-If you need help with Wolfgang.Audit, please:
+If you need help with Wolfgang.AuditTrail, please:
 
 - Check the [Getting Started](getting-started.md) guide
 - Review the [API Reference](../api/index.md)
-- Visit the [GitHub repository](https://github.com/Chris-Wolfgang/EF-Audit)
-- Open an issue on [GitHub Issues](https://github.com/Chris-Wolfgang/EF-Audit/issues)
+- Visit the [GitHub repository](https://github.com/Chris-Wolfgang/AuditTrail)
+- Open an issue on [GitHub Issues](https://github.com/Chris-Wolfgang/AuditTrail/issues)

@@ -1,6 +1,6 @@
-# Contributing to Wolfgang.Audit
+# Contributing to Wolfgang.AuditTrail
 
-Thank you for your interest in contributing to **Wolfgang.Audit**! We welcome contributions to help improve this project.
+Thank you for your interest in contributing to **Wolfgang.AuditTrail**! We welcome contributions to help improve this project.
 
 ## How Can You Contribute?
 

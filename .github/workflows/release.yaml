@@ -567,7 +567,7 @@ jobs:
   # Uses NuGet.org TRUSTED PUBLISHING (OIDC) — no long-lived API-key secret.
   # The NuGet/login action exchanges this run's GitHub OIDC token for a
   # short-lived push key, validated against the trusted-publishing policy
-  # configured on nuget.org for (owner=Chris-Wolfgang, repo=EF-Audit,
+  # configured on nuget.org for (owner=Chris-Wolfgang, repo=AuditTrail,
   # workflow=release.yaml). The nuget.org account username is supplied via the
   # repo variable `vars.NUGET_USER` so it isn't hard-coded in the workflow.
   publish-nuget:
@@ -600,7 +600,7 @@ jobs:
       - name: Verify trusted-publishing username is configured
         run: |
           if [ -z "${{ vars.NUGET_USER }}" ]; then
-            echo "::error::vars.NUGET_USER is not set. Add the nuget.org account username under Settings → Secrets and variables → Actions → Variables, and create a Trusted Publishing policy on nuget.org for Chris-Wolfgang/EF-Audit / release.yaml."
+            echo "::error::vars.NUGET_USER is not set. Add the nuget.org account username under Settings → Secrets and variables → Actions → Variables, and create a Trusted Publishing policy on nuget.org for Chris-Wolfgang/AuditTrail / release.yaml."
             exit 1
           fi
 

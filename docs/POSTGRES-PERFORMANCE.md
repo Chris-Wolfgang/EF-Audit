@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-If you're running `Wolfgang.Audit.EFCore` against PostgreSQL and seeing high
+If you're running `Wolfgang.AuditTrail.EntityFrameworkCore` against PostgreSQL and seeing high
 audit-pass latency at moderate batch sizes (10+ rows per `SaveChanges`),
 set Npgsql's `MaxBatchSize` higher on your `UseNpgsql(...)` call:
 
@@ -119,7 +119,7 @@ Run the cross-RDBMS benchmark with a `--filter` targeting just the
 PostgreSQL row:
 
 ```bash
-dotnet run -c Release --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks -- \
+dotnet run -c Release --project benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks -- \
   --filter '*ProviderSaveChangesBenchmarks.Insert*' --job short
 ```
 
@@ -127,7 +127,7 @@ Docker is required (PostgreSQL is provisioned via Testcontainers). The
 benchmark project currently does **not** set `MaxBatchSize` — it measures the
 out-of-the-box configuration. If you want to measure the tuned configuration
 locally, edit
-`benchmarks/Wolfgang.Audit.EFCore.Benchmarks/ProviderSaveChangesBenchmarks.cs`
+`benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks/ProviderSaveChangesBenchmarks.cs`
 and add the `MaxBatchSize(100)` argument to the `UseNpgsql` call in the
 PostgreSQL setup; numbers should drop substantially at batch sizes ≥ 10.
 
@@ -151,7 +151,7 @@ threshold. That's a v1.1+ feature; track via the same #26 thread.
 
 ## References
 
-- Issue: [#26](https://github.com/Chris-Wolfgang/EF-Audit/issues/26)
+- Issue: [#26](https://github.com/Chris-Wolfgang/AuditTrail/issues/26)
 - Npgsql docs: [Batching](https://www.npgsql.org/efcore/index.html#performance)
 - Npgsql `MaxBatchSize`: caps the count of statements per command (≠ `BatchSize`
   in some other ORMs, which means rows per multi-row INSERT)
