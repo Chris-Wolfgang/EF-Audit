@@ -64,7 +64,7 @@ jobs:
       - name: Run tests with coverage
         run: |
           dotnet test \
-            tests/Wolfgang.Audit.EFCore.Tests.Unit/Wolfgang.Audit.EFCore.Tests.Unit.csproj \
+            tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Unit/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Unit.csproj \
             --configuration Release \
             --framework net10.0 \
             --collect:"XPlat Code Coverage" \
@@ -77,7 +77,7 @@ jobs:
           reports: '**/coverage.cobertura.xml'
           targetdir: 'coverage-report'
           reporttypes: 'Html;TextSummary;Badges'
-          assemblyfilters: '+Wolfgang.Audit.*;-*.Tests.*;-*.Benchmarks*'
+          assemblyfilters: '+Wolfgang.AuditTrail.*;-*.Tests.*;-*.Benchmarks*'
 
       - name: Upload report as workflow artifact
         uses: actions/upload-artifact@v7
@@ -111,7 +111,7 @@ jobs:
       - name: Run tests with coverage
         run: |
           dotnet test \
-            tests/Wolfgang.Audit.EFCore.Tests.Unit/Wolfgang.Audit.EFCore.Tests.Unit.csproj \
+            tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Unit/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Unit.csproj \
             --configuration Release \
             --framework net10.0 \
             --collect:"XPlat Code Coverage" \
@@ -126,7 +126,7 @@ jobs:
           # History accumulates trend points so consecutive runs show a chart.
           historydir: 'coverage-history'
           reporttypes: 'Html;TextSummary;Badges'
-          assemblyfilters: '+Wolfgang.Audit.*;-*.Tests.*;-*.Benchmarks*'
+          assemblyfilters: '+Wolfgang.AuditTrail.*;-*.Tests.*;-*.Benchmarks*'
 
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453  # v4.1.0

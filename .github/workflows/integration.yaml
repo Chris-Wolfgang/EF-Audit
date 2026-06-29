@@ -58,17 +58,17 @@ jobs:
           docker info
 
       - name: Restore
-        run: dotnet restore tests/Wolfgang.Audit.EFCore.Tests.Integration/Wolfgang.Audit.EFCore.Tests.Integration.csproj
+        run: dotnet restore tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Integration/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Integration.csproj
 
       - name: Build
         run: |
-          dotnet build tests/Wolfgang.Audit.EFCore.Tests.Integration/Wolfgang.Audit.EFCore.Tests.Integration.csproj \
+          dotnet build tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Integration/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Integration.csproj \
             --no-restore \
             --configuration Release
 
       - name: Run integration tests
         run: |
-          dotnet test tests/Wolfgang.Audit.EFCore.Tests.Integration/Wolfgang.Audit.EFCore.Tests.Integration.csproj \
+          dotnet test tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Integration/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Integration.csproj \
             --no-build \
             --configuration Release \
             --logger "console;verbosity=normal" \
