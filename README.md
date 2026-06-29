@@ -1,15 +1,15 @@
-# Wolfgang.Audit
+# Wolfgang.AuditTrail
 
 An EF Core change-tracking library. Derive your `DbContext` from `AuditingDbContext` (or attach the auto-transaction interceptor) and every existing `context.SaveChangesAsync()` call site captures every Insert / Update / Delete via `ChangeTracker`, writing a row-by-row audit history — one **header** per changed entity plus per-column **detail** rows — into the **same transaction** as the user's save. Either both commit or both roll back, atomically. Uses EF Core's `IExecutionStrategy` under the hood so transient retries still work. **No call-site changes required.**
 
 The header/detail-per-column schema is the same shape that [Z.EntityFramework.Plus.Audit](https://entityframework-plus.net/ef-core-audit) and the [ABP Framework auditing](https://abp.io/docs/latest/framework/infrastructure/audit-logging) use — chosen for queryability ("every change to `Customer.Email` ever") over the more common JSON-blob-per-change shape (Audit.NET, EntityFrameworkCore.AutoHistory).
 
-[![PR Checks](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/pr.yaml/badge.svg)](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/pr.yaml)
-[![CodeQL](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/codeql.yaml/badge.svg)](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/codeql.yaml)
-[![Benchmarks](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/benchmarks.yaml/badge.svg)](https://github.com/Chris-Wolfgang/EF-Audit/actions/workflows/benchmarks.yaml)
+[![PR Checks](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/pr.yaml/badge.svg)](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/pr.yaml)
+[![CodeQL](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/codeql.yaml/badge.svg)](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/codeql.yaml)
+[![Benchmarks](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/benchmarks.yaml/badge.svg)](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/benchmarks.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-6.0%20%7C%208.0%20%7C%2010.0-purple.svg)](https://dotnet.microsoft.com/)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/Chris-Wolfgang/EF-Audit)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/Chris-Wolfgang/AuditTrail)
 
 ---
 
@@ -17,17 +17,17 @@ The header/detail-per-column schema is the same shape that [Z.EntityFramework.Pl
 
 | Package | Purpose |
 |---|---|
-| `Wolfgang.Audit.Abstractions` | Shared contracts (interfaces, attributes, entity types). No EF Core dependency. |
-| `Wolfgang.Audit.EFCore` | `AuditingDbContext` base class, auto-transaction `AuditSaveChangesInterceptor`, default serializers, DI helpers. Depends on EF Core 6+ Relational. |
-| `Wolfgang.Audit.TestKit.Xunit` | xunit contract-test bases (FsCheck-powered) for validating custom `IAuditValueSerializer` implementations. |
+| `Wolfgang.AuditTrail.Abstractions` | Shared contracts (interfaces, attributes, entity types). No EF Core dependency. |
+| `Wolfgang.AuditTrail.EntityFrameworkCore` | `AuditingDbContext` base class, auto-transaction `AuditSaveChangesInterceptor`, default serializers, DI helpers. Depends on EF Core 6+ Relational. |
+| `Wolfgang.AuditTrail.TestKit.Xunit` | xunit contract-test bases (FsCheck-powered) for validating custom `IAuditValueSerializer` implementations. |
 
-The three library packages above are published to NuGet.org under the **`Wolfgang.Audit.*`** prefix from v0.1.0 onward.
+The three library packages above are published to NuGet.org under the **`Wolfgang.AuditTrail.*`** prefix from v0.1.0 onward.
 
 ```bash
-dotnet add package Wolfgang.Audit.EFCore
+dotnet add package Wolfgang.AuditTrail.EntityFrameworkCore
 ```
 
-> **`audit` CLI tool** — a command-line companion (`audit migrate`) for installing the audit schema is included in the repo (`src/Wolfgang.Audit.Cli`) and is **built from source** for now. Its standalone distribution (a `dotnet tool` or self-contained binaries on the GitHub Release) ships in a later release; it is not part of the v0.1.0 NuGet packages.
+> **`audittrail` CLI tool** — a command-line companion (`audittrail migrate`) for installing the audit schema is included in the repo (`src/Wolfgang.AuditTrail.Cli`) and is **built from source** for now. Its standalone distribution (a `dotnet tool` or self-contained binaries on the GitHub Release) ships in a later release; it is not part of the v0.1.0 NuGet packages.
 
 ---
 
@@ -42,7 +42,7 @@ For new contexts or any context whose only base is `DbContext`. One word changes
 ```csharp
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Wolfgang.Audit;
+using Wolfgang.AuditTrail;
 
 // 1. Register audit services + your DbContext as normal.
 services.AddEfCoreAuditing<MyUserProvider>(opts =>
@@ -117,8 +117,8 @@ EF Core's retrying execution strategies (e.g. `SqlServerRetryingExecutionStrateg
 
 Two end-to-end samples ship in [`examples/`](./examples):
 
-- [Console](./examples/Wolfgang.Audit.EFCore.Example.Console) — minimal SQLite demo that prints the audit history.
-- [Web API](./examples/Wolfgang.Audit.EFCore.Example.WebApi) — ASP.NET Core minimal API showing the on-behalf-of pattern (service account as `UserId`, authenticated human as `OnBehalfOfUserId`).
+- [Console](./examples/Wolfgang.AuditTrail.EntityFrameworkCore.Example.Console) — minimal SQLite demo that prints the audit history.
+- [Web API](./examples/Wolfgang.AuditTrail.EntityFrameworkCore.Example.WebApi) — ASP.NET Core minimal API showing the on-behalf-of pattern (service account as `UserId`, authenticated human as `OnBehalfOfUserId`).
 
 ---
 
@@ -143,11 +143,11 @@ Two end-to-end samples ship in [`examples/`](./examples):
 
 | Package | TFMs |
 |---|---|
-| `Wolfgang.Audit.Abstractions` | `netstandard2.0`, `net8.0`, `net10.0` |
-| `Wolfgang.Audit.EFCore` | `net6.0`, `net8.0`, `net10.0` |
-| `Wolfgang.Audit.TestKit.Xunit` | `netstandard2.0`, `net8.0`, `net10.0` |
+| `Wolfgang.AuditTrail.Abstractions` | `netstandard2.0`, `net8.0`, `net10.0` |
+| `Wolfgang.AuditTrail.EntityFrameworkCore` | `net6.0`, `net8.0`, `net10.0` |
+| `Wolfgang.AuditTrail.TestKit.Xunit` | `netstandard2.0`, `net8.0`, `net10.0` |
 
-The `audit` CLI (`src/Wolfgang.Audit.Cli`) targets `net10.0` and is built from source; it isn't a published v0.1.0 package (see [Packages](#-packages)).
+The `audittrail` CLI (`src/Wolfgang.AuditTrail.Cli`) targets `net10.0` and is built from source; it isn't a published v0.1.0 package (see [Packages](#-packages)).
 
 EF Core 6, 7, 8, 9, and 10 are all supported (the library targets the LTS net6.0 / net8.0 / net10.0; an EF Core 7 consumer running on net6.0+ or net7.0+ resolves the appropriate TFM automatically).
 
@@ -157,24 +157,24 @@ EF Core 6, 7, 8, 9, and 10 are all supported (the library targets the LTS net6.0
 
 Three test projects + the shipped TestKit contract base:
 
-- **`tests/Wolfgang.Audit.EFCore.Tests.Unit`** — SQLite in-memory, fast, runs on every PR.
-- **`tests/Wolfgang.Audit.EFCore.Tests.Integration`** — Testcontainers against SQL Server 2022, PostgreSQL 16, MySQL 8.0. Opt-in via `RunIntegrationTests=true`; the dedicated [`integration.yaml`](./.github/workflows/integration.yaml) workflow runs them on Linux with Docker pre-installed.
-- **`tests/Wolfgang.Audit.EFCore.Tests.Smoke`** — end-to-end order-lifecycle scenario validating history reconstruction.
-- **`src/Wolfgang.Audit.TestKit.Xunit`** — shipped NuGet package containing `AuditValueSerializerContractTests<TSut>`. Inherit + provide `CreateSut()` and you get FsCheck-powered property tests plus boundary-value theories for every supported CLR type.
+- **`tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Unit`** — SQLite in-memory, fast, runs on every PR.
+- **`tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Integration`** — Testcontainers against SQL Server 2022, PostgreSQL 16, MySQL 8.0. Opt-in via `RunIntegrationTests=true`; the dedicated [`integration.yaml`](./.github/workflows/integration.yaml) workflow runs them on Linux with Docker pre-installed.
+- **`tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Smoke`** — end-to-end order-lifecycle scenario validating history reconstruction.
+- **`src/Wolfgang.AuditTrail.TestKit.Xunit`** — shipped NuGet package containing `AuditValueSerializerContractTests<TSut>`. Inherit + provide `CreateSut()` and you get FsCheck-powered property tests plus boundary-value theories for every supported CLR type.
 
 ```bash
 # Unit + smoke tests
 dotnet test
 
 # Integration tests (Docker required)
-RunIntegrationTests=true dotnet test tests/Wolfgang.Audit.EFCore.Tests.Integration
+RunIntegrationTests=true dotnet test tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Integration
 ```
 
 ---
 
 ## 📈 Benchmarks
 
-[`benchmarks/Wolfgang.Audit.EFCore.Benchmarks`](./benchmarks/Wolfgang.Audit.EFCore.Benchmarks) ships BenchmarkDotNet comparisons of plain `SaveChangesAsync` on an unaudited `DbContext` vs `SaveChangesAsync` on an `AuditingDbContext` across Insert, full Lifecycle (I→U→D), and MixedStates workloads. `MemoryDiagnoser` is enabled so allocation deltas are visible. A separate `ProviderSaveChangesBenchmarks` class extends the comparison to SQL Server and PostgreSQL via Testcontainers (run locally with `--filter '*ProviderSaveChangesBenchmarks*'`).
+[`benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks`](./benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks) ships BenchmarkDotNet comparisons of plain `SaveChangesAsync` on an unaudited `DbContext` vs `SaveChangesAsync` on an `AuditingDbContext` across Insert, full Lifecycle (I→U→D), and MixedStates workloads. `MemoryDiagnoser` is enabled so allocation deltas are visible. A separate `ProviderSaveChangesBenchmarks` class extends the comparison to SQL Server and PostgreSQL via Testcontainers (run locally with `--filter '*ProviderSaveChangesBenchmarks*'`).
 
 ### Measured audit-write cost (insert workload, `--job short`)
 
@@ -192,19 +192,19 @@ Numbers below are from a local run on a single 14700HX laptop; absolute values v
 | PostgreSQL | 10 | 3.9 ms | 53.6 ms | **14.0×** | 4.80× |
 | PostgreSQL | 50 | 4.1 ms | 110 ms | **26.7×** | 6.89× |
 
-> ⚠️ **PostgreSQL audit cost is disproportionately high at larger batch sizes.** The fix is consumer-side: pass `MaxBatchSize(100)` to your `UseNpgsql(...)` call. See [`docs/POSTGRES-PERFORMANCE.md`](./docs/POSTGRES-PERFORMANCE.md) for the recipe, the mechanism (Npgsql batches INSERTs less aggressively than SqlClient out-of-the-box), and benchmark numbers. Tracked: [#26](https://github.com/Chris-Wolfgang/EF-Audit/issues/26).
+> ⚠️ **PostgreSQL audit cost is disproportionately high at larger batch sizes.** The fix is consumer-side: pass `MaxBatchSize(100)` to your `UseNpgsql(...)` call. See [`docs/POSTGRES-PERFORMANCE.md`](./docs/POSTGRES-PERFORMANCE.md) for the recipe, the mechanism (Npgsql batches INSERTs less aggressively than SqlClient out-of-the-box), and benchmark numbers. Tracked: [#26](https://github.com/Chris-Wolfgang/AuditTrail/issues/26).
 
 ### CI gating
 
-The [`benchmarks.yaml`](./.github/workflows/benchmarks.yaml) workflow runs the SQLite-only suite on every PR, fails the build if time or allocations regress beyond 2× the previous main-branch baseline, and auto-publishes the chart to [`gh-pages/dev/bench`](https://Chris-Wolfgang.github.io/EF-Audit/dev/bench/) on pushes to `main`. The multi-provider suite is opt-in (Docker required).
+The [`benchmarks.yaml`](./.github/workflows/benchmarks.yaml) workflow runs the SQLite-only suite on every PR, fails the build if time or allocations regress beyond 2× the previous main-branch baseline, and auto-publishes the chart to [`gh-pages/dev/bench`](https://Chris-Wolfgang.github.io/AuditTrail/dev/bench/) on pushes to `main`. The multi-provider suite is opt-in (Docker required).
 
 ```bash
 # SQLite-only fast suite (no Docker required)
-dotnet run -c Release --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks -- \
-  --filter '*Wolfgang.Audit.Benchmarks.SaveChangesBenchmarks*'
+dotnet run -c Release --project benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks -- \
+  --filter '*Wolfgang.AuditTrail.Benchmarks.SaveChangesBenchmarks*'
 
 # Cross-RDBMS suite (Docker required for SQL Server + PostgreSQL)
-dotnet run -c Release --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks -- \
+dotnet run -c Release --project benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks -- \
   --filter '*ProviderSaveChangesBenchmarks*'
 ```
 
@@ -226,18 +226,18 @@ Warnings are errors in Release builds.
 ## 🛠️ Building from source
 
 ```bash
-git clone https://github.com/Chris-Wolfgang/EF-Audit.git
-cd EF-Audit
-dotnet build EF-Audit.slnx -c Release
-dotnet test EF-Audit.slnx -c Release
+git clone https://github.com/Chris-Wolfgang/AuditTrail.git
+cd AuditTrail
+dotnet build AuditTrail.slnx -c Release
+dotnet test AuditTrail.slnx -c Release
 ```
 
 ---
 
 ## 📚 Documentation
 
-- **API reference:** <https://Chris-Wolfgang.github.io/EF-Audit/>
-- **Benchmark chart:** <https://Chris-Wolfgang.github.io/EF-Audit/dev/bench/>
+- **API reference:** <https://Chris-Wolfgang.github.io/AuditTrail/>
+- **Benchmark chart:** <https://Chris-Wolfgang.github.io/AuditTrail/dev/bench/>
 - **Contributing guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---

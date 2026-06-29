@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Wolfgang.AuditTrail.Example.Console</RootNamespace>
+    <AssemblyName>Wolfgang.AuditTrail.Example.Console</AssemblyName>
+    <!--
+      Example/demo code: relax the strict-library analyzers that don't apply
+      to runnable samples. MA0004 (ConfigureAwait) is library-side guidance;
+      example console apps don't have a SynchronizationContext to worry about.
+      MA0048 (file-name == type-name) collides with the sample's convention
+      of bundling a small DbContext + entities in one file for readability.
+    -->
+    <NoWarn>$(NoWarn);CA1515;CA1812;MA0004;MA0048</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Wolfgang.AuditTrail.EntityFrameworkCore\Wolfgang.AuditTrail.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+    <!--
+      Pin the SQLite native bundle to a version without GHSA-2m69-gcr7-jv3q.
+      Microsoft.EntityFrameworkCore.Sqlite 10.0.0 still pulls in the
+      vulnerable 2.1.x line transitively, which trips NU1903 (warning as
+      error). Override here forces the safe 3.0.x bundle.
+    -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
+  </ItemGroup>
+
+</Project>

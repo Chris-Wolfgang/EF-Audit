@@ -186,7 +186,7 @@ After creating your repository from the template, update the following files wit
 ### Update CONTRIBUTING.md
 
 1. Open `CONTRIBUTING.md`
-2. Ensure any project name placeholders (for example, `Wolfgang.Audit`) have been replaced with your actual project name (the automated setup scripts should normally do this for you)
+2. Ensure any project name placeholders (for example, `Wolfgang.AuditTrail`) have been replaced with your actual project name (the automated setup scripts should normally do this for you)
 3. Review and adjust contribution guidelines as needed for your project
 
 ### Update CODEOWNERS
@@ -210,7 +210,7 @@ If you want to publish your DocFX documentation to GitHub Pages automatically wh
    - **Prompt if you want to set up GitHub Pages** for documentation
    - **Auto-detect repository information** (name, description, URLs)
    - **Prompt for project details** needed for DocFX configuration
-   - **Replace placeholders** in DocFX files (Wolfgang.Audit, https://Chris-Wolfgang.github.io/EF-Audit/, etc.)
+   - **Replace placeholders** in DocFX files (Wolfgang.AuditTrail, https://Chris-Wolfgang.github.io/AuditTrail/, etc.)
    - Create a `gh-pages` branch if it doesn't exist
    - Configure GitHub Pages to serve from the `gh-pages` branch
    - Verify that the DocFX workflow is reachable via `workflow_call` from `release.yaml`

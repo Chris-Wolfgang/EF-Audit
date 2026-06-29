@@ -6,7 +6,7 @@ files against the template. This document records the deviations that are
 **intentional** so future scans don't flag them as regressions.
 
 Every file below differs from the template **on purpose**. None of these should
-be "re-synced" from the template — several are improvements EF-Audit adopted
+be "re-synced" from the template — several are improvements AuditTrail adopted
 first and are **feed-back candidates** for the template itself.
 
 | File | Deviation | Why | Issue |
@@ -17,12 +17,12 @@ first and are **feed-back candidates** for the template itself.
 | `.github/workflows/codeql.yaml` | `queries: security-extended` query pack. | Stricter security analysis than the template's default pack. | #87 |
 | `.github/workflows/docfx.yaml` | Full version-picker deploy logic: generates `versions.json` from tags, deploys to `/versions/v<n>/`, preserves prior versions, overlays canonical picker assets onto old tags. | Versioned documentation site (D6/D7/D8 fleet initiatives). | #83, #85, #86 |
 | `.github/dependabot.yml` | Adds the `github-actions` package ecosystem alongside `nuget`. | Keep pinned action SHAs current. | #68 |
-| `BannedSymbols.txt` | `{{PROJECT_NAME}}` placeholder resolved to `Wolfgang.Audit`; trailing newline. | Standard template instantiation. | — |
+| `BannedSymbols.txt` | `{{PROJECT_NAME}}` placeholder resolved to `Wolfgang.AuditTrail`; trailing newline. | Standard template instantiation. | — |
 | `CONTRIBUTING.md` | Repo-specific build/test instructions (slnx, integration-test opt-in, analyzer notes). | Reflects this repo's actual layout. | — |
 
 ## Feed-back candidates
 
-These EF-Audit deviations are arguably improvements the canonical template
+These AuditTrail deviations are arguably improvements the canonical template
 should adopt (tracked separately as template feed-back, not as drift to revert):
 
 - SourceLink + `.snupkg` + deterministic build knobs in `Directory.Build.props`.

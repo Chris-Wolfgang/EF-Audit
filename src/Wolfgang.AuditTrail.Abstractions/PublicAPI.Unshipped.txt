@@ -1,0 +1,82 @@
+#nullable enable
+Wolfgang.AuditTrail.AuditOperation
+Wolfgang.AuditTrail.AuditOperation.Delete = 68 -> Wolfgang.AuditTrail.AuditOperation
+Wolfgang.AuditTrail.AuditOperation.Insert = 73 -> Wolfgang.AuditTrail.AuditOperation
+Wolfgang.AuditTrail.AuditOperation.Update = 85 -> Wolfgang.AuditTrail.AuditOperation
+Wolfgang.AuditTrail.AuditOptions
+Wolfgang.AuditTrail.AuditOptions.AuditOptions() -> void
+Wolfgang.AuditTrail.AuditOptions.CaptureDeletedValues.get -> bool
+Wolfgang.AuditTrail.AuditOptions.CaptureDeletedValues.set -> void
+Wolfgang.AuditTrail.AuditOptions.DetailTableName.get -> string!
+Wolfgang.AuditTrail.AuditOptions.DetailTableName.set -> void
+Wolfgang.AuditTrail.AuditOptions.EntityKeySerializer.get -> Wolfgang.AuditTrail.IAuditEntityKeySerializer?
+Wolfgang.AuditTrail.AuditOptions.EntityKeySerializer.set -> void
+Wolfgang.AuditTrail.AuditOptions.HeaderTableName.get -> string!
+Wolfgang.AuditTrail.AuditOptions.HeaderTableName.set -> void
+Wolfgang.AuditTrail.AuditOptions.Schema.get -> string?
+Wolfgang.AuditTrail.AuditOptions.Schema.set -> void
+Wolfgang.AuditTrail.AuditOptions.ValueSerializer.get -> Wolfgang.AuditTrail.IAuditValueSerializer?
+Wolfgang.AuditTrail.AuditOptions.ValueSerializer.set -> void
+Wolfgang.AuditTrail.AuditUser
+Wolfgang.AuditTrail.AuditUser.AuditUser() -> void
+Wolfgang.AuditTrail.AuditUser.AuditUser(string! UserId, string? OnBehalfOfUserId = null) -> void
+Wolfgang.AuditTrail.AuditUser.OnBehalfOfUserId.get -> string?
+Wolfgang.AuditTrail.AuditUser.OnBehalfOfUserId.init -> void
+Wolfgang.AuditTrail.AuditUser.UserId.get -> string!
+Wolfgang.AuditTrail.AuditUser.UserId.init -> void
+Wolfgang.AuditTrail.AuditValueColumn
+Wolfgang.AuditTrail.AuditValueColumn.AuditValueColumn(string! Name, bool IsNullable = true) -> void
+Wolfgang.AuditTrail.AuditValueColumn.IsNullable.get -> bool
+Wolfgang.AuditTrail.AuditValueColumn.IsNullable.init -> void
+Wolfgang.AuditTrail.AuditValueColumn.Name.get -> string!
+Wolfgang.AuditTrail.AuditValueColumn.Name.init -> void
+Wolfgang.AuditTrail.Entities.AuditDetail
+Wolfgang.AuditTrail.Entities.AuditDetail.AuditDetail() -> void
+Wolfgang.AuditTrail.Entities.AuditDetail.ColumnName.get -> string!
+Wolfgang.AuditTrail.Entities.AuditDetail.ColumnName.set -> void
+Wolfgang.AuditTrail.Entities.AuditDetail.DetailId.get -> long
+Wolfgang.AuditTrail.Entities.AuditDetail.DetailId.set -> void
+Wolfgang.AuditTrail.Entities.AuditDetail.Header.get -> Wolfgang.AuditTrail.Entities.AuditHeader?
+Wolfgang.AuditTrail.Entities.AuditDetail.Header.set -> void
+Wolfgang.AuditTrail.Entities.AuditDetail.HeaderId.get -> System.Guid
+Wolfgang.AuditTrail.Entities.AuditDetail.HeaderId.set -> void
+Wolfgang.AuditTrail.Entities.AuditDetail.ValueText.get -> string?
+Wolfgang.AuditTrail.Entities.AuditDetail.ValueText.set -> void
+Wolfgang.AuditTrail.Entities.AuditDetail.ValueType.get -> string!
+Wolfgang.AuditTrail.Entities.AuditDetail.ValueType.set -> void
+Wolfgang.AuditTrail.Entities.AuditHeader
+Wolfgang.AuditTrail.Entities.AuditHeader.AuditedAtUtc.get -> System.DateTime
+Wolfgang.AuditTrail.Entities.AuditHeader.AuditedAtUtc.set -> void
+Wolfgang.AuditTrail.Entities.AuditHeader.AuditHeader() -> void
+Wolfgang.AuditTrail.Entities.AuditHeader.Details.get -> System.Collections.Generic.ICollection<Wolfgang.AuditTrail.Entities.AuditDetail!>!
+Wolfgang.AuditTrail.Entities.AuditHeader.Details.set -> void
+Wolfgang.AuditTrail.Entities.AuditHeader.EntityKey.get -> string!
+Wolfgang.AuditTrail.Entities.AuditHeader.EntityKey.set -> void
+Wolfgang.AuditTrail.Entities.AuditHeader.EntityTable.get -> string!
+Wolfgang.AuditTrail.Entities.AuditHeader.EntityTable.set -> void
+Wolfgang.AuditTrail.Entities.AuditHeader.EntityType.get -> string!
+Wolfgang.AuditTrail.Entities.AuditHeader.EntityType.set -> void
+Wolfgang.AuditTrail.Entities.AuditHeader.HeaderId.get -> System.Guid
+Wolfgang.AuditTrail.Entities.AuditHeader.HeaderId.set -> void
+Wolfgang.AuditTrail.Entities.AuditHeader.OnBehalfOfUserId.get -> string?
+Wolfgang.AuditTrail.Entities.AuditHeader.OnBehalfOfUserId.set -> void
+Wolfgang.AuditTrail.Entities.AuditHeader.Operation.get -> Wolfgang.AuditTrail.AuditOperation
+Wolfgang.AuditTrail.Entities.AuditHeader.Operation.set -> void
+Wolfgang.AuditTrail.Entities.AuditHeader.TransactionId.get -> System.Guid
+Wolfgang.AuditTrail.Entities.AuditHeader.TransactionId.set -> void
+Wolfgang.AuditTrail.Entities.AuditHeader.UserId.get -> string!
+Wolfgang.AuditTrail.Entities.AuditHeader.UserId.set -> void
+Wolfgang.AuditTrail.IAuditEntityKeySerializer
+Wolfgang.AuditTrail.IAuditEntityKeySerializer.Serialize(System.Collections.Generic.IReadOnlyList<object?>! keyValues) -> string!
+Wolfgang.AuditTrail.IAuditUserProvider
+Wolfgang.AuditTrail.IAuditUserProvider.GetCurrentUser() -> Wolfgang.AuditTrail.AuditUser
+Wolfgang.AuditTrail.IAuditValueReader
+Wolfgang.AuditTrail.IAuditValueReader.ReadText(string! columnName) -> string?
+Wolfgang.AuditTrail.IAuditValueSerializer
+Wolfgang.AuditTrail.IAuditValueSerializer.Columns.get -> System.Collections.Generic.IReadOnlyList<Wolfgang.AuditTrail.AuditValueColumn!>!
+Wolfgang.AuditTrail.IAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader! reader, string! valueType) -> object?
+Wolfgang.AuditTrail.IAuditValueSerializer.Encode(object? value, System.Type! clrType, Wolfgang.AuditTrail.IAuditValueWriter! writer) -> string!
+Wolfgang.AuditTrail.IAuditValueWriter
+Wolfgang.AuditTrail.IAuditValueWriter.WriteText(string! columnName, string? value) -> void
+Wolfgang.AuditTrail.NotAuditedAttribute
+Wolfgang.AuditTrail.NotAuditedAttribute.NotAuditedAttribute() -> void

@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide will help you quickly get up and running with Wolfgang.Audit.
+This guide will help you quickly get up and running with Wolfgang.AuditTrail.
 
 ## Prerequisites
 
@@ -14,13 +14,13 @@ This guide will help you quickly get up and running with Wolfgang.Audit.
 ### Via NuGet Package Manager
 
 ```bash
-dotnet add package Wolfgang.Audit
+dotnet add package Wolfgang.AuditTrail
 ```
 
 ### Via Package Manager Console
 
 ```powershell
-Install-Package Wolfgang.Audit
+Install-Package Wolfgang.AuditTrail
 ```
 
 ## Quick Start
@@ -31,7 +31,7 @@ Install-Package Wolfgang.Audit
 // Add your quick start code example here
 // This should show the simplest way to use your library
 
-using Wolfgang.Audit;
+using Wolfgang.AuditTrail;
 
 // Example usage
 ```
@@ -39,8 +39,8 @@ using Wolfgang.Audit;
 ## Next Steps
 
 - Explore the [API Reference](../api/index.md) for detailed documentation
-- Read the [Introduction](introduction.md) to learn more about Wolfgang.Audit
-- Check out example projects in the [GitHub repository](https://github.com/Chris-Wolfgang/EF-Audit)
+- Read the [Introduction](introduction.md) to learn more about Wolfgang.AuditTrail
+- Check out example projects in the [GitHub repository](https://github.com/Chris-Wolfgang/AuditTrail)
 
 ## Common Issues
 
@@ -48,6 +48,6 @@ using Wolfgang.Audit;
 
 ## Additional Resources
 
-- [GitHub Repository](https://github.com/Chris-Wolfgang/EF-Audit)
-- [Contributing Guidelines](https://github.com/Chris-Wolfgang/EF-Audit/blob/main/CONTRIBUTING.md)
-- [Report an Issue](https://github.com/Chris-Wolfgang/EF-Audit/issues)
+- [GitHub Repository](https://github.com/Chris-Wolfgang/AuditTrail)
+- [Contributing Guidelines](https://github.com/Chris-Wolfgang/AuditTrail/blob/main/CONTRIBUTING.md)
+- [Report an Issue](https://github.com/Chris-Wolfgang/AuditTrail/issues)

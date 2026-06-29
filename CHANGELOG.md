@@ -11,16 +11,16 @@ _(empty — open this section as work for v0.2.0 begins.)_
 
 ## [0.1.0] — 2026-06-28
 
-First tagged release. The `Wolfgang.Audit.*` package family is published to
+First tagged release. The `Wolfgang.AuditTrail.*` package family is published to
 NuGet.org. Multi-targets `netstandard2.0`, `net6.0`, `net8.0`, `net10.0` for
 source projects; tests cover net462 → net10.0 inclusive.
 
 ### Added
 
-- `Wolfgang.Audit.Abstractions` — shared contracts (`IAuditUserProvider`,
+- `Wolfgang.AuditTrail.Abstractions` — shared contracts (`IAuditUserProvider`,
   `IAuditValueSerializer`, `IAuditEntityKeySerializer`, `AuditOptions`,
   `[NotAudited]`, `AuditHeader` / `AuditDetail` entities).
-- `Wolfgang.Audit.EFCore` — two integration models:
+- `Wolfgang.AuditTrail.EntityFrameworkCore` — two integration models:
   - **`AuditingDbContext`** base class (recommended): derive your context from it
     and call `SaveChangesAsync` as usual; audit rows are written atomically in the
     same transaction via `IExecutionStrategy.ExecuteInTransactionAsync` (composes
@@ -31,21 +31,21 @@ source projects; tests cover net462 → net10.0 inclusive.
 - `StringAuditValueSerializer` — v1 default value serializer (single
   `ValueText nvarchar(max)`).
 - `PipeDelimitedEntityKeySerializer` — v1 default composite-key serializer.
-- `Wolfgang.Audit.TestKit.Xunit` — `AuditValueSerializerContractTests<T>` base for
+- `Wolfgang.AuditTrail.TestKit.Xunit` — `AuditValueSerializerContractTests<T>` base for
   validating custom `IAuditValueSerializer` implementations.
-- `Wolfgang.Audit.EFCore.Schema.AuditSchemaMigrator` — provider-agnostic
+- `Wolfgang.AuditTrail.EntityFrameworkCore.Schema.AuditSchemaMigrator` — provider-agnostic
   schema installer using EF Core's own `IMigrationsModelDiffer` +
   `IMigrationsSqlGenerator`. Supports SQL Server, PostgreSQL, MySQL, and SQLite
   from one codebase. Idempotent + transactional + version-stamped via
   `__AuditSchemaVersion`.
 - `MigrateAuditSchemaAsync()` extension on `AuditingDbContext` for consumers
   who want to install the schema from application code without invoking the CLI.
-- `Wolfgang.Audit.Cli` — `audit` command-line tool. Provider auto-detected from
+- `Wolfgang.AuditTrail.Cli` — `audit` command-line tool. Provider auto-detected from
   the connection string; `--dry-run` prints the SQL without applying.
-- Benchmarks: `Wolfgang.Audit.EFCore.Benchmarks` (BenchmarkDotNet) covering
+- Benchmarks: `Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks` (BenchmarkDotNet) covering
   Insert / Lifecycle / MixedStates workloads with SQLite, plus cross-RDBMS via
   Testcontainers (`ProviderSaveChangesBenchmarks`). Charts auto-publish to
-  [gh-pages/dev/bench](https://Chris-Wolfgang.github.io/EF-Audit/dev/bench/).
+  [gh-pages/dev/bench](https://Chris-Wolfgang.github.io/AuditTrail/dev/bench/).
 - Two end-to-end example apps under `examples/` (Console, ASP.NET Core WebApi).
 - Documentation:
   - `README.md` with quick-start, two-model integration matrix, retry-strategy
@@ -61,11 +61,11 @@ source projects; tests cover net462 → net10.0 inclusive.
   EF Core 10. The CLI's `migrate` subcommand throws `NotSupportedException`
   with a clear message when invoked with `--provider mysql`. Re-enable when
   Pomelo ships an EF Core 10 release.
-- `Wolfgang.Audit.EFCore` targets `net6.0;net8.0;net10.0`. The schema
+- `Wolfgang.AuditTrail.EntityFrameworkCore` targets `net6.0;net8.0;net10.0`. The schema
   migrator (`AuditSchemaMigrator`, `MigrateAuditSchemaAsync`) is gated on
   `NET8_0_OR_GREATER` because EF Core's design-time model API requires the
   newer runtime.
 
 ---
 
-[Unreleased]: https://github.com/Chris-Wolfgang/EF-Audit/compare/initial-dev...HEAD
+[Unreleased]: https://github.com/Chris-Wolfgang/AuditTrail/compare/initial-dev...HEAD

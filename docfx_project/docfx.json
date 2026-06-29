@@ -45,8 +45,8 @@
       "modern"
     ],
     "globalMetadata": {
-      "_appName": "Wolfgang.Audit",
-      "_appTitle": "Wolfgang.Audit Documentation",
+      "_appName": "Wolfgang.AuditTrail",
+      "_appTitle": "Wolfgang.AuditTrail Documentation",
       "_appLogoPath": "logo.svg",
       "_appFaviconPath": "favicon.svg",
       "_enableSearch": true,
@@ -55,7 +55,7 @@
       "_disableTocFilter": false,
       "_enableDarkMode": true,
       "colorMode": "dark",
-      "_baseUrl": "https://Chris-Wolfgang.github.io/EF-Audit/",
+      "_baseUrl": "https://Chris-Wolfgang.github.io/AuditTrail/",
       "pdf": true
     }
   }

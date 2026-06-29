@@ -1,6 +1,6 @@
 # API Reference
 
-Welcome to the Wolfgang.Audit API documentation.
+Welcome to the Wolfgang.AuditTrail API documentation.
 
 This section contains the complete API reference, automatically generated from XML documentation comments in the source code.
 

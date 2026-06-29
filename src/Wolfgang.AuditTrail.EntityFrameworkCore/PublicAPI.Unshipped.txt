@@ -1,0 +1,51 @@
+#nullable enable
+Wolfgang.AuditTrail.AuditingDbContext
+Wolfgang.AuditTrail.AuditingDbContext.AuditingDbContext(Microsoft.EntityFrameworkCore.DbContextOptions! options, Wolfgang.AuditTrail.IAuditUserProvider! userProvider, Wolfgang.AuditTrail.AuditOptions! auditOptions) -> void
+Wolfgang.AuditTrail.AuditingDbContext.AuditOptions.get -> Wolfgang.AuditTrail.AuditOptions!
+Wolfgang.AuditTrail.AuditSaveChangesInterceptor
+Wolfgang.AuditTrail.AuditSaveChangesInterceptor.AuditSaveChangesInterceptor(Wolfgang.AuditTrail.IAuditUserProvider! userProvider, Wolfgang.AuditTrail.AuditOptions! options) -> void
+Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesCanceledAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData! eventData, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailed(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData! eventData) -> void
+Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailedAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData! eventData, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChanges(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData! eventData, int result) -> int
+Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData! eventData, int result, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.ValueTask<int>
+Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChanges(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData! eventData, Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult<int> result) -> Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult<int>
+Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData! eventData, Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult<int> result, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.ValueTask<Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult<int>>
+Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions
+Wolfgang.AuditTrail.ModelBuilderExtensions
+Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext
+Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.AuditMigrationsDbContext(Microsoft.EntityFrameworkCore.DbContextOptions<Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext!>! dbOptions, Wolfgang.AuditTrail.AuditOptions! options) -> void
+Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.Options.get -> Wolfgang.AuditTrail.AuditOptions!
+Wolfgang.AuditTrail.Schema.AuditSchemaConstants
+Wolfgang.AuditTrail.Schema.AuditSchemaMigrator
+Wolfgang.AuditTrail.Schema.AuditSchemaVersion
+Wolfgang.AuditTrail.Schema.AuditSchemaVersion.AuditSchemaVersion() -> void
+Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Id.get -> int
+Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Id.set -> void
+Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Version.get -> int
+Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Version.set -> void
+Wolfgang.AuditTrail.Schema.AuditSchemaInstaller
+Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.AuditSchemaInstaller(Wolfgang.AuditTrail.AuditOptions! options) -> void
+Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.DropTablesAsync(Microsoft.EntityFrameworkCore.DbContext! context, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
+Wolfgang.AuditTrail.Schema.DbContextAuditSchemaExtensions
+Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer
+Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.PipeDelimitedEntityKeySerializer() -> void
+Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.Serialize(System.Collections.Generic.IReadOnlyList<object?>! keyValues) -> string!
+Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer
+Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Columns.get -> System.Collections.Generic.IReadOnlyList<Wolfgang.AuditTrail.AuditValueColumn!>!
+Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader! reader, string! valueType) -> object?
+Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Encode(object? value, System.Type! clrType, Wolfgang.AuditTrail.IAuditValueWriter! writer) -> string!
+Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.StringAuditValueSerializer() -> void
+Wolfgang.AuditTrail.ServiceCollectionExtensions
+const Wolfgang.AuditTrail.Schema.AuditSchemaConstants.CurrentSchemaVersion = 1 -> int
+const Wolfgang.AuditTrail.Schema.AuditSchemaConstants.VersionTableName = "__AuditSchemaVersion" -> string!
+const Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.ValueColumnName = "ValueText" -> string!
+override Wolfgang.AuditTrail.AuditingDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder! modelBuilder) -> void
+override Wolfgang.AuditTrail.AuditingDbContext.SaveChanges(bool acceptAllChangesOnSuccess) -> int
+override Wolfgang.AuditTrail.AuditingDbContext.SaveChangesAsync(bool acceptAllChangesOnSuccess, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<int>!
+static Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.UseAuditing(this Microsoft.EntityFrameworkCore.DbContextOptionsBuilder! optionsBuilder, System.IServiceProvider! serviceProvider) -> Microsoft.EntityFrameworkCore.DbContextOptionsBuilder!
+static Wolfgang.AuditTrail.ModelBuilderExtensions.ApplyAuditing(this Microsoft.EntityFrameworkCore.ModelBuilder! modelBuilder, Wolfgang.AuditTrail.AuditOptions! options) -> Microsoft.EntityFrameworkCore.ModelBuilder!
+static Wolfgang.AuditTrail.Schema.AuditSchemaMigrator.RunAsync(Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext! context, bool dryRun = false, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<string!>!
+static Wolfgang.AuditTrail.Schema.DbContextAuditSchemaExtensions.MigrateAuditSchemaAsync(this Wolfgang.AuditTrail.AuditingDbContext! context, bool dryRun = false, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<string!>!
+static Wolfgang.AuditTrail.ServiceCollectionExtensions.AddEfCoreAuditing<TUserProvider>(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<Wolfgang.AuditTrail.AuditOptions!>? configure = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.CreateTablesAsync(Microsoft.EntityFrameworkCore.DbContext! context, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task!
