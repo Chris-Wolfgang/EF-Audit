@@ -1298,7 +1298,7 @@ jobs:
 
       - name: Run InspectCode
         run: |
-          # EF-Audit.slnx is the single root solution; resolve it dynamically so
+          # AuditTrail.slnx is the single root solution; resolve it dynamically so
           # the step survives a rename.
           SLN=$(ls *.slnx 2>/dev/null | head -1)
           if [ -z "$SLN" ]; then

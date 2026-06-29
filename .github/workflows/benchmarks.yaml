@@ -69,11 +69,11 @@ jobs:
       - name: Run benchmarks
         run: |
           dotnet run \
-            --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj \
+            --project benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks.csproj \
             --configuration Release \
             -- \
             --exporters json \
-            --filter '*Wolfgang.Audit.Benchmarks.SaveChangesBenchmarks*' \
+            --filter '*Wolfgang.AuditTrail.Benchmarks.SaveChangesBenchmarks*' \
             --memory
         # Filter scoped to the SQLite-only SaveChangesBenchmarks. The
         # ProviderSaveChangesBenchmarks class spins Testcontainers for
@@ -146,11 +146,11 @@ jobs:
       - name: Run benchmarks
         run: |
           dotnet run \
-            --project benchmarks/Wolfgang.Audit.EFCore.Benchmarks/Wolfgang.Audit.EFCore.Benchmarks.csproj \
+            --project benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks.csproj \
             --configuration Release \
             -- \
             --exporters json \
-            --filter '*Wolfgang.Audit.Benchmarks.SaveChangesBenchmarks*' \
+            --filter '*Wolfgang.AuditTrail.Benchmarks.SaveChangesBenchmarks*' \
             --memory
         # Filter scoped to the SQLite-only SaveChangesBenchmarks. The
         # ProviderSaveChangesBenchmarks class spins Testcontainers for
