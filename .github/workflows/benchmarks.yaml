@@ -52,7 +52,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # Do not persist the GITHUB_TOKEN into the checkout's git config.
           # The PR job runs arbitrary contributor code via `dotnet run`; a
@@ -62,7 +62,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.0.x
 
@@ -93,7 +93,7 @@ jobs:
           echo "report=$report" >> "$GITHUB_OUTPUT"
 
       - name: Compare against main + alert
-        uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7 # v1.20.4
+        uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
         with:
           name: Audit Interceptor Benchmarks
           tool: 'benchmarkdotnet'
@@ -129,7 +129,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # Do not persist the GITHUB_TOKEN into the checkout's git config.
           # The PR job runs arbitrary contributor code via `dotnet run`; a
@@ -139,7 +139,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.0.x
 
@@ -170,7 +170,7 @@ jobs:
           echo "report=$report" >> "$GITHUB_OUTPUT"
 
       - name: Store + push chart history
-        uses: benchmark-action/github-action-benchmark@d48d326b4ca9ba73ca0cd0d59f108f9e02a381c7 # v1.20.4
+        uses: benchmark-action/github-action-benchmark@52576c92bccf6ac60c8223ec7eb2565637cae9ba # v1.22.1
         with:
           name: Audit Interceptor Benchmarks
           tool: 'benchmarkdotnet'
