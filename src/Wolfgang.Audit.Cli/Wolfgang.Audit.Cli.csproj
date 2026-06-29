@@ -7,6 +7,16 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <Version>0.1.0</Version>
+    <!--
+      Excluded from the v0.1.0 NuGet publish. This is a self-contained single-
+      file exe (PublishSingleFile, AssemblyName=audit), NOT a `dotnet tool`
+      (no PackAsTool) — so `dotnet pack`ing it would produce a broken library-
+      style package and fail the release smoke test. The CLI's distribution
+      model (dotnet tool vs. GitHub-Release self-contained binaries) is decided
+      separately; until then it's built from source. The 3 library packages
+      (Abstractions / EFCore / TestKit.Xunit) are the v0.1.0 NuGet deliverable.
+    -->
+    <IsPackable>false</IsPackable>
     <Authors>Chris Wolfgang</Authors>
     <Copyright>Copyright 2026 Chris Wolfgang</Copyright>
     <Title>Wolfgang.Audit.Cli</Title>
