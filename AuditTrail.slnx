@@ -46,15 +46,23 @@
     <Project Path="benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks/Wolfgang.AuditTrail.EntityFrameworkCore.Benchmarks.csproj" />
   </Folder>
   <Folder Name="/examples/">
+    <!--
+      The AdventureWorks example is intentionally NOT in the solution: it has
+      never been CI-validated and currently has analyzer errors that fail the
+      Release build. Tracked separately; not part of the v0.1.0 deliverable.
+    -->
     <Project Path="examples/Wolfgang.AuditTrail.EntityFrameworkCore.Example.Console/Wolfgang.AuditTrail.EntityFrameworkCore.Example.Console.csproj" />
     <Project Path="examples/Wolfgang.AuditTrail.EntityFrameworkCore.Example.WebApi/Wolfgang.AuditTrail.EntityFrameworkCore.Example.WebApi.csproj" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/Wolfgang.AuditTrail.Abstractions/Wolfgang.AuditTrail.Abstractions.csproj" />
+    <Project Path="src/Wolfgang.AuditTrail.Cli/Wolfgang.AuditTrail.Cli.csproj" />
     <Project Path="src/Wolfgang.AuditTrail.EntityFrameworkCore/Wolfgang.AuditTrail.EntityFrameworkCore.csproj" />
     <Project Path="src/Wolfgang.AuditTrail.TestKit.Xunit/Wolfgang.AuditTrail.TestKit.Xunit.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Wolfgang.AuditTrail.Cli.Tests.Unit/Wolfgang.AuditTrail.Cli.Tests.Unit.csproj" />
+    <Project Path="tests/Wolfgang.AuditTrail.EntityFrameworkCore.Schema.Tests.Integration/Wolfgang.AuditTrail.EntityFrameworkCore.Schema.Tests.Integration.csproj" />
     <Project Path="tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Unit/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Unit.csproj" />
     <Project Path="tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Integration/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Integration.csproj" />
     <Project Path="tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Smoke/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Smoke.csproj" />
