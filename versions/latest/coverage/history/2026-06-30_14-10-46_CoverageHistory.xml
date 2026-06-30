@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<coverage version="1.0" date="2026-06-30_12-17-41" tag="">
+<coverage version="1.0" date="2026-06-30_14-10-46" tag="">
   <assembly name="audittrail">
     <class name="Wolfgang.AuditTrail.Cli.Command.Migrate" coveredlines="85" coverablelines="85" totallines="211" coveredbranches="76" totalbranches="76" coveredcodeelements="12" fullcoveredcodeelements="12" totalcodeelements="12" />
     <class name="Wolfgang.AuditTrail.Cli.Model.MigrateOptions" coveredlines="9" coverablelines="9" totallines="26" coveredbranches="0" totalbranches="0" coveredcodeelements="7" fullcoveredcodeelements="7" totalcodeelements="7" />
