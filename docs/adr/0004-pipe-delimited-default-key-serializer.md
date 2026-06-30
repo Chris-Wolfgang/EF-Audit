@@ -47,3 +47,18 @@ tests/examples).
   `IAuditEntityKeySerializer`. This is called out in the serializer's XML docs.
 - **Follow-ups:** globalization tests pin invariant-culture rendering so a
   non-`en-US` server can't silently change key formatting (see issue #55).
+
+### Keyless entity types are out of scope (by EF design)
+
+Entity types with no primary key (`modelBuilder.Entity<T>().HasNoKey()`, view
+mappings, raw-SQL query types) are **read-only** in EF Core — they cannot enter
+`Added` / `Modified` / `Deleted` state in the change tracker, and EF throws if you
+try to `Add` / `Update` / `Remove` one. They therefore never reach the audit
+pipeline, so there is no meaningful key to serialize for them.
+
+The capture path is nonetheless null-safe end to end: when
+`IEntityType.FindPrimaryKey()` returns `null`, the key-value list is
+`Array.Empty<object?>()`, and `Serialize([])` returns the empty string — so even
+if a keyless entry somehow reached the serializer, it degrades to
+`EntityKey = ""` rather than throwing. We rely on EF's read-only guarantee rather
+than inventing a synthetic key.
