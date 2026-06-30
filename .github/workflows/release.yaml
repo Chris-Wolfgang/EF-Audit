@@ -617,6 +617,7 @@ jobs:
           path: ./packages
 
       - name: Verify trusted-publishing username is configured
+        shell: bash
         run: |
           if [ -z "${{ vars.NUGET_USER }}" ]; then
             echo "::error::vars.NUGET_USER is not set. Add the nuget.org account username under Settings → Secrets and variables → Actions → Variables, and create a Trusted Publishing policy on nuget.org for Chris-Wolfgang/AuditTrail / release.yaml."
