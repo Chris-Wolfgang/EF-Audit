@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<coverage version="1.0" date="2026-06-30_12-17-41" tag="">
+  <assembly name="audittrail">
+    <class name="Wolfgang.AuditTrail.Cli.Command.Migrate" coveredlines="85" coverablelines="85" totallines="211" coveredbranches="76" totalbranches="76" coveredcodeelements="12" fullcoveredcodeelements="12" totalcodeelements="12" />
+    <class name="Wolfgang.AuditTrail.Cli.Model.MigrateOptions" coveredlines="9" coverablelines="9" totallines="26" coveredbranches="0" totalbranches="0" coveredcodeelements="7" fullcoveredcodeelements="7" totalcodeelements="7" />
+  </assembly>
+  <assembly name="Wolfgang.AuditTrail.Abstractions">
+    <class name="Wolfgang.AuditTrail.AuditOptions" coveredlines="6" coverablelines="6" totallines="63" coveredbranches="0" totalbranches="0" coveredcodeelements="6" fullcoveredcodeelements="6" totalcodeelements="6" />
+    <class name="Wolfgang.AuditTrail.AuditUser" coveredlines="1" coverablelines="1" totallines="18" coveredbranches="0" totalbranches="0" coveredcodeelements="1" fullcoveredcodeelements="1" totalcodeelements="1" />
+    <class name="Wolfgang.AuditTrail.AuditValueColumn" coveredlines="1" coverablelines="1" totallines="13" coveredbranches="0" totalbranches="0" coveredcodeelements="1" fullcoveredcodeelements="1" totalcodeelements="1" />
+    <class name="Wolfgang.AuditTrail.Entities.AuditDetail" coveredlines="6" coverablelines="6" totallines="38" coveredbranches="0" totalbranches="0" coveredcodeelements="6" fullcoveredcodeelements="6" totalcodeelements="6" />
+    <class name="Wolfgang.AuditTrail.Entities.AuditHeader" coveredlines="10" coverablelines="10" totallines="55" coveredbranches="0" totalbranches="0" coveredcodeelements="10" fullcoveredcodeelements="10" totalcodeelements="10" />
+  </assembly>
+  <assembly name="Wolfgang.AuditTrail.EntityFrameworkCore">
+    <class name="Wolfgang.AuditTrail.AuditingDbContext" coveredlines="77" coverablelines="79" totallines="282" coveredbranches="20" totalbranches="22" coveredcodeelements="10" fullcoveredcodeelements="8" totalcodeelements="10" />
+    <class name="Wolfgang.AuditTrail.AuditSaveChangesInterceptor" coveredlines="175" coverablelines="176" totallines="533" coveredbranches="78" totalbranches="82" coveredcodeelements="18" fullcoveredcodeelements="17" totalcodeelements="18" />
+    <class name="Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions" coveredlines="5" coverablelines="5" totallines="76" coveredbranches="0" totalbranches="0" coveredcodeelements="1" fullcoveredcodeelements="1" totalcodeelements="1" />
+    <class name="Wolfgang.AuditTrail.Internal.AuditCapture" coveredlines="118" coverablelines="123" totallines="327" coveredbranches="59" totalbranches="70" coveredcodeelements="8" fullcoveredcodeelements="4" totalcodeelements="8" />
+    <class name="Wolfgang.AuditTrail.Internal.ColumnValueWriter" coveredlines="12" coverablelines="12" totallines="47" coveredbranches="2" totalbranches="2" coveredcodeelements="2" fullcoveredcodeelements="2" totalcodeelements="2" />
+    <class name="Wolfgang.AuditTrail.Internal.DbContextItemBag" coveredlines="12" coverablelines="12" totallines="60" coveredbranches="8" totalbranches="8" coveredcodeelements="5" fullcoveredcodeelements="5" totalcodeelements="5" />
+    <class name="Wolfgang.AuditTrail.Internal.PendingAuditEntry" coveredlines="6" coverablelines="6" totallines="26" coveredbranches="0" totalbranches="0" coveredcodeelements="6" fullcoveredcodeelements="6" totalcodeelements="6" />
+    <class name="Wolfgang.AuditTrail.Internal.PendingAuditValue" coveredlines="4" coverablelines="4" totallines="24" coveredbranches="0" totalbranches="0" coveredcodeelements="4" fullcoveredcodeelements="4" totalcodeelements="4" />
+    <class name="Wolfgang.AuditTrail.ModelBuilderExtensions" coveredlines="43" coverablelines="43" totallines="115" coveredbranches="4" totalbranches="4" coveredcodeelements="3" fullcoveredcodeelements="3" totalcodeelements="3" />
+    <class name="Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext" coveredlines="26" coverablelines="26" totallines="91" coveredbranches="1" totalbranches="2" coveredcodeelements="4" fullcoveredcodeelements="4" totalcodeelements="4" />
+    <class name="Wolfgang.AuditTrail.Schema.AuditMigrationsModelCacheKey" coveredlines="8" coverablelines="8" totallines="19" coveredbranches="0" totalbranches="0" coveredcodeelements="6" fullcoveredcodeelements="6" totalcodeelements="6" />
+    <class name="Wolfgang.AuditTrail.Schema.AuditMigrationsModelCacheKeyFactory" coveredlines="8" coverablelines="8" totallines="35" coveredbranches="0" totalbranches="0" coveredcodeelements="1" fullcoveredcodeelements="1" totalcodeelements="1" />
+    <class name="Wolfgang.AuditTrail.Schema.AuditSchemaInstaller" coveredlines="45" coverablelines="45" totallines="158" coveredbranches="24" totalbranches="24" coveredcodeelements="5" fullcoveredcodeelements="5" totalcodeelements="5" />
+    <class name="Wolfgang.AuditTrail.Schema.AuditSchemaMigrator" coveredlines="59" coverablelines="59" totallines="153" coveredbranches="4" totalbranches="4" coveredcodeelements="4" fullcoveredcodeelements="4" totalcodeelements="4" />
+    <class name="Wolfgang.AuditTrail.Schema.AuditSchemaVersion" coveredlines="2" coverablelines="2" totallines="24" coveredbranches="0" totalbranches="0" coveredcodeelements="2" fullcoveredcodeelements="2" totalcodeelements="2" />
+    <class name="Wolfgang.AuditTrail.Schema.AuditSchemaVersionStore/&lt;ReadInstalledVersionAsync&gt;d__0" coveredlines="23" coverablelines="23" totallines="82" coveredbranches="3" totalbranches="4" coveredcodeelements="2" fullcoveredcodeelements="2" totalcodeelements="2" />
+    <class name="Wolfgang.AuditTrail.Schema.DbContextAuditSchemaExtensions/&lt;MigrateAuditSchemaAsync&gt;d__0" coveredlines="18" coverablelines="18" totallines="90" coveredbranches="2" totalbranches="2" coveredcodeelements="1" fullcoveredcodeelements="1" totalcodeelements="1" />
+    <class name="Wolfgang.AuditTrail.Schema.TableNotFoundIndicators" coveredlines="16" coverablelines="16" totallines="44" coveredbranches="7" totalbranches="8" coveredcodeelements="2" fullcoveredcodeelements="2" totalcodeelements="2" />
+    <class name="Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer" coveredlines="29" coverablelines="29" totallines="84" coveredbranches="21" totalbranches="22" coveredcodeelements="3" fullcoveredcodeelements="3" totalcodeelements="3" />
+    <class name="Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer" coveredlines="65" coverablelines="65" totallines="139" coveredbranches="112" totalbranches="114" coveredcodeelements="6" fullcoveredcodeelements="6" totalcodeelements="6" />
+    <class name="Wolfgang.AuditTrail.ServiceCollectionExtensions" coveredlines="12" coverablelines="12" totallines="53" coveredbranches="6" totalbranches="6" coveredcodeelements="1" fullcoveredcodeelements="1" totalcodeelements="1" />
+  </assembly>
+  <assembly name="Wolfgang.AuditTrail.TestKit.Xunit">
+    <class name="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1" coveredlines="79" coverablelines="80" totallines="262" coveredbranches="22" totalbranches="30" coveredcodeelements="35" fullcoveredcodeelements="34" totalcodeelements="35" />
+    <class name="Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer" coveredlines="4" coverablelines="4" totallines="25" coveredbranches="1" totalbranches="2" coveredcodeelements="3" fullcoveredcodeelements="3" totalcodeelements="3" />
+  </assembly>
+</coverage>
