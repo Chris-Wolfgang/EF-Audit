@@ -8,6 +8,16 @@ updates:
     labels:
       - "dependencies"
       - "dotnet"
+    ignore:
+      # Held until the TestKit FsCheck 3.x migration (#175) — 3.x is a breaking
+      # API change for the published contract-test bases.
+      - dependency-name: "FsCheck.Xunit"
+        update-types: ["version-update:semver-major"]
+      # Held until the analyzer-pack bump pass (#176) — new analyzer versions can
+      # introduce warnings-as-errors needing focused triage (TreatWarningsAsErrors).
+      - dependency-name: "Meziantou.Analyzer"
+      - dependency-name: "SonarAnalyzer.CSharp"
+      - dependency-name: "Microsoft.VisualStudio.Threading.Analyzers"
     groups:
       dotnet-dependencies:
         patterns:
