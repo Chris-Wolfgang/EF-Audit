@@ -1,0 +1,73 @@
+name: Workflow security audit
+
+# Lints the GitHub Actions workflows themselves for correctness (actionlint) and
+# for workflow-level security issues — untrusted-input injection into run blocks,
+# over-broad permissions, expression-context secret leaks (zizmor). Advisory:
+# surfaces findings as annotations / in the Security tab; does not gate PRs.
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+  schedule:
+    - cron: '30 4 * * 1'   # Mondays 04:30 UTC
+
+permissions:
+  contents: read
+
+jobs:
+  actionlint:
+    name: actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Run actionlint
+        uses: reviewdog/action-actionlint@v1
+        with:
+          reporter: github-check
+          level: warning
+          fail_on_error: false
+
+  zizmor:
+    name: zizmor
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write   # upload SARIF to the Security tab
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install zizmor
+        run: pipx install zizmor
+
+      - name: Run zizmor
+        # Non-gating: zizmor exits non-zero when it finds issues; we still want
+        # the SARIF uploaded so findings show in the Security tab.
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: zizmor --format sarif . > zizmor.sarif
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: zizmor.sarif
+          category: zizmor
