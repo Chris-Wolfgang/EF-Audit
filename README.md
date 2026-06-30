@@ -4,7 +4,10 @@ An EF Core change-tracking library. Derive your `DbContext` from `AuditingDbCont
 
 The header/detail-per-column schema is the same shape that [Z.EntityFramework.Plus.Audit](https://entityframework-plus.net/ef-core-audit) and the [ABP Framework auditing](https://abp.io/docs/latest/framework/infrastructure/audit-logging) use — chosen for queryability ("every change to `Customer.Email` ever") over the more common JSON-blob-per-change shape (Audit.NET, EntityFrameworkCore.AutoHistory).
 
-[![PR Checks](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/pr.yaml/badge.svg)](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/pr.yaml)
+[![NuGet](https://img.shields.io/nuget/v/Wolfgang.AuditTrail.EntityFrameworkCore.svg?logo=nuget&label=NuGet)](https://www.nuget.org/packages/Wolfgang.AuditTrail.EntityFrameworkCore)
+[![NuGet downloads](https://img.shields.io/nuget/dt/Wolfgang.AuditTrail.EntityFrameworkCore.svg?logo=nuget&label=downloads)](https://www.nuget.org/packages/Wolfgang.AuditTrail.EntityFrameworkCore)
+[![PR build](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/AuditTrail/pr.yaml?event=pull_request&label=PR%20build&logo=github)](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/pr.yaml)
+[![Release](https://img.shields.io/github/actions/workflow/status/Chris-Wolfgang/AuditTrail/release.yaml?label=release&logo=github)](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/release.yaml)
 [![CodeQL](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/codeql.yaml/badge.svg)](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/codeql.yaml)
 [![Benchmarks](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/benchmarks.yaml/badge.svg)](https://github.com/Chris-Wolfgang/AuditTrail/actions/workflows/benchmarks.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
