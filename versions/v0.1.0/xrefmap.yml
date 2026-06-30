@@ -1,0 +1,1784 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: Wolfgang.AuditTrail
+  name: Wolfgang.AuditTrail
+  href: api/Wolfgang.AuditTrail.html
+  commentId: N:Wolfgang.AuditTrail
+  fullName: Wolfgang.AuditTrail
+  nameWithType: Wolfgang.AuditTrail
+- uid: Wolfgang.AuditTrail.AuditOperation
+  name: AuditOperation
+  href: api/Wolfgang.AuditTrail.AuditOperation.html
+  commentId: T:Wolfgang.AuditTrail.AuditOperation
+  fullName: Wolfgang.AuditTrail.AuditOperation
+  nameWithType: AuditOperation
+- uid: Wolfgang.AuditTrail.AuditOperation.Delete
+  name: Delete
+  href: api/Wolfgang.AuditTrail.AuditOperation.html#Wolfgang_AuditTrail_AuditOperation_Delete
+  commentId: F:Wolfgang.AuditTrail.AuditOperation.Delete
+  fullName: Wolfgang.AuditTrail.AuditOperation.Delete
+  nameWithType: AuditOperation.Delete
+- uid: Wolfgang.AuditTrail.AuditOperation.Insert
+  name: Insert
+  href: api/Wolfgang.AuditTrail.AuditOperation.html#Wolfgang_AuditTrail_AuditOperation_Insert
+  commentId: F:Wolfgang.AuditTrail.AuditOperation.Insert
+  fullName: Wolfgang.AuditTrail.AuditOperation.Insert
+  nameWithType: AuditOperation.Insert
+- uid: Wolfgang.AuditTrail.AuditOperation.Update
+  name: Update
+  href: api/Wolfgang.AuditTrail.AuditOperation.html#Wolfgang_AuditTrail_AuditOperation_Update
+  commentId: F:Wolfgang.AuditTrail.AuditOperation.Update
+  fullName: Wolfgang.AuditTrail.AuditOperation.Update
+  nameWithType: AuditOperation.Update
+- uid: Wolfgang.AuditTrail.AuditOptions
+  name: AuditOptions
+  href: api/Wolfgang.AuditTrail.AuditOptions.html
+  commentId: T:Wolfgang.AuditTrail.AuditOptions
+  fullName: Wolfgang.AuditTrail.AuditOptions
+  nameWithType: AuditOptions
+- uid: Wolfgang.AuditTrail.AuditOptions.CaptureDeletedValues
+  name: CaptureDeletedValues
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_CaptureDeletedValues
+  commentId: P:Wolfgang.AuditTrail.AuditOptions.CaptureDeletedValues
+  fullName: Wolfgang.AuditTrail.AuditOptions.CaptureDeletedValues
+  nameWithType: AuditOptions.CaptureDeletedValues
+- uid: Wolfgang.AuditTrail.AuditOptions.CaptureDeletedValues*
+  name: CaptureDeletedValues
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_CaptureDeletedValues_
+  commentId: Overload:Wolfgang.AuditTrail.AuditOptions.CaptureDeletedValues
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditOptions.CaptureDeletedValues
+  nameWithType: AuditOptions.CaptureDeletedValues
+- uid: Wolfgang.AuditTrail.AuditOptions.DetailTableName
+  name: DetailTableName
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_DetailTableName
+  commentId: P:Wolfgang.AuditTrail.AuditOptions.DetailTableName
+  fullName: Wolfgang.AuditTrail.AuditOptions.DetailTableName
+  nameWithType: AuditOptions.DetailTableName
+- uid: Wolfgang.AuditTrail.AuditOptions.DetailTableName*
+  name: DetailTableName
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_DetailTableName_
+  commentId: Overload:Wolfgang.AuditTrail.AuditOptions.DetailTableName
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditOptions.DetailTableName
+  nameWithType: AuditOptions.DetailTableName
+- uid: Wolfgang.AuditTrail.AuditOptions.EntityKeySerializer
+  name: EntityKeySerializer
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_EntityKeySerializer
+  commentId: P:Wolfgang.AuditTrail.AuditOptions.EntityKeySerializer
+  fullName: Wolfgang.AuditTrail.AuditOptions.EntityKeySerializer
+  nameWithType: AuditOptions.EntityKeySerializer
+- uid: Wolfgang.AuditTrail.AuditOptions.EntityKeySerializer*
+  name: EntityKeySerializer
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_EntityKeySerializer_
+  commentId: Overload:Wolfgang.AuditTrail.AuditOptions.EntityKeySerializer
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditOptions.EntityKeySerializer
+  nameWithType: AuditOptions.EntityKeySerializer
+- uid: Wolfgang.AuditTrail.AuditOptions.HeaderTableName
+  name: HeaderTableName
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_HeaderTableName
+  commentId: P:Wolfgang.AuditTrail.AuditOptions.HeaderTableName
+  fullName: Wolfgang.AuditTrail.AuditOptions.HeaderTableName
+  nameWithType: AuditOptions.HeaderTableName
+- uid: Wolfgang.AuditTrail.AuditOptions.HeaderTableName*
+  name: HeaderTableName
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_HeaderTableName_
+  commentId: Overload:Wolfgang.AuditTrail.AuditOptions.HeaderTableName
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditOptions.HeaderTableName
+  nameWithType: AuditOptions.HeaderTableName
+- uid: Wolfgang.AuditTrail.AuditOptions.Schema
+  name: Schema
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_Schema
+  commentId: P:Wolfgang.AuditTrail.AuditOptions.Schema
+  fullName: Wolfgang.AuditTrail.AuditOptions.Schema
+  nameWithType: AuditOptions.Schema
+- uid: Wolfgang.AuditTrail.AuditOptions.Schema*
+  name: Schema
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_Schema_
+  commentId: Overload:Wolfgang.AuditTrail.AuditOptions.Schema
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditOptions.Schema
+  nameWithType: AuditOptions.Schema
+- uid: Wolfgang.AuditTrail.AuditOptions.ValueSerializer
+  name: ValueSerializer
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_ValueSerializer
+  commentId: P:Wolfgang.AuditTrail.AuditOptions.ValueSerializer
+  fullName: Wolfgang.AuditTrail.AuditOptions.ValueSerializer
+  nameWithType: AuditOptions.ValueSerializer
+- uid: Wolfgang.AuditTrail.AuditOptions.ValueSerializer*
+  name: ValueSerializer
+  href: api/Wolfgang.AuditTrail.AuditOptions.html#Wolfgang_AuditTrail_AuditOptions_ValueSerializer_
+  commentId: Overload:Wolfgang.AuditTrail.AuditOptions.ValueSerializer
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditOptions.ValueSerializer
+  nameWithType: AuditOptions.ValueSerializer
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor
+  name: AuditSaveChangesInterceptor
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html
+  commentId: T:Wolfgang.AuditTrail.AuditSaveChangesInterceptor
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor
+  nameWithType: AuditSaveChangesInterceptor
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.#ctor(Wolfgang.AuditTrail.IAuditUserProvider,Wolfgang.AuditTrail.AuditOptions)
+  name: AuditSaveChangesInterceptor(IAuditUserProvider, AuditOptions)
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor__ctor_Wolfgang_AuditTrail_IAuditUserProvider_Wolfgang_AuditTrail_AuditOptions_
+  commentId: M:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.#ctor(Wolfgang.AuditTrail.IAuditUserProvider,Wolfgang.AuditTrail.AuditOptions)
+  name.vb: New(IAuditUserProvider, AuditOptions)
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.AuditSaveChangesInterceptor(Wolfgang.AuditTrail.IAuditUserProvider, Wolfgang.AuditTrail.AuditOptions)
+  fullName.vb: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.New(Wolfgang.AuditTrail.IAuditUserProvider, Wolfgang.AuditTrail.AuditOptions)
+  nameWithType: AuditSaveChangesInterceptor.AuditSaveChangesInterceptor(IAuditUserProvider, AuditOptions)
+  nameWithType.vb: AuditSaveChangesInterceptor.New(IAuditUserProvider, AuditOptions)
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.#ctor*
+  name: AuditSaveChangesInterceptor
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor__ctor_
+  commentId: Overload:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.AuditSaveChangesInterceptor
+  fullName.vb: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.New
+  nameWithType: AuditSaveChangesInterceptor.AuditSaveChangesInterceptor
+  nameWithType.vb: AuditSaveChangesInterceptor.New
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailed(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData)
+  name: SaveChangesFailed(DbContextErrorEventData)
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SaveChangesFailed_Microsoft_EntityFrameworkCore_Diagnostics_DbContextErrorEventData_
+  commentId: M:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailed(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData)
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailed(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData)
+  nameWithType: AuditSaveChangesInterceptor.SaveChangesFailed(DbContextErrorEventData)
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailed*
+  name: SaveChangesFailed
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SaveChangesFailed_
+  commentId: Overload:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailed
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailed
+  nameWithType: AuditSaveChangesInterceptor.SaveChangesFailed
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailedAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData,System.Threading.CancellationToken)
+  name: SaveChangesFailedAsync(DbContextErrorEventData, CancellationToken)
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SaveChangesFailedAsync_Microsoft_EntityFrameworkCore_Diagnostics_DbContextErrorEventData_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailedAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData,System.Threading.CancellationToken)
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailedAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData, System.Threading.CancellationToken)
+  nameWithType: AuditSaveChangesInterceptor.SaveChangesFailedAsync(DbContextErrorEventData, CancellationToken)
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailedAsync*
+  name: SaveChangesFailedAsync
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SaveChangesFailedAsync_
+  commentId: Overload:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailedAsync
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailedAsync
+  nameWithType: AuditSaveChangesInterceptor.SaveChangesFailedAsync
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChanges(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData,System.Int32)
+  name: SavedChanges(SaveChangesCompletedEventData, int)
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavedChanges_Microsoft_EntityFrameworkCore_Diagnostics_SaveChangesCompletedEventData_System_Int32_
+  commentId: M:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChanges(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData,System.Int32)
+  name.vb: SavedChanges(SaveChangesCompletedEventData, Integer)
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChanges(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData, int)
+  fullName.vb: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChanges(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData, Integer)
+  nameWithType: AuditSaveChangesInterceptor.SavedChanges(SaveChangesCompletedEventData, int)
+  nameWithType.vb: AuditSaveChangesInterceptor.SavedChanges(SaveChangesCompletedEventData, Integer)
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChanges*
+  name: SavedChanges
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavedChanges_
+  commentId: Overload:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChanges
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChanges
+  nameWithType: AuditSaveChangesInterceptor.SavedChanges
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData,System.Int32,System.Threading.CancellationToken)
+  name: SavedChangesAsync(SaveChangesCompletedEventData, int, CancellationToken)
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavedChangesAsync_Microsoft_EntityFrameworkCore_Diagnostics_SaveChangesCompletedEventData_System_Int32_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData,System.Int32,System.Threading.CancellationToken)
+  name.vb: SavedChangesAsync(SaveChangesCompletedEventData, Integer, CancellationToken)
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData, int, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData, Integer, System.Threading.CancellationToken)
+  nameWithType: AuditSaveChangesInterceptor.SavedChangesAsync(SaveChangesCompletedEventData, int, CancellationToken)
+  nameWithType.vb: AuditSaveChangesInterceptor.SavedChangesAsync(SaveChangesCompletedEventData, Integer, CancellationToken)
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChangesAsync*
+  name: SavedChangesAsync
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavedChangesAsync_
+  commentId: Overload:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChangesAsync
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChangesAsync
+  nameWithType: AuditSaveChangesInterceptor.SavedChangesAsync
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChanges(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData,Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult{System.Int32})
+  name: SavingChanges(DbContextEventData, InterceptionResult<int>)
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavingChanges_Microsoft_EntityFrameworkCore_Diagnostics_DbContextEventData_Microsoft_EntityFrameworkCore_Diagnostics_InterceptionResult_System_Int32__
+  commentId: M:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChanges(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData,Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult{System.Int32})
+  name.vb: SavingChanges(DbContextEventData, InterceptionResult(Of Integer))
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChanges(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData, Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult<int>)
+  fullName.vb: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChanges(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData, Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult(Of Integer))
+  nameWithType: AuditSaveChangesInterceptor.SavingChanges(DbContextEventData, InterceptionResult<int>)
+  nameWithType.vb: AuditSaveChangesInterceptor.SavingChanges(DbContextEventData, InterceptionResult(Of Integer))
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChanges*
+  name: SavingChanges
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavingChanges_
+  commentId: Overload:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChanges
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChanges
+  nameWithType: AuditSaveChangesInterceptor.SavingChanges
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData,Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult{System.Int32},System.Threading.CancellationToken)
+  name: SavingChangesAsync(DbContextEventData, InterceptionResult<int>, CancellationToken)
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavingChangesAsync_Microsoft_EntityFrameworkCore_Diagnostics_DbContextEventData_Microsoft_EntityFrameworkCore_Diagnostics_InterceptionResult_System_Int32__System_Threading_CancellationToken_
+  commentId: M:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData,Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult{System.Int32},System.Threading.CancellationToken)
+  name.vb: SavingChangesAsync(DbContextEventData, InterceptionResult(Of Integer), CancellationToken)
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData, Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult<int>, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData, Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult(Of Integer), System.Threading.CancellationToken)
+  nameWithType: AuditSaveChangesInterceptor.SavingChangesAsync(DbContextEventData, InterceptionResult<int>, CancellationToken)
+  nameWithType.vb: AuditSaveChangesInterceptor.SavingChangesAsync(DbContextEventData, InterceptionResult(Of Integer), CancellationToken)
+- uid: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChangesAsync*
+  name: SavingChangesAsync
+  href: api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html#Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavingChangesAsync_
+  commentId: Overload:Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChangesAsync
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChangesAsync
+  nameWithType: AuditSaveChangesInterceptor.SavingChangesAsync
+- uid: Wolfgang.AuditTrail.AuditUser
+  name: AuditUser
+  href: api/Wolfgang.AuditTrail.AuditUser.html
+  commentId: T:Wolfgang.AuditTrail.AuditUser
+  fullName: Wolfgang.AuditTrail.AuditUser
+  nameWithType: AuditUser
+- uid: Wolfgang.AuditTrail.AuditUser.#ctor(System.String,System.String)
+  name: AuditUser(string, string?)
+  href: api/Wolfgang.AuditTrail.AuditUser.html#Wolfgang_AuditTrail_AuditUser__ctor_System_String_System_String_
+  commentId: M:Wolfgang.AuditTrail.AuditUser.#ctor(System.String,System.String)
+  name.vb: New(String, String)
+  fullName: Wolfgang.AuditTrail.AuditUser.AuditUser(string, string?)
+  fullName.vb: Wolfgang.AuditTrail.AuditUser.New(String, String)
+  nameWithType: AuditUser.AuditUser(string, string?)
+  nameWithType.vb: AuditUser.New(String, String)
+- uid: Wolfgang.AuditTrail.AuditUser.#ctor*
+  name: AuditUser
+  href: api/Wolfgang.AuditTrail.AuditUser.html#Wolfgang_AuditTrail_AuditUser__ctor_
+  commentId: Overload:Wolfgang.AuditTrail.AuditUser.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.AuditTrail.AuditUser.AuditUser
+  fullName.vb: Wolfgang.AuditTrail.AuditUser.New
+  nameWithType: AuditUser.AuditUser
+  nameWithType.vb: AuditUser.New
+- uid: Wolfgang.AuditTrail.AuditUser.OnBehalfOfUserId
+  name: OnBehalfOfUserId
+  href: api/Wolfgang.AuditTrail.AuditUser.html#Wolfgang_AuditTrail_AuditUser_OnBehalfOfUserId
+  commentId: P:Wolfgang.AuditTrail.AuditUser.OnBehalfOfUserId
+  fullName: Wolfgang.AuditTrail.AuditUser.OnBehalfOfUserId
+  nameWithType: AuditUser.OnBehalfOfUserId
+- uid: Wolfgang.AuditTrail.AuditUser.OnBehalfOfUserId*
+  name: OnBehalfOfUserId
+  href: api/Wolfgang.AuditTrail.AuditUser.html#Wolfgang_AuditTrail_AuditUser_OnBehalfOfUserId_
+  commentId: Overload:Wolfgang.AuditTrail.AuditUser.OnBehalfOfUserId
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditUser.OnBehalfOfUserId
+  nameWithType: AuditUser.OnBehalfOfUserId
+- uid: Wolfgang.AuditTrail.AuditUser.UserId
+  name: UserId
+  href: api/Wolfgang.AuditTrail.AuditUser.html#Wolfgang_AuditTrail_AuditUser_UserId
+  commentId: P:Wolfgang.AuditTrail.AuditUser.UserId
+  fullName: Wolfgang.AuditTrail.AuditUser.UserId
+  nameWithType: AuditUser.UserId
+- uid: Wolfgang.AuditTrail.AuditUser.UserId*
+  name: UserId
+  href: api/Wolfgang.AuditTrail.AuditUser.html#Wolfgang_AuditTrail_AuditUser_UserId_
+  commentId: Overload:Wolfgang.AuditTrail.AuditUser.UserId
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditUser.UserId
+  nameWithType: AuditUser.UserId
+- uid: Wolfgang.AuditTrail.AuditValueColumn
+  name: AuditValueColumn
+  href: api/Wolfgang.AuditTrail.AuditValueColumn.html
+  commentId: T:Wolfgang.AuditTrail.AuditValueColumn
+  fullName: Wolfgang.AuditTrail.AuditValueColumn
+  nameWithType: AuditValueColumn
+- uid: Wolfgang.AuditTrail.AuditValueColumn.#ctor(System.String,System.Boolean)
+  name: AuditValueColumn(string, bool)
+  href: api/Wolfgang.AuditTrail.AuditValueColumn.html#Wolfgang_AuditTrail_AuditValueColumn__ctor_System_String_System_Boolean_
+  commentId: M:Wolfgang.AuditTrail.AuditValueColumn.#ctor(System.String,System.Boolean)
+  name.vb: New(String, Boolean)
+  fullName: Wolfgang.AuditTrail.AuditValueColumn.AuditValueColumn(string, bool)
+  fullName.vb: Wolfgang.AuditTrail.AuditValueColumn.New(String, Boolean)
+  nameWithType: AuditValueColumn.AuditValueColumn(string, bool)
+  nameWithType.vb: AuditValueColumn.New(String, Boolean)
+- uid: Wolfgang.AuditTrail.AuditValueColumn.#ctor*
+  name: AuditValueColumn
+  href: api/Wolfgang.AuditTrail.AuditValueColumn.html#Wolfgang_AuditTrail_AuditValueColumn__ctor_
+  commentId: Overload:Wolfgang.AuditTrail.AuditValueColumn.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.AuditTrail.AuditValueColumn.AuditValueColumn
+  fullName.vb: Wolfgang.AuditTrail.AuditValueColumn.New
+  nameWithType: AuditValueColumn.AuditValueColumn
+  nameWithType.vb: AuditValueColumn.New
+- uid: Wolfgang.AuditTrail.AuditValueColumn.IsNullable
+  name: IsNullable
+  href: api/Wolfgang.AuditTrail.AuditValueColumn.html#Wolfgang_AuditTrail_AuditValueColumn_IsNullable
+  commentId: P:Wolfgang.AuditTrail.AuditValueColumn.IsNullable
+  fullName: Wolfgang.AuditTrail.AuditValueColumn.IsNullable
+  nameWithType: AuditValueColumn.IsNullable
+- uid: Wolfgang.AuditTrail.AuditValueColumn.IsNullable*
+  name: IsNullable
+  href: api/Wolfgang.AuditTrail.AuditValueColumn.html#Wolfgang_AuditTrail_AuditValueColumn_IsNullable_
+  commentId: Overload:Wolfgang.AuditTrail.AuditValueColumn.IsNullable
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditValueColumn.IsNullable
+  nameWithType: AuditValueColumn.IsNullable
+- uid: Wolfgang.AuditTrail.AuditValueColumn.Name
+  name: Name
+  href: api/Wolfgang.AuditTrail.AuditValueColumn.html#Wolfgang_AuditTrail_AuditValueColumn_Name
+  commentId: P:Wolfgang.AuditTrail.AuditValueColumn.Name
+  fullName: Wolfgang.AuditTrail.AuditValueColumn.Name
+  nameWithType: AuditValueColumn.Name
+- uid: Wolfgang.AuditTrail.AuditValueColumn.Name*
+  name: Name
+  href: api/Wolfgang.AuditTrail.AuditValueColumn.html#Wolfgang_AuditTrail_AuditValueColumn_Name_
+  commentId: Overload:Wolfgang.AuditTrail.AuditValueColumn.Name
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditValueColumn.Name
+  nameWithType: AuditValueColumn.Name
+- uid: Wolfgang.AuditTrail.AuditingDbContext
+  name: AuditingDbContext
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html
+  commentId: T:Wolfgang.AuditTrail.AuditingDbContext
+  fullName: Wolfgang.AuditTrail.AuditingDbContext
+  nameWithType: AuditingDbContext
+- uid: Wolfgang.AuditTrail.AuditingDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions,Wolfgang.AuditTrail.IAuditUserProvider,Wolfgang.AuditTrail.AuditOptions)
+  name: AuditingDbContext(DbContextOptions, IAuditUserProvider, AuditOptions)
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html#Wolfgang_AuditTrail_AuditingDbContext__ctor_Microsoft_EntityFrameworkCore_DbContextOptions_Wolfgang_AuditTrail_IAuditUserProvider_Wolfgang_AuditTrail_AuditOptions_
+  commentId: M:Wolfgang.AuditTrail.AuditingDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions,Wolfgang.AuditTrail.IAuditUserProvider,Wolfgang.AuditTrail.AuditOptions)
+  name.vb: New(DbContextOptions, IAuditUserProvider, AuditOptions)
+  fullName: Wolfgang.AuditTrail.AuditingDbContext.AuditingDbContext(Microsoft.EntityFrameworkCore.DbContextOptions, Wolfgang.AuditTrail.IAuditUserProvider, Wolfgang.AuditTrail.AuditOptions)
+  fullName.vb: Wolfgang.AuditTrail.AuditingDbContext.New(Microsoft.EntityFrameworkCore.DbContextOptions, Wolfgang.AuditTrail.IAuditUserProvider, Wolfgang.AuditTrail.AuditOptions)
+  nameWithType: AuditingDbContext.AuditingDbContext(DbContextOptions, IAuditUserProvider, AuditOptions)
+  nameWithType.vb: AuditingDbContext.New(DbContextOptions, IAuditUserProvider, AuditOptions)
+- uid: Wolfgang.AuditTrail.AuditingDbContext.#ctor*
+  name: AuditingDbContext
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html#Wolfgang_AuditTrail_AuditingDbContext__ctor_
+  commentId: Overload:Wolfgang.AuditTrail.AuditingDbContext.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.AuditTrail.AuditingDbContext.AuditingDbContext
+  fullName.vb: Wolfgang.AuditTrail.AuditingDbContext.New
+  nameWithType: AuditingDbContext.AuditingDbContext
+  nameWithType.vb: AuditingDbContext.New
+- uid: Wolfgang.AuditTrail.AuditingDbContext.AuditOptions
+  name: AuditOptions
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html#Wolfgang_AuditTrail_AuditingDbContext_AuditOptions
+  commentId: P:Wolfgang.AuditTrail.AuditingDbContext.AuditOptions
+  fullName: Wolfgang.AuditTrail.AuditingDbContext.AuditOptions
+  nameWithType: AuditingDbContext.AuditOptions
+- uid: Wolfgang.AuditTrail.AuditingDbContext.AuditOptions*
+  name: AuditOptions
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html#Wolfgang_AuditTrail_AuditingDbContext_AuditOptions_
+  commentId: Overload:Wolfgang.AuditTrail.AuditingDbContext.AuditOptions
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditingDbContext.AuditOptions
+  nameWithType: AuditingDbContext.AuditOptions
+- uid: Wolfgang.AuditTrail.AuditingDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+  name: OnModelCreating(ModelBuilder)
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html#Wolfgang_AuditTrail_AuditingDbContext_OnModelCreating_Microsoft_EntityFrameworkCore_ModelBuilder_
+  commentId: M:Wolfgang.AuditTrail.AuditingDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+  fullName: Wolfgang.AuditTrail.AuditingDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+  nameWithType: AuditingDbContext.OnModelCreating(ModelBuilder)
+- uid: Wolfgang.AuditTrail.AuditingDbContext.OnModelCreating*
+  name: OnModelCreating
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html#Wolfgang_AuditTrail_AuditingDbContext_OnModelCreating_
+  commentId: Overload:Wolfgang.AuditTrail.AuditingDbContext.OnModelCreating
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditingDbContext.OnModelCreating
+  nameWithType: AuditingDbContext.OnModelCreating
+- uid: Wolfgang.AuditTrail.AuditingDbContext.SaveChanges(System.Boolean)
+  name: SaveChanges(bool)
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html#Wolfgang_AuditTrail_AuditingDbContext_SaveChanges_System_Boolean_
+  commentId: M:Wolfgang.AuditTrail.AuditingDbContext.SaveChanges(System.Boolean)
+  name.vb: SaveChanges(Boolean)
+  fullName: Wolfgang.AuditTrail.AuditingDbContext.SaveChanges(bool)
+  fullName.vb: Wolfgang.AuditTrail.AuditingDbContext.SaveChanges(Boolean)
+  nameWithType: AuditingDbContext.SaveChanges(bool)
+  nameWithType.vb: AuditingDbContext.SaveChanges(Boolean)
+- uid: Wolfgang.AuditTrail.AuditingDbContext.SaveChanges*
+  name: SaveChanges
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html#Wolfgang_AuditTrail_AuditingDbContext_SaveChanges_
+  commentId: Overload:Wolfgang.AuditTrail.AuditingDbContext.SaveChanges
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditingDbContext.SaveChanges
+  nameWithType: AuditingDbContext.SaveChanges
+- uid: Wolfgang.AuditTrail.AuditingDbContext.SaveChangesAsync(System.Boolean,System.Threading.CancellationToken)
+  name: SaveChangesAsync(bool, CancellationToken)
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html#Wolfgang_AuditTrail_AuditingDbContext_SaveChangesAsync_System_Boolean_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.AuditTrail.AuditingDbContext.SaveChangesAsync(System.Boolean,System.Threading.CancellationToken)
+  name.vb: SaveChangesAsync(Boolean, CancellationToken)
+  fullName: Wolfgang.AuditTrail.AuditingDbContext.SaveChangesAsync(bool, System.Threading.CancellationToken)
+  fullName.vb: Wolfgang.AuditTrail.AuditingDbContext.SaveChangesAsync(Boolean, System.Threading.CancellationToken)
+  nameWithType: AuditingDbContext.SaveChangesAsync(bool, CancellationToken)
+  nameWithType.vb: AuditingDbContext.SaveChangesAsync(Boolean, CancellationToken)
+- uid: Wolfgang.AuditTrail.AuditingDbContext.SaveChangesAsync*
+  name: SaveChangesAsync
+  href: api/Wolfgang.AuditTrail.AuditingDbContext.html#Wolfgang_AuditTrail_AuditingDbContext_SaveChangesAsync_
+  commentId: Overload:Wolfgang.AuditTrail.AuditingDbContext.SaveChangesAsync
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.AuditingDbContext.SaveChangesAsync
+  nameWithType: AuditingDbContext.SaveChangesAsync
+- uid: Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions
+  name: DbContextOptionsBuilderExtensions
+  href: api/Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.html
+  commentId: T:Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions
+  fullName: Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions
+  nameWithType: DbContextOptionsBuilderExtensions
+- uid: Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.UseAuditing(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder,System.IServiceProvider)
+  name: UseAuditing(DbContextOptionsBuilder, IServiceProvider)
+  href: api/Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.html#Wolfgang_AuditTrail_DbContextOptionsBuilderExtensions_UseAuditing_Microsoft_EntityFrameworkCore_DbContextOptionsBuilder_System_IServiceProvider_
+  commentId: M:Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.UseAuditing(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder,System.IServiceProvider)
+  fullName: Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.UseAuditing(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder, System.IServiceProvider)
+  nameWithType: DbContextOptionsBuilderExtensions.UseAuditing(DbContextOptionsBuilder, IServiceProvider)
+- uid: Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.UseAuditing*
+  name: UseAuditing
+  href: api/Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.html#Wolfgang_AuditTrail_DbContextOptionsBuilderExtensions_UseAuditing_
+  commentId: Overload:Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.UseAuditing
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.UseAuditing
+  nameWithType: DbContextOptionsBuilderExtensions.UseAuditing
+- uid: Wolfgang.AuditTrail.Entities
+  name: Wolfgang.AuditTrail.Entities
+  href: api/Wolfgang.AuditTrail.Entities.html
+  commentId: N:Wolfgang.AuditTrail.Entities
+  fullName: Wolfgang.AuditTrail.Entities
+  nameWithType: Wolfgang.AuditTrail.Entities
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail
+  name: AuditDetail
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html
+  commentId: T:Wolfgang.AuditTrail.Entities.AuditDetail
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail
+  nameWithType: AuditDetail
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.ColumnName
+  name: ColumnName
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_ColumnName
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditDetail.ColumnName
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.ColumnName
+  nameWithType: AuditDetail.ColumnName
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.ColumnName*
+  name: ColumnName
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_ColumnName_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditDetail.ColumnName
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.ColumnName
+  nameWithType: AuditDetail.ColumnName
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.DetailId
+  name: DetailId
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_DetailId
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditDetail.DetailId
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.DetailId
+  nameWithType: AuditDetail.DetailId
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.DetailId*
+  name: DetailId
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_DetailId_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditDetail.DetailId
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.DetailId
+  nameWithType: AuditDetail.DetailId
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.Header
+  name: Header
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_Header
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditDetail.Header
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.Header
+  nameWithType: AuditDetail.Header
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.Header*
+  name: Header
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_Header_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditDetail.Header
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.Header
+  nameWithType: AuditDetail.Header
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.HeaderId
+  name: HeaderId
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_HeaderId
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditDetail.HeaderId
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.HeaderId
+  nameWithType: AuditDetail.HeaderId
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.HeaderId*
+  name: HeaderId
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_HeaderId_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditDetail.HeaderId
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.HeaderId
+  nameWithType: AuditDetail.HeaderId
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.ValueText
+  name: ValueText
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_ValueText
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditDetail.ValueText
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.ValueText
+  nameWithType: AuditDetail.ValueText
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.ValueText*
+  name: ValueText
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_ValueText_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditDetail.ValueText
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.ValueText
+  nameWithType: AuditDetail.ValueText
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.ValueType
+  name: ValueType
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_ValueType
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditDetail.ValueType
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.ValueType
+  nameWithType: AuditDetail.ValueType
+- uid: Wolfgang.AuditTrail.Entities.AuditDetail.ValueType*
+  name: ValueType
+  href: api/Wolfgang.AuditTrail.Entities.AuditDetail.html#Wolfgang_AuditTrail_Entities_AuditDetail_ValueType_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditDetail.ValueType
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditDetail.ValueType
+  nameWithType: AuditDetail.ValueType
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader
+  name: AuditHeader
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html
+  commentId: T:Wolfgang.AuditTrail.Entities.AuditHeader
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader
+  nameWithType: AuditHeader
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.AuditedAtUtc
+  name: AuditedAtUtc
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_AuditedAtUtc
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditHeader.AuditedAtUtc
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.AuditedAtUtc
+  nameWithType: AuditHeader.AuditedAtUtc
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.AuditedAtUtc*
+  name: AuditedAtUtc
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_AuditedAtUtc_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditHeader.AuditedAtUtc
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.AuditedAtUtc
+  nameWithType: AuditHeader.AuditedAtUtc
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.Details
+  name: Details
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_Details
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditHeader.Details
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.Details
+  nameWithType: AuditHeader.Details
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.Details*
+  name: Details
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_Details_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditHeader.Details
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.Details
+  nameWithType: AuditHeader.Details
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.EntityKey
+  name: EntityKey
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_EntityKey
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditHeader.EntityKey
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.EntityKey
+  nameWithType: AuditHeader.EntityKey
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.EntityKey*
+  name: EntityKey
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_EntityKey_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditHeader.EntityKey
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.EntityKey
+  nameWithType: AuditHeader.EntityKey
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.EntityTable
+  name: EntityTable
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_EntityTable
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditHeader.EntityTable
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.EntityTable
+  nameWithType: AuditHeader.EntityTable
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.EntityTable*
+  name: EntityTable
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_EntityTable_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditHeader.EntityTable
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.EntityTable
+  nameWithType: AuditHeader.EntityTable
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.EntityType
+  name: EntityType
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_EntityType
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditHeader.EntityType
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.EntityType
+  nameWithType: AuditHeader.EntityType
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.EntityType*
+  name: EntityType
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_EntityType_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditHeader.EntityType
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.EntityType
+  nameWithType: AuditHeader.EntityType
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.HeaderId
+  name: HeaderId
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_HeaderId
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditHeader.HeaderId
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.HeaderId
+  nameWithType: AuditHeader.HeaderId
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.HeaderId*
+  name: HeaderId
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_HeaderId_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditHeader.HeaderId
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.HeaderId
+  nameWithType: AuditHeader.HeaderId
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.OnBehalfOfUserId
+  name: OnBehalfOfUserId
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_OnBehalfOfUserId
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditHeader.OnBehalfOfUserId
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.OnBehalfOfUserId
+  nameWithType: AuditHeader.OnBehalfOfUserId
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.OnBehalfOfUserId*
+  name: OnBehalfOfUserId
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_OnBehalfOfUserId_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditHeader.OnBehalfOfUserId
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.OnBehalfOfUserId
+  nameWithType: AuditHeader.OnBehalfOfUserId
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.Operation
+  name: Operation
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_Operation
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditHeader.Operation
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.Operation
+  nameWithType: AuditHeader.Operation
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.Operation*
+  name: Operation
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_Operation_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditHeader.Operation
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.Operation
+  nameWithType: AuditHeader.Operation
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.TransactionId
+  name: TransactionId
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_TransactionId
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditHeader.TransactionId
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.TransactionId
+  nameWithType: AuditHeader.TransactionId
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.TransactionId*
+  name: TransactionId
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_TransactionId_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditHeader.TransactionId
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.TransactionId
+  nameWithType: AuditHeader.TransactionId
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.UserId
+  name: UserId
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_UserId
+  commentId: P:Wolfgang.AuditTrail.Entities.AuditHeader.UserId
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.UserId
+  nameWithType: AuditHeader.UserId
+- uid: Wolfgang.AuditTrail.Entities.AuditHeader.UserId*
+  name: UserId
+  href: api/Wolfgang.AuditTrail.Entities.AuditHeader.html#Wolfgang_AuditTrail_Entities_AuditHeader_UserId_
+  commentId: Overload:Wolfgang.AuditTrail.Entities.AuditHeader.UserId
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Entities.AuditHeader.UserId
+  nameWithType: AuditHeader.UserId
+- uid: Wolfgang.AuditTrail.IAuditEntityKeySerializer
+  name: IAuditEntityKeySerializer
+  href: api/Wolfgang.AuditTrail.IAuditEntityKeySerializer.html
+  commentId: T:Wolfgang.AuditTrail.IAuditEntityKeySerializer
+  fullName: Wolfgang.AuditTrail.IAuditEntityKeySerializer
+  nameWithType: IAuditEntityKeySerializer
+- uid: Wolfgang.AuditTrail.IAuditEntityKeySerializer.Serialize(System.Collections.Generic.IReadOnlyList{System.Object})
+  name: Serialize(IReadOnlyList<object?>)
+  href: api/Wolfgang.AuditTrail.IAuditEntityKeySerializer.html#Wolfgang_AuditTrail_IAuditEntityKeySerializer_Serialize_System_Collections_Generic_IReadOnlyList_System_Object__
+  commentId: M:Wolfgang.AuditTrail.IAuditEntityKeySerializer.Serialize(System.Collections.Generic.IReadOnlyList{System.Object})
+  name.vb: Serialize(IReadOnlyList(Of Object))
+  fullName: Wolfgang.AuditTrail.IAuditEntityKeySerializer.Serialize(System.Collections.Generic.IReadOnlyList<object?>)
+  fullName.vb: Wolfgang.AuditTrail.IAuditEntityKeySerializer.Serialize(System.Collections.Generic.IReadOnlyList(Of Object))
+  nameWithType: IAuditEntityKeySerializer.Serialize(IReadOnlyList<object?>)
+  nameWithType.vb: IAuditEntityKeySerializer.Serialize(IReadOnlyList(Of Object))
+- uid: Wolfgang.AuditTrail.IAuditEntityKeySerializer.Serialize*
+  name: Serialize
+  href: api/Wolfgang.AuditTrail.IAuditEntityKeySerializer.html#Wolfgang_AuditTrail_IAuditEntityKeySerializer_Serialize_
+  commentId: Overload:Wolfgang.AuditTrail.IAuditEntityKeySerializer.Serialize
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.IAuditEntityKeySerializer.Serialize
+  nameWithType: IAuditEntityKeySerializer.Serialize
+- uid: Wolfgang.AuditTrail.IAuditUserProvider
+  name: IAuditUserProvider
+  href: api/Wolfgang.AuditTrail.IAuditUserProvider.html
+  commentId: T:Wolfgang.AuditTrail.IAuditUserProvider
+  fullName: Wolfgang.AuditTrail.IAuditUserProvider
+  nameWithType: IAuditUserProvider
+- uid: Wolfgang.AuditTrail.IAuditUserProvider.GetCurrentUser
+  name: GetCurrentUser()
+  href: api/Wolfgang.AuditTrail.IAuditUserProvider.html#Wolfgang_AuditTrail_IAuditUserProvider_GetCurrentUser
+  commentId: M:Wolfgang.AuditTrail.IAuditUserProvider.GetCurrentUser
+  fullName: Wolfgang.AuditTrail.IAuditUserProvider.GetCurrentUser()
+  nameWithType: IAuditUserProvider.GetCurrentUser()
+- uid: Wolfgang.AuditTrail.IAuditUserProvider.GetCurrentUser*
+  name: GetCurrentUser
+  href: api/Wolfgang.AuditTrail.IAuditUserProvider.html#Wolfgang_AuditTrail_IAuditUserProvider_GetCurrentUser_
+  commentId: Overload:Wolfgang.AuditTrail.IAuditUserProvider.GetCurrentUser
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.IAuditUserProvider.GetCurrentUser
+  nameWithType: IAuditUserProvider.GetCurrentUser
+- uid: Wolfgang.AuditTrail.IAuditValueReader
+  name: IAuditValueReader
+  href: api/Wolfgang.AuditTrail.IAuditValueReader.html
+  commentId: T:Wolfgang.AuditTrail.IAuditValueReader
+  fullName: Wolfgang.AuditTrail.IAuditValueReader
+  nameWithType: IAuditValueReader
+- uid: Wolfgang.AuditTrail.IAuditValueReader.ReadText(System.String)
+  name: ReadText(string)
+  href: api/Wolfgang.AuditTrail.IAuditValueReader.html#Wolfgang_AuditTrail_IAuditValueReader_ReadText_System_String_
+  commentId: M:Wolfgang.AuditTrail.IAuditValueReader.ReadText(System.String)
+  name.vb: ReadText(String)
+  fullName: Wolfgang.AuditTrail.IAuditValueReader.ReadText(string)
+  fullName.vb: Wolfgang.AuditTrail.IAuditValueReader.ReadText(String)
+  nameWithType: IAuditValueReader.ReadText(string)
+  nameWithType.vb: IAuditValueReader.ReadText(String)
+- uid: Wolfgang.AuditTrail.IAuditValueReader.ReadText*
+  name: ReadText
+  href: api/Wolfgang.AuditTrail.IAuditValueReader.html#Wolfgang_AuditTrail_IAuditValueReader_ReadText_
+  commentId: Overload:Wolfgang.AuditTrail.IAuditValueReader.ReadText
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.IAuditValueReader.ReadText
+  nameWithType: IAuditValueReader.ReadText
+- uid: Wolfgang.AuditTrail.IAuditValueSerializer
+  name: IAuditValueSerializer
+  href: api/Wolfgang.AuditTrail.IAuditValueSerializer.html
+  commentId: T:Wolfgang.AuditTrail.IAuditValueSerializer
+  fullName: Wolfgang.AuditTrail.IAuditValueSerializer
+  nameWithType: IAuditValueSerializer
+- uid: Wolfgang.AuditTrail.IAuditValueSerializer.Columns
+  name: Columns
+  href: api/Wolfgang.AuditTrail.IAuditValueSerializer.html#Wolfgang_AuditTrail_IAuditValueSerializer_Columns
+  commentId: P:Wolfgang.AuditTrail.IAuditValueSerializer.Columns
+  fullName: Wolfgang.AuditTrail.IAuditValueSerializer.Columns
+  nameWithType: IAuditValueSerializer.Columns
+- uid: Wolfgang.AuditTrail.IAuditValueSerializer.Columns*
+  name: Columns
+  href: api/Wolfgang.AuditTrail.IAuditValueSerializer.html#Wolfgang_AuditTrail_IAuditValueSerializer_Columns_
+  commentId: Overload:Wolfgang.AuditTrail.IAuditValueSerializer.Columns
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.IAuditValueSerializer.Columns
+  nameWithType: IAuditValueSerializer.Columns
+- uid: Wolfgang.AuditTrail.IAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader,System.String)
+  name: Decode(IAuditValueReader, string)
+  href: api/Wolfgang.AuditTrail.IAuditValueSerializer.html#Wolfgang_AuditTrail_IAuditValueSerializer_Decode_Wolfgang_AuditTrail_IAuditValueReader_System_String_
+  commentId: M:Wolfgang.AuditTrail.IAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader,System.String)
+  name.vb: Decode(IAuditValueReader, String)
+  fullName: Wolfgang.AuditTrail.IAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader, string)
+  fullName.vb: Wolfgang.AuditTrail.IAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader, String)
+  nameWithType: IAuditValueSerializer.Decode(IAuditValueReader, string)
+  nameWithType.vb: IAuditValueSerializer.Decode(IAuditValueReader, String)
+- uid: Wolfgang.AuditTrail.IAuditValueSerializer.Decode*
+  name: Decode
+  href: api/Wolfgang.AuditTrail.IAuditValueSerializer.html#Wolfgang_AuditTrail_IAuditValueSerializer_Decode_
+  commentId: Overload:Wolfgang.AuditTrail.IAuditValueSerializer.Decode
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.IAuditValueSerializer.Decode
+  nameWithType: IAuditValueSerializer.Decode
+- uid: Wolfgang.AuditTrail.IAuditValueSerializer.Encode(System.Object,System.Type,Wolfgang.AuditTrail.IAuditValueWriter)
+  name: Encode(object?, Type, IAuditValueWriter)
+  href: api/Wolfgang.AuditTrail.IAuditValueSerializer.html#Wolfgang_AuditTrail_IAuditValueSerializer_Encode_System_Object_System_Type_Wolfgang_AuditTrail_IAuditValueWriter_
+  commentId: M:Wolfgang.AuditTrail.IAuditValueSerializer.Encode(System.Object,System.Type,Wolfgang.AuditTrail.IAuditValueWriter)
+  name.vb: Encode(Object, Type, IAuditValueWriter)
+  fullName: Wolfgang.AuditTrail.IAuditValueSerializer.Encode(object?, System.Type, Wolfgang.AuditTrail.IAuditValueWriter)
+  fullName.vb: Wolfgang.AuditTrail.IAuditValueSerializer.Encode(Object, System.Type, Wolfgang.AuditTrail.IAuditValueWriter)
+  nameWithType: IAuditValueSerializer.Encode(object?, Type, IAuditValueWriter)
+  nameWithType.vb: IAuditValueSerializer.Encode(Object, Type, IAuditValueWriter)
+- uid: Wolfgang.AuditTrail.IAuditValueSerializer.Encode*
+  name: Encode
+  href: api/Wolfgang.AuditTrail.IAuditValueSerializer.html#Wolfgang_AuditTrail_IAuditValueSerializer_Encode_
+  commentId: Overload:Wolfgang.AuditTrail.IAuditValueSerializer.Encode
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.IAuditValueSerializer.Encode
+  nameWithType: IAuditValueSerializer.Encode
+- uid: Wolfgang.AuditTrail.IAuditValueWriter
+  name: IAuditValueWriter
+  href: api/Wolfgang.AuditTrail.IAuditValueWriter.html
+  commentId: T:Wolfgang.AuditTrail.IAuditValueWriter
+  fullName: Wolfgang.AuditTrail.IAuditValueWriter
+  nameWithType: IAuditValueWriter
+- uid: Wolfgang.AuditTrail.IAuditValueWriter.WriteText(System.String,System.String)
+  name: WriteText(string, string?)
+  href: api/Wolfgang.AuditTrail.IAuditValueWriter.html#Wolfgang_AuditTrail_IAuditValueWriter_WriteText_System_String_System_String_
+  commentId: M:Wolfgang.AuditTrail.IAuditValueWriter.WriteText(System.String,System.String)
+  name.vb: WriteText(String, String)
+  fullName: Wolfgang.AuditTrail.IAuditValueWriter.WriteText(string, string?)
+  fullName.vb: Wolfgang.AuditTrail.IAuditValueWriter.WriteText(String, String)
+  nameWithType: IAuditValueWriter.WriteText(string, string?)
+  nameWithType.vb: IAuditValueWriter.WriteText(String, String)
+- uid: Wolfgang.AuditTrail.IAuditValueWriter.WriteText*
+  name: WriteText
+  href: api/Wolfgang.AuditTrail.IAuditValueWriter.html#Wolfgang_AuditTrail_IAuditValueWriter_WriteText_
+  commentId: Overload:Wolfgang.AuditTrail.IAuditValueWriter.WriteText
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.IAuditValueWriter.WriteText
+  nameWithType: IAuditValueWriter.WriteText
+- uid: Wolfgang.AuditTrail.ModelBuilderExtensions
+  name: ModelBuilderExtensions
+  href: api/Wolfgang.AuditTrail.ModelBuilderExtensions.html
+  commentId: T:Wolfgang.AuditTrail.ModelBuilderExtensions
+  fullName: Wolfgang.AuditTrail.ModelBuilderExtensions
+  nameWithType: ModelBuilderExtensions
+- uid: Wolfgang.AuditTrail.ModelBuilderExtensions.ApplyAuditing(Microsoft.EntityFrameworkCore.ModelBuilder,Wolfgang.AuditTrail.AuditOptions)
+  name: ApplyAuditing(ModelBuilder, AuditOptions)
+  href: api/Wolfgang.AuditTrail.ModelBuilderExtensions.html#Wolfgang_AuditTrail_ModelBuilderExtensions_ApplyAuditing_Microsoft_EntityFrameworkCore_ModelBuilder_Wolfgang_AuditTrail_AuditOptions_
+  commentId: M:Wolfgang.AuditTrail.ModelBuilderExtensions.ApplyAuditing(Microsoft.EntityFrameworkCore.ModelBuilder,Wolfgang.AuditTrail.AuditOptions)
+  fullName: Wolfgang.AuditTrail.ModelBuilderExtensions.ApplyAuditing(Microsoft.EntityFrameworkCore.ModelBuilder, Wolfgang.AuditTrail.AuditOptions)
+  nameWithType: ModelBuilderExtensions.ApplyAuditing(ModelBuilder, AuditOptions)
+- uid: Wolfgang.AuditTrail.ModelBuilderExtensions.ApplyAuditing*
+  name: ApplyAuditing
+  href: api/Wolfgang.AuditTrail.ModelBuilderExtensions.html#Wolfgang_AuditTrail_ModelBuilderExtensions_ApplyAuditing_
+  commentId: Overload:Wolfgang.AuditTrail.ModelBuilderExtensions.ApplyAuditing
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.ModelBuilderExtensions.ApplyAuditing
+  nameWithType: ModelBuilderExtensions.ApplyAuditing
+- uid: Wolfgang.AuditTrail.NotAuditedAttribute
+  name: NotAuditedAttribute
+  href: api/Wolfgang.AuditTrail.NotAuditedAttribute.html
+  commentId: T:Wolfgang.AuditTrail.NotAuditedAttribute
+  fullName: Wolfgang.AuditTrail.NotAuditedAttribute
+  nameWithType: NotAuditedAttribute
+- uid: Wolfgang.AuditTrail.Schema
+  name: Wolfgang.AuditTrail.Schema
+  href: api/Wolfgang.AuditTrail.Schema.html
+  commentId: N:Wolfgang.AuditTrail.Schema
+  fullName: Wolfgang.AuditTrail.Schema
+  nameWithType: Wolfgang.AuditTrail.Schema
+- uid: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext
+  name: AuditMigrationsDbContext
+  href: api/Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.html
+  commentId: T:Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext
+  fullName: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext
+  nameWithType: AuditMigrationsDbContext
+- uid: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext},Wolfgang.AuditTrail.AuditOptions)
+  name: AuditMigrationsDbContext(DbContextOptions<AuditMigrationsDbContext>, AuditOptions)
+  href: api/Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.html#Wolfgang_AuditTrail_Schema_AuditMigrationsDbContext__ctor_Microsoft_EntityFrameworkCore_DbContextOptions_Wolfgang_AuditTrail_Schema_AuditMigrationsDbContext__Wolfgang_AuditTrail_AuditOptions_
+  commentId: M:Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext},Wolfgang.AuditTrail.AuditOptions)
+  name.vb: New(DbContextOptions(Of AuditMigrationsDbContext), AuditOptions)
+  fullName: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.AuditMigrationsDbContext(Microsoft.EntityFrameworkCore.DbContextOptions<Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext>, Wolfgang.AuditTrail.AuditOptions)
+  fullName.vb: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.New(Microsoft.EntityFrameworkCore.DbContextOptions(Of Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext), Wolfgang.AuditTrail.AuditOptions)
+  nameWithType: AuditMigrationsDbContext.AuditMigrationsDbContext(DbContextOptions<AuditMigrationsDbContext>, AuditOptions)
+  nameWithType.vb: AuditMigrationsDbContext.New(DbContextOptions(Of AuditMigrationsDbContext), AuditOptions)
+- uid: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.#ctor*
+  name: AuditMigrationsDbContext
+  href: api/Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.html#Wolfgang_AuditTrail_Schema_AuditMigrationsDbContext__ctor_
+  commentId: Overload:Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.AuditMigrationsDbContext
+  fullName.vb: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.New
+  nameWithType: AuditMigrationsDbContext.AuditMigrationsDbContext
+  nameWithType.vb: AuditMigrationsDbContext.New
+- uid: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+  name: OnModelCreating(ModelBuilder)
+  href: api/Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.html#Wolfgang_AuditTrail_Schema_AuditMigrationsDbContext_OnModelCreating_Microsoft_EntityFrameworkCore_ModelBuilder_
+  commentId: M:Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+  fullName: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+  nameWithType: AuditMigrationsDbContext.OnModelCreating(ModelBuilder)
+- uid: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.OnModelCreating*
+  name: OnModelCreating
+  href: api/Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.html#Wolfgang_AuditTrail_Schema_AuditMigrationsDbContext_OnModelCreating_
+  commentId: Overload:Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.OnModelCreating
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.OnModelCreating
+  nameWithType: AuditMigrationsDbContext.OnModelCreating
+- uid: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.Options
+  name: Options
+  href: api/Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.html#Wolfgang_AuditTrail_Schema_AuditMigrationsDbContext_Options
+  commentId: P:Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.Options
+  fullName: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.Options
+  nameWithType: AuditMigrationsDbContext.Options
+- uid: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.Options*
+  name: Options
+  href: api/Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.html#Wolfgang_AuditTrail_Schema_AuditMigrationsDbContext_Options_
+  commentId: Overload:Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.Options
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.Options
+  nameWithType: AuditMigrationsDbContext.Options
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaConstants
+  name: AuditSchemaConstants
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaConstants.html
+  commentId: T:Wolfgang.AuditTrail.Schema.AuditSchemaConstants
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaConstants
+  nameWithType: AuditSchemaConstants
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaConstants.CurrentSchemaVersion
+  name: CurrentSchemaVersion
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaConstants.html#Wolfgang_AuditTrail_Schema_AuditSchemaConstants_CurrentSchemaVersion
+  commentId: F:Wolfgang.AuditTrail.Schema.AuditSchemaConstants.CurrentSchemaVersion
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaConstants.CurrentSchemaVersion
+  nameWithType: AuditSchemaConstants.CurrentSchemaVersion
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaConstants.VersionTableName
+  name: VersionTableName
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaConstants.html#Wolfgang_AuditTrail_Schema_AuditSchemaConstants_VersionTableName
+  commentId: F:Wolfgang.AuditTrail.Schema.AuditSchemaConstants.VersionTableName
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaConstants.VersionTableName
+  nameWithType: AuditSchemaConstants.VersionTableName
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller
+  name: AuditSchemaInstaller
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.html
+  commentId: T:Wolfgang.AuditTrail.Schema.AuditSchemaInstaller
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller
+  nameWithType: AuditSchemaInstaller
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.#ctor(Wolfgang.AuditTrail.AuditOptions)
+  name: AuditSchemaInstaller(AuditOptions)
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.html#Wolfgang_AuditTrail_Schema_AuditSchemaInstaller__ctor_Wolfgang_AuditTrail_AuditOptions_
+  commentId: M:Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.#ctor(Wolfgang.AuditTrail.AuditOptions)
+  name.vb: New(AuditOptions)
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.AuditSchemaInstaller(Wolfgang.AuditTrail.AuditOptions)
+  fullName.vb: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.New(Wolfgang.AuditTrail.AuditOptions)
+  nameWithType: AuditSchemaInstaller.AuditSchemaInstaller(AuditOptions)
+  nameWithType.vb: AuditSchemaInstaller.New(AuditOptions)
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.#ctor*
+  name: AuditSchemaInstaller
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.html#Wolfgang_AuditTrail_Schema_AuditSchemaInstaller__ctor_
+  commentId: Overload:Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.AuditSchemaInstaller
+  fullName.vb: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.New
+  nameWithType: AuditSchemaInstaller.AuditSchemaInstaller
+  nameWithType.vb: AuditSchemaInstaller.New
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.CreateTablesAsync(Microsoft.EntityFrameworkCore.DbContext,System.Threading.CancellationToken)
+  name: CreateTablesAsync(DbContext, CancellationToken)
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.html#Wolfgang_AuditTrail_Schema_AuditSchemaInstaller_CreateTablesAsync_Microsoft_EntityFrameworkCore_DbContext_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.CreateTablesAsync(Microsoft.EntityFrameworkCore.DbContext,System.Threading.CancellationToken)
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.CreateTablesAsync(Microsoft.EntityFrameworkCore.DbContext, System.Threading.CancellationToken)
+  nameWithType: AuditSchemaInstaller.CreateTablesAsync(DbContext, CancellationToken)
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.CreateTablesAsync*
+  name: CreateTablesAsync
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.html#Wolfgang_AuditTrail_Schema_AuditSchemaInstaller_CreateTablesAsync_
+  commentId: Overload:Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.CreateTablesAsync
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.CreateTablesAsync
+  nameWithType: AuditSchemaInstaller.CreateTablesAsync
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.DropTablesAsync(Microsoft.EntityFrameworkCore.DbContext,System.Threading.CancellationToken)
+  name: DropTablesAsync(DbContext, CancellationToken)
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.html#Wolfgang_AuditTrail_Schema_AuditSchemaInstaller_DropTablesAsync_Microsoft_EntityFrameworkCore_DbContext_System_Threading_CancellationToken_
+  commentId: M:Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.DropTablesAsync(Microsoft.EntityFrameworkCore.DbContext,System.Threading.CancellationToken)
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.DropTablesAsync(Microsoft.EntityFrameworkCore.DbContext, System.Threading.CancellationToken)
+  nameWithType: AuditSchemaInstaller.DropTablesAsync(DbContext, CancellationToken)
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.DropTablesAsync*
+  name: DropTablesAsync
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.html#Wolfgang_AuditTrail_Schema_AuditSchemaInstaller_DropTablesAsync_
+  commentId: Overload:Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.DropTablesAsync
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.DropTablesAsync
+  nameWithType: AuditSchemaInstaller.DropTablesAsync
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaVersion
+  name: AuditSchemaVersion
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaVersion.html
+  commentId: T:Wolfgang.AuditTrail.Schema.AuditSchemaVersion
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaVersion
+  nameWithType: AuditSchemaVersion
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Id
+  name: Id
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaVersion.html#Wolfgang_AuditTrail_Schema_AuditSchemaVersion_Id
+  commentId: P:Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Id
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Id
+  nameWithType: AuditSchemaVersion.Id
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Id*
+  name: Id
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaVersion.html#Wolfgang_AuditTrail_Schema_AuditSchemaVersion_Id_
+  commentId: Overload:Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Id
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Id
+  nameWithType: AuditSchemaVersion.Id
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Version
+  name: Version
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaVersion.html#Wolfgang_AuditTrail_Schema_AuditSchemaVersion_Version
+  commentId: P:Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Version
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Version
+  nameWithType: AuditSchemaVersion.Version
+- uid: Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Version*
+  name: Version
+  href: api/Wolfgang.AuditTrail.Schema.AuditSchemaVersion.html#Wolfgang_AuditTrail_Schema_AuditSchemaVersion_Version_
+  commentId: Overload:Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Version
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Schema.AuditSchemaVersion.Version
+  nameWithType: AuditSchemaVersion.Version
+- uid: Wolfgang.AuditTrail.Serializers
+  name: Wolfgang.AuditTrail.Serializers
+  href: api/Wolfgang.AuditTrail.Serializers.html
+  commentId: N:Wolfgang.AuditTrail.Serializers
+  fullName: Wolfgang.AuditTrail.Serializers
+  nameWithType: Wolfgang.AuditTrail.Serializers
+- uid: Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer
+  name: PipeDelimitedEntityKeySerializer
+  href: api/Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.html
+  commentId: T:Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer
+  fullName: Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer
+  nameWithType: PipeDelimitedEntityKeySerializer
+- uid: Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.Serialize(System.Collections.Generic.IReadOnlyList{System.Object})
+  name: Serialize(IReadOnlyList<object?>)
+  href: api/Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.html#Wolfgang_AuditTrail_Serializers_PipeDelimitedEntityKeySerializer_Serialize_System_Collections_Generic_IReadOnlyList_System_Object__
+  commentId: M:Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.Serialize(System.Collections.Generic.IReadOnlyList{System.Object})
+  name.vb: Serialize(IReadOnlyList(Of Object))
+  fullName: Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.Serialize(System.Collections.Generic.IReadOnlyList<object?>)
+  fullName.vb: Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.Serialize(System.Collections.Generic.IReadOnlyList(Of Object))
+  nameWithType: PipeDelimitedEntityKeySerializer.Serialize(IReadOnlyList<object?>)
+  nameWithType.vb: PipeDelimitedEntityKeySerializer.Serialize(IReadOnlyList(Of Object))
+- uid: Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.Serialize*
+  name: Serialize
+  href: api/Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.html#Wolfgang_AuditTrail_Serializers_PipeDelimitedEntityKeySerializer_Serialize_
+  commentId: Overload:Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.Serialize
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.Serialize
+  nameWithType: PipeDelimitedEntityKeySerializer.Serialize
+- uid: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer
+  name: StringAuditValueSerializer
+  href: api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.html
+  commentId: T:Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer
+  fullName: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer
+  nameWithType: StringAuditValueSerializer
+- uid: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Columns
+  name: Columns
+  href: api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.html#Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Columns
+  commentId: P:Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Columns
+  fullName: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Columns
+  nameWithType: StringAuditValueSerializer.Columns
+- uid: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Columns*
+  name: Columns
+  href: api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.html#Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Columns_
+  commentId: Overload:Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Columns
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Columns
+  nameWithType: StringAuditValueSerializer.Columns
+- uid: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader,System.String)
+  name: Decode(IAuditValueReader, string)
+  href: api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.html#Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Decode_Wolfgang_AuditTrail_IAuditValueReader_System_String_
+  commentId: M:Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader,System.String)
+  name.vb: Decode(IAuditValueReader, String)
+  fullName: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader, string)
+  fullName.vb: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader, String)
+  nameWithType: StringAuditValueSerializer.Decode(IAuditValueReader, string)
+  nameWithType.vb: StringAuditValueSerializer.Decode(IAuditValueReader, String)
+- uid: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Decode*
+  name: Decode
+  href: api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.html#Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Decode_
+  commentId: Overload:Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Decode
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Decode
+  nameWithType: StringAuditValueSerializer.Decode
+- uid: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Encode(System.Object,System.Type,Wolfgang.AuditTrail.IAuditValueWriter)
+  name: Encode(object?, Type, IAuditValueWriter)
+  href: api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.html#Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Encode_System_Object_System_Type_Wolfgang_AuditTrail_IAuditValueWriter_
+  commentId: M:Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Encode(System.Object,System.Type,Wolfgang.AuditTrail.IAuditValueWriter)
+  name.vb: Encode(Object, Type, IAuditValueWriter)
+  fullName: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Encode(object?, System.Type, Wolfgang.AuditTrail.IAuditValueWriter)
+  fullName.vb: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Encode(Object, System.Type, Wolfgang.AuditTrail.IAuditValueWriter)
+  nameWithType: StringAuditValueSerializer.Encode(object?, Type, IAuditValueWriter)
+  nameWithType.vb: StringAuditValueSerializer.Encode(Object, Type, IAuditValueWriter)
+- uid: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Encode*
+  name: Encode
+  href: api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.html#Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Encode_
+  commentId: Overload:Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Encode
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Encode
+  nameWithType: StringAuditValueSerializer.Encode
+- uid: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.ValueColumnName
+  name: ValueColumnName
+  href: api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.html#Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_ValueColumnName
+  commentId: F:Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.ValueColumnName
+  fullName: Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.ValueColumnName
+  nameWithType: StringAuditValueSerializer.ValueColumnName
+- uid: Wolfgang.AuditTrail.ServiceCollectionExtensions
+  name: ServiceCollectionExtensions
+  href: api/Wolfgang.AuditTrail.ServiceCollectionExtensions.html
+  commentId: T:Wolfgang.AuditTrail.ServiceCollectionExtensions
+  fullName: Wolfgang.AuditTrail.ServiceCollectionExtensions
+  nameWithType: ServiceCollectionExtensions
+- uid: Wolfgang.AuditTrail.ServiceCollectionExtensions.AddEfCoreAuditing*
+  name: AddEfCoreAuditing
+  href: api/Wolfgang.AuditTrail.ServiceCollectionExtensions.html#Wolfgang_AuditTrail_ServiceCollectionExtensions_AddEfCoreAuditing_
+  commentId: Overload:Wolfgang.AuditTrail.ServiceCollectionExtensions.AddEfCoreAuditing
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.ServiceCollectionExtensions.AddEfCoreAuditing
+  nameWithType: ServiceCollectionExtensions.AddEfCoreAuditing
+- uid: Wolfgang.AuditTrail.ServiceCollectionExtensions.AddEfCoreAuditing``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Wolfgang.AuditTrail.AuditOptions})
+  name: AddEfCoreAuditing<TUserProvider>(IServiceCollection, Action<AuditOptions>?)
+  href: api/Wolfgang.AuditTrail.ServiceCollectionExtensions.html#Wolfgang_AuditTrail_ServiceCollectionExtensions_AddEfCoreAuditing__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Wolfgang_AuditTrail_AuditOptions__
+  commentId: M:Wolfgang.AuditTrail.ServiceCollectionExtensions.AddEfCoreAuditing``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Wolfgang.AuditTrail.AuditOptions})
+  name.vb: AddEfCoreAuditing(Of TUserProvider)(IServiceCollection, Action(Of AuditOptions))
+  fullName: Wolfgang.AuditTrail.ServiceCollectionExtensions.AddEfCoreAuditing<TUserProvider>(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Action<Wolfgang.AuditTrail.AuditOptions>?)
+  fullName.vb: Wolfgang.AuditTrail.ServiceCollectionExtensions.AddEfCoreAuditing(Of TUserProvider)(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Action(Of Wolfgang.AuditTrail.AuditOptions))
+  nameWithType: ServiceCollectionExtensions.AddEfCoreAuditing<TUserProvider>(IServiceCollection, Action<AuditOptions>?)
+  nameWithType.vb: ServiceCollectionExtensions.AddEfCoreAuditing(Of TUserProvider)(IServiceCollection, Action(Of AuditOptions))
+- uid: Wolfgang.AuditTrail.TestKit.Xunit
+  name: Wolfgang.AuditTrail.TestKit.Xunit
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.html
+  commentId: N:Wolfgang.AuditTrail.TestKit.Xunit
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit
+  nameWithType: Wolfgang.AuditTrail.TestKit.Xunit
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1
+  name: AuditValueSerializerContractTests<TSut>
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html
+  commentId: T:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1
+  name.vb: AuditValueSerializerContractTests(Of TSut)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut)
+  nameWithType: AuditValueSerializerContractTests<TSut>
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Boolean_round_trips(System.Boolean)
+  name: Boolean_round_trips(bool)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Boolean_round_trips_System_Boolean_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Boolean_round_trips(System.Boolean)
+  name.vb: Boolean_round_trips(Boolean)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Boolean_round_trips(bool)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Boolean_round_trips(Boolean)
+  nameWithType: AuditValueSerializerContractTests<TSut>.Boolean_round_trips(bool)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Boolean_round_trips(Boolean)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Boolean_round_trips*
+  name: Boolean_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Boolean_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Boolean_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Boolean_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Boolean_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Boolean_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Boolean_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_round_trips(System.Byte[])
+  name: Byte_array_round_trips(byte[]?)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_array_round_trips_System_Byte___
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_round_trips(System.Byte[])
+  name.vb: Byte_array_round_trips(Byte())
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Byte_array_round_trips(byte[]?)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Byte_array_round_trips(Byte())
+  nameWithType: AuditValueSerializerContractTests<TSut>.Byte_array_round_trips(byte[]?)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Byte_array_round_trips(Byte())
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_round_trips*
+  name: Byte_array_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_array_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Byte_array_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Byte_array_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Byte_array_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Byte_array_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_with_high_bytes_round_trips
+  name: Byte_array_with_high_bytes_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_array_with_high_bytes_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_with_high_bytes_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Byte_array_with_high_bytes_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Byte_array_with_high_bytes_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Byte_array_with_high_bytes_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Byte_array_with_high_bytes_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_with_high_bytes_round_trips*
+  name: Byte_array_with_high_bytes_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_array_with_high_bytes_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_with_high_bytes_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Byte_array_with_high_bytes_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Byte_array_with_high_bytes_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Byte_array_with_high_bytes_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Byte_array_with_high_bytes_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_round_trips(System.Byte)
+  name: Byte_round_trips(byte)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_round_trips_System_Byte_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_round_trips(System.Byte)
+  name.vb: Byte_round_trips(Byte)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Byte_round_trips(byte)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Byte_round_trips(Byte)
+  nameWithType: AuditValueSerializerContractTests<TSut>.Byte_round_trips(byte)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Byte_round_trips(Byte)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_round_trips*
+  name: Byte_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Byte_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Byte_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Byte_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Byte_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Columns_returns_at_least_one_column
+  name: Columns_returns_at_least_one_column()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Columns_returns_at_least_one_column
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Columns_returns_at_least_one_column
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Columns_returns_at_least_one_column()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Columns_returns_at_least_one_column()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Columns_returns_at_least_one_column()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Columns_returns_at_least_one_column()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Columns_returns_at_least_one_column*
+  name: Columns_returns_at_least_one_column
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Columns_returns_at_least_one_column_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Columns_returns_at_least_one_column
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Columns_returns_at_least_one_column
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Columns_returns_at_least_one_column
+  nameWithType: AuditValueSerializerContractTests<TSut>.Columns_returns_at_least_one_column
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Columns_returns_at_least_one_column
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.CreateSut
+  name: CreateSut()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_CreateSut
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.CreateSut
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.CreateSut()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).CreateSut()
+  nameWithType: AuditValueSerializerContractTests<TSut>.CreateSut()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).CreateSut()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.CreateSut*
+  name: CreateSut
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_CreateSut_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.CreateSut
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.CreateSut
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).CreateSut
+  nameWithType: AuditValueSerializerContractTests<TSut>.CreateSut
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).CreateSut
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_round_trips(System.DateTimeOffset)
+  name: DateTimeOffset_round_trips(DateTimeOffset)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTimeOffset_round_trips_System_DateTimeOffset_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_round_trips(System.DateTimeOffset)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.DateTimeOffset_round_trips(System.DateTimeOffset)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).DateTimeOffset_round_trips(System.DateTimeOffset)
+  nameWithType: AuditValueSerializerContractTests<TSut>.DateTimeOffset_round_trips(DateTimeOffset)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).DateTimeOffset_round_trips(DateTimeOffset)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_round_trips*
+  name: DateTimeOffset_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTimeOffset_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.DateTimeOffset_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).DateTimeOffset_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.DateTimeOffset_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).DateTimeOffset_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_with_nonzero_offset_round_trips
+  name: DateTimeOffset_with_nonzero_offset_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTimeOffset_with_nonzero_offset_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_with_nonzero_offset_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.DateTimeOffset_with_nonzero_offset_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).DateTimeOffset_with_nonzero_offset_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.DateTimeOffset_with_nonzero_offset_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).DateTimeOffset_with_nonzero_offset_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_with_nonzero_offset_round_trips*
+  name: DateTimeOffset_with_nonzero_offset_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTimeOffset_with_nonzero_offset_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_with_nonzero_offset_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.DateTimeOffset_with_nonzero_offset_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).DateTimeOffset_with_nonzero_offset_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.DateTimeOffset_with_nonzero_offset_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).DateTimeOffset_with_nonzero_offset_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MaxValue_round_trips
+  name: DateTime_MaxValue_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_MaxValue_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MaxValue_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.DateTime_MaxValue_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).DateTime_MaxValue_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.DateTime_MaxValue_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).DateTime_MaxValue_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MaxValue_round_trips*
+  name: DateTime_MaxValue_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_MaxValue_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MaxValue_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.DateTime_MaxValue_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).DateTime_MaxValue_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.DateTime_MaxValue_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).DateTime_MaxValue_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MinValue_round_trips
+  name: DateTime_MinValue_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_MinValue_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MinValue_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.DateTime_MinValue_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).DateTime_MinValue_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.DateTime_MinValue_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).DateTime_MinValue_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MinValue_round_trips*
+  name: DateTime_MinValue_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_MinValue_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MinValue_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.DateTime_MinValue_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).DateTime_MinValue_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.DateTime_MinValue_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).DateTime_MinValue_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_with_random_kind_round_trips(System.DateTime)
+  name: DateTime_with_random_kind_round_trips(DateTime)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_with_random_kind_round_trips_System_DateTime_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_with_random_kind_round_trips(System.DateTime)
+  name.vb: DateTime_with_random_kind_round_trips(Date)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.DateTime_with_random_kind_round_trips(System.DateTime)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).DateTime_with_random_kind_round_trips(Date)
+  nameWithType: AuditValueSerializerContractTests<TSut>.DateTime_with_random_kind_round_trips(DateTime)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).DateTime_with_random_kind_round_trips(Date)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_with_random_kind_round_trips*
+  name: DateTime_with_random_kind_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_with_random_kind_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_with_random_kind_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.DateTime_with_random_kind_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).DateTime_with_random_kind_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.DateTime_with_random_kind_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).DateTime_with_random_kind_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MaxValue_round_trips
+  name: Decimal_MaxValue_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_MaxValue_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MaxValue_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Decimal_MaxValue_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Decimal_MaxValue_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Decimal_MaxValue_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Decimal_MaxValue_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MaxValue_round_trips*
+  name: Decimal_MaxValue_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_MaxValue_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MaxValue_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Decimal_MaxValue_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Decimal_MaxValue_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Decimal_MaxValue_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Decimal_MaxValue_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MinValue_round_trips
+  name: Decimal_MinValue_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_MinValue_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MinValue_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Decimal_MinValue_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Decimal_MinValue_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Decimal_MinValue_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Decimal_MinValue_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MinValue_round_trips*
+  name: Decimal_MinValue_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_MinValue_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MinValue_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Decimal_MinValue_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Decimal_MinValue_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Decimal_MinValue_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Decimal_MinValue_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_round_trips(System.Decimal)
+  name: Decimal_round_trips(decimal)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_round_trips_System_Decimal_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_round_trips(System.Decimal)
+  name.vb: Decimal_round_trips(Decimal)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Decimal_round_trips(decimal)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Decimal_round_trips(Decimal)
+  nameWithType: AuditValueSerializerContractTests<TSut>.Decimal_round_trips(decimal)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Decimal_round_trips(Decimal)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_round_trips*
+  name: Decimal_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Decimal_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Decimal_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Decimal_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Decimal_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NaN_round_trips
+  name: Double_NaN_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_NaN_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NaN_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Double_NaN_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Double_NaN_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Double_NaN_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Double_NaN_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NaN_round_trips*
+  name: Double_NaN_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_NaN_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NaN_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Double_NaN_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Double_NaN_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Double_NaN_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Double_NaN_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NegativeInfinity_round_trips
+  name: Double_NegativeInfinity_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_NegativeInfinity_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NegativeInfinity_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Double_NegativeInfinity_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Double_NegativeInfinity_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Double_NegativeInfinity_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Double_NegativeInfinity_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NegativeInfinity_round_trips*
+  name: Double_NegativeInfinity_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_NegativeInfinity_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NegativeInfinity_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Double_NegativeInfinity_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Double_NegativeInfinity_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Double_NegativeInfinity_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Double_NegativeInfinity_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_PositiveInfinity_round_trips
+  name: Double_PositiveInfinity_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_PositiveInfinity_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_PositiveInfinity_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Double_PositiveInfinity_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Double_PositiveInfinity_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Double_PositiveInfinity_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Double_PositiveInfinity_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_PositiveInfinity_round_trips*
+  name: Double_PositiveInfinity_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_PositiveInfinity_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_PositiveInfinity_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Double_PositiveInfinity_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Double_PositiveInfinity_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Double_PositiveInfinity_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Double_PositiveInfinity_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_round_trips_for_finite_values(System.Double)
+  name: Double_round_trips_for_finite_values(double)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_round_trips_for_finite_values_System_Double_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_round_trips_for_finite_values(System.Double)
+  name.vb: Double_round_trips_for_finite_values(Double)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Double_round_trips_for_finite_values(double)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Double_round_trips_for_finite_values(Double)
+  nameWithType: AuditValueSerializerContractTests<TSut>.Double_round_trips_for_finite_values(double)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Double_round_trips_for_finite_values(Double)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_round_trips_for_finite_values*
+  name: Double_round_trips_for_finite_values
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_round_trips_for_finite_values_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_round_trips_for_finite_values
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Double_round_trips_for_finite_values
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Double_round_trips_for_finite_values
+  nameWithType: AuditValueSerializerContractTests<TSut>.Double_round_trips_for_finite_values
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Double_round_trips_for_finite_values
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_byte_array_round_trips
+  name: Empty_byte_array_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Empty_byte_array_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_byte_array_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Empty_byte_array_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Empty_byte_array_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Empty_byte_array_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Empty_byte_array_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_byte_array_round_trips*
+  name: Empty_byte_array_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Empty_byte_array_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_byte_array_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Empty_byte_array_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Empty_byte_array_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Empty_byte_array_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Empty_byte_array_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_string_round_trips
+  name: Empty_string_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Empty_string_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_string_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Empty_string_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Empty_string_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Empty_string_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Empty_string_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_string_round_trips*
+  name: Empty_string_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Empty_string_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_string_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Empty_string_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Empty_string_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Empty_string_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Empty_string_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_discriminator_includes_full_type_name
+  name: Enum_discriminator_includes_full_type_name()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Enum_discriminator_includes_full_type_name
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_discriminator_includes_full_type_name
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Enum_discriminator_includes_full_type_name()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Enum_discriminator_includes_full_type_name()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Enum_discriminator_includes_full_type_name()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Enum_discriminator_includes_full_type_name()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_discriminator_includes_full_type_name*
+  name: Enum_discriminator_includes_full_type_name
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Enum_discriminator_includes_full_type_name_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_discriminator_includes_full_type_name
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Enum_discriminator_includes_full_type_name
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Enum_discriminator_includes_full_type_name
+  nameWithType: AuditValueSerializerContractTests<TSut>.Enum_discriminator_includes_full_type_name
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Enum_discriminator_includes_full_type_name
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_round_trips_through_the_symbolic_name
+  name: Enum_round_trips_through_the_symbolic_name()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Enum_round_trips_through_the_symbolic_name
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_round_trips_through_the_symbolic_name
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Enum_round_trips_through_the_symbolic_name()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Enum_round_trips_through_the_symbolic_name()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Enum_round_trips_through_the_symbolic_name()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Enum_round_trips_through_the_symbolic_name()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_round_trips_through_the_symbolic_name*
+  name: Enum_round_trips_through_the_symbolic_name
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Enum_round_trips_through_the_symbolic_name_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_round_trips_through_the_symbolic_name
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Enum_round_trips_through_the_symbolic_name
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Enum_round_trips_through_the_symbolic_name
+  nameWithType: AuditValueSerializerContractTests<TSut>.Enum_round_trips_through_the_symbolic_name
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Enum_round_trips_through_the_symbolic_name
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_Empty_round_trips
+  name: Guid_Empty_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Guid_Empty_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_Empty_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Guid_Empty_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Guid_Empty_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Guid_Empty_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Guid_Empty_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_Empty_round_trips*
+  name: Guid_Empty_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Guid_Empty_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_Empty_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Guid_Empty_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Guid_Empty_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Guid_Empty_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Guid_Empty_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_round_trips(System.Guid)
+  name: Guid_round_trips(Guid)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Guid_round_trips_System_Guid_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_round_trips(System.Guid)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Guid_round_trips(System.Guid)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Guid_round_trips(System.Guid)
+  nameWithType: AuditValueSerializerContractTests<TSut>.Guid_round_trips(Guid)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Guid_round_trips(Guid)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_round_trips*
+  name: Guid_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Guid_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Guid_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Guid_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Guid_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Guid_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int16_round_trips(System.Int16)
+  name: Int16_round_trips(short)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int16_round_trips_System_Int16_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int16_round_trips(System.Int16)
+  name.vb: Int16_round_trips(Short)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Int16_round_trips(short)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Int16_round_trips(Short)
+  nameWithType: AuditValueSerializerContractTests<TSut>.Int16_round_trips(short)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Int16_round_trips(Short)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int16_round_trips*
+  name: Int16_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int16_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int16_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Int16_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Int16_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Int16_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Int16_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int32_round_trips(System.Int32)
+  name: Int32_round_trips(int)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int32_round_trips_System_Int32_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int32_round_trips(System.Int32)
+  name.vb: Int32_round_trips(Integer)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Int32_round_trips(int)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Int32_round_trips(Integer)
+  nameWithType: AuditValueSerializerContractTests<TSut>.Int32_round_trips(int)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Int32_round_trips(Integer)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int32_round_trips*
+  name: Int32_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int32_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int32_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Int32_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Int32_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Int32_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Int32_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int64_round_trips(System.Int64)
+  name: Int64_round_trips(long)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int64_round_trips_System_Int64_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int64_round_trips(System.Int64)
+  name.vb: Int64_round_trips(Long)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Int64_round_trips(long)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Int64_round_trips(Long)
+  nameWithType: AuditValueSerializerContractTests<TSut>.Int64_round_trips(long)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Int64_round_trips(Long)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int64_round_trips*
+  name: Int64_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int64_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int64_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Int64_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Int64_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Int64_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Int64_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Null_string_round_trips
+  name: Null_string_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Null_string_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Null_string_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Null_string_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Null_string_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.Null_string_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Null_string_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Null_string_round_trips*
+  name: Null_string_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Null_string_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Null_string_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Null_string_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Null_string_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.Null_string_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Null_string_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SByte_round_trips(System.SByte)
+  name: SByte_round_trips(sbyte)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_SByte_round_trips_System_SByte_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SByte_round_trips(System.SByte)
+  name.vb: SByte_round_trips(SByte)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.SByte_round_trips(sbyte)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).SByte_round_trips(SByte)
+  nameWithType: AuditValueSerializerContractTests<TSut>.SByte_round_trips(sbyte)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).SByte_round_trips(SByte)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SByte_round_trips*
+  name: SByte_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_SByte_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SByte_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.SByte_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).SByte_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.SByte_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).SByte_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SampleEnum
+  name: AuditValueSerializerContractTests<TSut>.SampleEnum
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.SampleEnum.html
+  commentId: T:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SampleEnum
+  name.vb: AuditValueSerializerContractTests(Of TSut).SampleEnum
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.SampleEnum
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).SampleEnum
+  nameWithType: AuditValueSerializerContractTests<TSut>.SampleEnum
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).SampleEnum
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SampleEnum.Alpha
+  name: Alpha
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.SampleEnum.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_SampleEnum_Alpha
+  commentId: F:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SampleEnum.Alpha
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.SampleEnum.Alpha
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).SampleEnum.Alpha
+  nameWithType: AuditValueSerializerContractTests<TSut>.SampleEnum.Alpha
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).SampleEnum.Alpha
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SampleEnum.Beta
+  name: Beta
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.SampleEnum.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_SampleEnum_Beta
+  commentId: F:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SampleEnum.Beta
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.SampleEnum.Beta
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).SampleEnum.Beta
+  nameWithType: AuditValueSerializerContractTests<TSut>.SampleEnum.Beta
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).SampleEnum.Beta
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SampleEnum.Gamma
+  name: Gamma
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.SampleEnum.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_SampleEnum_Gamma
+  commentId: F:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SampleEnum.Gamma
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.SampleEnum.Gamma
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).SampleEnum.Gamma
+  nameWithType: AuditValueSerializerContractTests<TSut>.SampleEnum.Gamma
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).SampleEnum.Gamma
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Single_round_trips_for_finite_values(System.Single)
+  name: Single_round_trips_for_finite_values(float)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Single_round_trips_for_finite_values_System_Single_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Single_round_trips_for_finite_values(System.Single)
+  name.vb: Single_round_trips_for_finite_values(Single)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Single_round_trips_for_finite_values(float)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Single_round_trips_for_finite_values(Single)
+  nameWithType: AuditValueSerializerContractTests<TSut>.Single_round_trips_for_finite_values(float)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Single_round_trips_for_finite_values(Single)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Single_round_trips_for_finite_values*
+  name: Single_round_trips_for_finite_values
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Single_round_trips_for_finite_values_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Single_round_trips_for_finite_values
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.Single_round_trips_for_finite_values
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).Single_round_trips_for_finite_values
+  nameWithType: AuditValueSerializerContractTests<TSut>.Single_round_trips_for_finite_values
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).Single_round_trips_for_finite_values
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_round_trips(System.String)
+  name: String_round_trips(string?)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_String_round_trips_System_String_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_round_trips(System.String)
+  name.vb: String_round_trips(String)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.String_round_trips(string?)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).String_round_trips(String)
+  nameWithType: AuditValueSerializerContractTests<TSut>.String_round_trips(string?)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).String_round_trips(String)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_round_trips*
+  name: String_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_String_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.String_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).String_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.String_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).String_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_with_embedded_null_round_trips
+  name: String_with_embedded_null_round_trips()
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_String_with_embedded_null_round_trips
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_with_embedded_null_round_trips
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.String_with_embedded_null_round_trips()
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).String_with_embedded_null_round_trips()
+  nameWithType: AuditValueSerializerContractTests<TSut>.String_with_embedded_null_round_trips()
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).String_with_embedded_null_round_trips()
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_with_embedded_null_round_trips*
+  name: String_with_embedded_null_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_String_with_embedded_null_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_with_embedded_null_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.String_with_embedded_null_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).String_with_embedded_null_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.String_with_embedded_null_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).String_with_embedded_null_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt16_round_trips(System.UInt16)
+  name: UInt16_round_trips(ushort)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt16_round_trips_System_UInt16_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt16_round_trips(System.UInt16)
+  name.vb: UInt16_round_trips(UShort)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.UInt16_round_trips(ushort)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).UInt16_round_trips(UShort)
+  nameWithType: AuditValueSerializerContractTests<TSut>.UInt16_round_trips(ushort)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).UInt16_round_trips(UShort)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt16_round_trips*
+  name: UInt16_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt16_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt16_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.UInt16_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).UInt16_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.UInt16_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).UInt16_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt32_round_trips(System.UInt32)
+  name: UInt32_round_trips(uint)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt32_round_trips_System_UInt32_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt32_round_trips(System.UInt32)
+  name.vb: UInt32_round_trips(UInteger)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.UInt32_round_trips(uint)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).UInt32_round_trips(UInteger)
+  nameWithType: AuditValueSerializerContractTests<TSut>.UInt32_round_trips(uint)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).UInt32_round_trips(UInteger)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt32_round_trips*
+  name: UInt32_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt32_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt32_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.UInt32_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).UInt32_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.UInt32_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).UInt32_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt64_round_trips(System.UInt64)
+  name: UInt64_round_trips(ulong)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt64_round_trips_System_UInt64_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt64_round_trips(System.UInt64)
+  name.vb: UInt64_round_trips(ULong)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.UInt64_round_trips(ulong)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).UInt64_round_trips(ULong)
+  nameWithType: AuditValueSerializerContractTests<TSut>.UInt64_round_trips(ulong)
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).UInt64_round_trips(ULong)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt64_round_trips*
+  name: UInt64_round_trips
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html#Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt64_round_trips_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt64_round_trips
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.UInt64_round_trips
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests(Of TSut).UInt64_round_trips
+  nameWithType: AuditValueSerializerContractTests<TSut>.UInt64_round_trips
+  nameWithType.vb: AuditValueSerializerContractTests(Of TSut).UInt64_round_trips
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer
+  name: InMemoryAuditValueBuffer
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.html
+  commentId: T:Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer
+  nameWithType: InMemoryAuditValueBuffer
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.ReadText(System.String)
+  name: ReadText(string)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.html#Wolfgang_AuditTrail_TestKit_Xunit_InMemoryAuditValueBuffer_ReadText_System_String_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.ReadText(System.String)
+  name.vb: ReadText(String)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.ReadText(string)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.ReadText(String)
+  nameWithType: InMemoryAuditValueBuffer.ReadText(string)
+  nameWithType.vb: InMemoryAuditValueBuffer.ReadText(String)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.ReadText*
+  name: ReadText
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.html#Wolfgang_AuditTrail_TestKit_Xunit_InMemoryAuditValueBuffer_ReadText_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.ReadText
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.ReadText
+  nameWithType: InMemoryAuditValueBuffer.ReadText
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.WriteText(System.String,System.String)
+  name: WriteText(string, string?)
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.html#Wolfgang_AuditTrail_TestKit_Xunit_InMemoryAuditValueBuffer_WriteText_System_String_System_String_
+  commentId: M:Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.WriteText(System.String,System.String)
+  name.vb: WriteText(String, String)
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.WriteText(string, string?)
+  fullName.vb: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.WriteText(String, String)
+  nameWithType: InMemoryAuditValueBuffer.WriteText(string, string?)
+  nameWithType.vb: InMemoryAuditValueBuffer.WriteText(String, String)
+- uid: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.WriteText*
+  name: WriteText
+  href: api/Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.html#Wolfgang_AuditTrail_TestKit_Xunit_InMemoryAuditValueBuffer_WriteText_
+  commentId: Overload:Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.WriteText
+  isSpec: "True"
+  fullName: Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.WriteText
+  nameWithType: InMemoryAuditValueBuffer.WriteText

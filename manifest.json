@@ -1,0 +1,602 @@
+{
+  "source_base_path": "D:/a/AuditTrail/AuditTrail/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.AuditOperation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.AuditOperation.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.AuditOperation",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.AuditOperation.yml\" sourcestartlinenumber=\"1\">Identifies the type of change captured on an <xref href=\"Wolfgang.AuditTrail.Entities.AuditHeader\" data-throw-if-not-resolved=\"false\"></xref> row.\nThe underlying byte values are the ASCII codes for <code>'I'</code>, <code>'U'</code>, and <code>'D'</code>;\nthe EF model converts the enum through <code>char</code> on the way out so the database\ncolumn literally contains <code>'I'</code> / <code>'U'</code> / <code>'D'</code> when queried directly.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.AuditOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.AuditOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.AuditOptions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.AuditOptions.yml\" sourcestartlinenumber=\"1\">Configures how the audit interceptor captures changes and how the schema installer\ncreates the audit tables.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.AuditSaveChangesInterceptor",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.AuditSaveChangesInterceptor.yml\" sourcestartlinenumber=\"1\">Auto-transaction <xref href=\"Microsoft.EntityFrameworkCore.Diagnostics.ISaveChangesInterceptor\" data-throw-if-not-resolved=\"false\"></xref> that captures Insert /\nUpdate / Delete operations via <xref href=\"Microsoft.EntityFrameworkCore.DbContext.ChangeTracker\" data-throw-if-not-resolved=\"false\"></xref> and writes\naudit header + detail rows in the same transaction as the user's save.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.AuditUser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.AuditUser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.AuditUser",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.AuditUser.yml\" sourcestartlinenumber=\"1\">Identifies the user responsible for a unit of audited work.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.AuditValueColumn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.AuditValueColumn.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.AuditValueColumn",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.AuditValueColumn.yml\" sourcestartlinenumber=\"1\">Describes a column that an <xref href=\"Wolfgang.AuditTrail.IAuditValueSerializer\" data-throw-if-not-resolved=\"false\"></xref> requires on the\n<code>AuditDetail</code> table.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.AuditingDbContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.AuditingDbContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.AuditingDbContext",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.AuditingDbContext.yml\" sourcestartlinenumber=\"1\">Base <xref href=\"Microsoft.EntityFrameworkCore.DbContext\" data-throw-if-not-resolved=\"false\"></xref> that writes audit rows atomically with every\n<xref href=\"Microsoft.EntityFrameworkCore.DbContext.SaveChanges\" data-throw-if-not-resolved=\"false\"></xref> / <xref href=\"Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(System.Threading.CancellationToken)\" data-throw-if-not-resolved=\"false\"></xref>\ncall. Derive your application's context from this instead of <xref href=\"Microsoft.EntityFrameworkCore.DbContext\" data-throw-if-not-resolved=\"false\"></xref>\nand continue calling <code>SaveChangesAsync</code> as usual — audit capture happens\ntransparently in the same transaction.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.yml\" sourcestartlinenumber=\"1\">EF Core <xref href=\"Microsoft.EntityFrameworkCore.DbContextOptionsBuilder\" data-throw-if-not-resolved=\"false\"></xref> extensions that wire the\n<xref href=\"Wolfgang.AuditTrail.AuditSaveChangesInterceptor\" data-throw-if-not-resolved=\"false\"></xref> into a consumer's <code>DbContext</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Entities.AuditDetail.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Entities.AuditDetail.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Entities.AuditDetail",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.Entities.AuditDetail.yml\" sourcestartlinenumber=\"1\">One row per changed column on the associated <xref href=\"Wolfgang.AuditTrail.Entities.AuditHeader\" data-throw-if-not-resolved=\"false\"></xref>. The\ndiscriminator in <xref href=\"Wolfgang.AuditTrail.Entities.AuditDetail.ValueType\" data-throw-if-not-resolved=\"false\"></xref> identifies the CLR type the value\nrepresents.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Entities.AuditHeader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Entities.AuditHeader.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Entities.AuditHeader",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.Entities.AuditHeader.yml\" sourcestartlinenumber=\"1\">One row per audited entity change. Grouped with sibling header rows from the same\n<code>SaveChanges</code> call via <xref href=\"Wolfgang.AuditTrail.Entities.AuditHeader.TransactionId\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Entities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Entities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Entities",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.IAuditEntityKeySerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.IAuditEntityKeySerializer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.IAuditEntityKeySerializer",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.IAuditEntityKeySerializer.yml\" sourcestartlinenumber=\"1\">Serializes an entity's primary key value(s) into the string stored in\n<code>AuditHeader.EntityKey</code>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.IAuditUserProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.IAuditUserProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.IAuditUserProvider",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.IAuditUserProvider.yml\" sourcestartlinenumber=\"1\">Supplies the <xref href=\"Wolfgang.AuditTrail.AuditUser\" data-throw-if-not-resolved=\"false\"></xref> stamped onto each audit header row.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.IAuditValueReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.IAuditValueReader.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.IAuditValueReader",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.IAuditValueReader.yml\" sourcestartlinenumber=\"1\">Supplies stored column values to an <xref href=\"Wolfgang.AuditTrail.IAuditValueSerializer\" data-throw-if-not-resolved=\"false\"></xref> during decode.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.IAuditValueSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.IAuditValueSerializer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.IAuditValueSerializer",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.IAuditValueSerializer.yml\" sourcestartlinenumber=\"1\">Encodes values captured by the audit interceptor into the column(s) it persists\non the <code>AuditDetail</code> row, and decodes them back on read.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.IAuditValueWriter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.IAuditValueWriter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.IAuditValueWriter",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.IAuditValueWriter.yml\" sourcestartlinenumber=\"1\">Receives the serialized form of a value being captured into an\n<code>AuditDetail</code> row.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.ModelBuilderExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.ModelBuilderExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.ModelBuilderExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.ModelBuilderExtensions.yml\" sourcestartlinenumber=\"1\">EF Core model-configuration extensions that register the audit entity types on a\nconsumer's <xref href=\"Microsoft.EntityFrameworkCore.DbContext\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.NotAuditedAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.NotAuditedAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.NotAuditedAttribute",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.NotAuditedAttribute.yml\" sourcestartlinenumber=\"1\">Excludes an entity type or a single property from audit capture.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext.yml\" sourcestartlinenumber=\"1\">Library-internal <xref href=\"Microsoft.EntityFrameworkCore.DbContext\" data-throw-if-not-resolved=\"false\"></xref> whose model contains only the audit\nentities — <xref href=\"Wolfgang.AuditTrail.Entities.AuditHeader\" data-throw-if-not-resolved=\"false\"></xref>, <xref href=\"Wolfgang.AuditTrail.Entities.AuditDetail\" data-throw-if-not-resolved=\"false\"></xref>,\nand the version tracking row <xref href=\"Wolfgang.AuditTrail.Schema.AuditSchemaVersion\" data-throw-if-not-resolved=\"false\"></xref>. Used by\n<code>AuditSchemaMigrator</code> to install or upgrade the audit schema\nwithout dragging the consumer's own entity model into the diff.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Schema.AuditSchemaConstants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Schema.AuditSchemaConstants.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Schema.AuditSchemaConstants",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.Schema.AuditSchemaConstants.yml\" sourcestartlinenumber=\"1\">Compile-time constants shared across the schema-migration components.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Schema.AuditSchemaInstaller",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.Schema.AuditSchemaInstaller.yml\" sourcestartlinenumber=\"1\">Creates and drops the audit tables in the consumer's database.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Schema.AuditSchemaVersion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Schema.AuditSchemaVersion.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Schema.AuditSchemaVersion",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.Schema.AuditSchemaVersion.yml\" sourcestartlinenumber=\"1\">One-row record tracking the audit schema version currently installed in the\ntarget database. The row is upserted by <code>AuditSchemaMigrator</code>\nafter a successful migration apply.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Schema.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Schema.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Schema",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer.yml\" sourcestartlinenumber=\"1\">Default <xref href=\"Wolfgang.AuditTrail.IAuditEntityKeySerializer\" data-throw-if-not-resolved=\"false\"></xref>. Joins key parts with the pipe\ncharacter (<code>'|'</code>).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.yml\" sourcestartlinenumber=\"1\">v1 default <xref href=\"Wolfgang.AuditTrail.IAuditValueSerializer\" data-throw-if-not-resolved=\"false\"></xref>. Writes every value as culture-invariant\ntext to the <code>ValueText</code> column on the <code>AuditDetail</code> table.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.Serializers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.Serializers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.Serializers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.ServiceCollectionExtensions",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.ServiceCollectionExtensions.yml\" sourcestartlinenumber=\"1\">Dependency-injection helpers for registering the audit options and user provider.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.SampleEnum.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.SampleEnum.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>.SampleEnum",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.SampleEnum.yml\" sourcestartlinenumber=\"1\">A small enum used exclusively by the contract tests so consumers inheriting this\nbase get coverage of the <code>Enum:&lt;FullName&gt;</code> discriminator path. The\n<code>Enum</code> suffix is intentional — the type name appears in tests that read\n&quot;Sample enum value Beta&quot; and the suffix keeps that wording precise.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<TSut>",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests-1.yml\" sourcestartlinenumber=\"1\">Contract test base every <xref href=\"Wolfgang.AuditTrail.IAuditValueSerializer\" data-throw-if-not-resolved=\"false\"></xref> implementation should\ninherit. Mixes FsCheck-generated property tests (~100 random inputs per type per\nrun) with explicit boundary theories that document known edge cases.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer",
+      "Summary": "<p sourcefile=\"api/Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer.yml\" sourcestartlinenumber=\"1\">In-memory <xref href=\"Wolfgang.AuditTrail.IAuditValueWriter\" data-throw-if-not-resolved=\"false\"></xref> / <xref href=\"Wolfgang.AuditTrail.IAuditValueReader\" data-throw-if-not-resolved=\"false\"></xref> used by\nthe contract tests. Stores the most recent value written to each column and serves\nit back on read.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.TestKit.Xunit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.TestKit.Xunit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail.TestKit.Xunit",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Wolfgang.AuditTrail.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Wolfgang.AuditTrail.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Wolfgang.AuditTrail",
+      "Summary": null
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "apple-touch-icon.png",
+      "output": {
+        "resource": {
+          "relative_path": "apple-touch-icon.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/introduction.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.ico"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "favicon.svg",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "logo.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "public/version-picker.js",
+      "output": {
+        "resource": {
+          "relative_path": "public/version-picker.js"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

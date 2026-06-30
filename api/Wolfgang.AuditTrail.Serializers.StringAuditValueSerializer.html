@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class StringAuditValueSerializer | Wolfgang.AuditTrail Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class StringAuditValueSerializer | Wolfgang.AuditTrail Documentation ">
+      
+      <meta name="description" content="v1 default . Writes every value as culture-invariant text to the ValueText column on the AuditDetail table.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/AuditTrail/new/v0.1.0/apiSpec/new?filename=Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer.md&amp;value=---%0Auid%3A%20Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.AuditTrail">
+            Wolfgang.AuditTrail
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer">
+
+
+
+  <h1 id="Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer" data-uid="Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer" class="text-break">
+Class StringAuditValueSerializer  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/Serializers/StringAuditValueSerializer.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.AuditTrail.html">AuditTrail</a>.<a class="xref" href="Wolfgang.AuditTrail.Serializers.html">Serializers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.AuditTrail.EntityFrameworkCore.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>v1 default <a class="xref" href="Wolfgang.AuditTrail.IAuditValueSerializer.html">IAuditValueSerializer</a>. Writes every value as culture-invariant
+text to the <code>ValueText</code> column on the <code>AuditDetail</code> table.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class StringAuditValueSerializer : IAuditValueSerializer</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">StringAuditValueSerializer</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Wolfgang.AuditTrail.IAuditValueSerializer.html">IAuditValueSerializer</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+Encoding rules:
+</p>
+<ul><li><code>String</code> stored as-is.</li><li>Integral, decimal, and floating-point types use <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo.invariantculture">InvariantCulture</a>.</li><li><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a> and <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a> use the round-trip <code>"o"</code> format.</li><li><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a> uses the <code>"D"</code> format (32 digits separated by hyphens).</li><li><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a> renders as <code>True</code> / <code>False</code>.</li><li><code>byte[]</code> is base64-encoded.</li><li>Enums use <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.enum.tostring#system-enum-tostring">ToString()</a> (the symbolic name); the discriminator records the enum's full type name.</li><li><code>null</code> writes SQL <code>NULL</code>; the discriminator still records the declared CLR type.</li></ul>
+</div>
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_ValueColumnName" data-uid="Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.ValueColumnName">
+  ValueColumnName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/Serializers/StringAuditValueSerializer.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The name of the single text column this serializer writes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string ValueColumnName = &quot;ValueText&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Columns_" data-uid="Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Columns*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Columns" data-uid="Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Columns">
+  Columns
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/Serializers/StringAuditValueSerializer.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The columns this serializer expects on the <code>AuditDetail</code> table, in the
+order they should appear. Advisory in v1 — see remarks on the interface.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;AuditValueColumn&gt; Columns { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Wolfgang.AuditTrail.AuditValueColumn.html">AuditValueColumn</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Decode_" data-uid="Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Decode*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Decode_Wolfgang_AuditTrail_IAuditValueReader_System_String_" data-uid="Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Decode(Wolfgang.AuditTrail.IAuditValueReader,System.String)">
+  Decode(IAuditValueReader, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/Serializers/StringAuditValueSerializer.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Decodes a value previously produced by <a class="xref" href="Wolfgang.AuditTrail.IAuditValueSerializer.html#Wolfgang_AuditTrail_IAuditValueSerializer_Encode_System_Object_System_Type_Wolfgang_AuditTrail_IAuditValueWriter_">Encode(object?, Type, IAuditValueWriter)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object? Decode(IAuditValueReader reader, string valueType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Wolfgang.AuditTrail.IAuditValueReader.html">IAuditValueReader</a></dt>
+    <dd><p>Supplies the persisted column values.</p>
+</dd>
+    <dt><code>valueType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The <code>ValueType</code> discriminator returned by <a class="xref" href="Wolfgang.AuditTrail.IAuditValueSerializer.html#Wolfgang_AuditTrail_IAuditValueSerializer_Encode_System_Object_System_Type_Wolfgang_AuditTrail_IAuditValueWriter_">Encode(object?, Type, IAuditValueWriter)</a>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Encode_" data-uid="Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Encode*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_Serializers_StringAuditValueSerializer_Encode_System_Object_System_Type_Wolfgang_AuditTrail_IAuditValueWriter_" data-uid="Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer.Encode(System.Object,System.Type,Wolfgang.AuditTrail.IAuditValueWriter)">
+  Encode(object?, Type, IAuditValueWriter)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/Serializers/StringAuditValueSerializer.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Encodes <code class="paramref">value</code> (of declared CLR type <code class="paramref">clrType</code>)
+into <code class="paramref">writer</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Encode(object? value, Type clrType, IAuditValueWriter writer)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The value to encode. May be <code>null</code>.</p>
+</dd>
+    <dt><code>clrType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd><p>The declared CLR type of the audited property.</p>
+</dd>
+    <dt><code>writer</code> <a class="xref" href="Wolfgang.AuditTrail.IAuditValueWriter.html">IAuditValueWriter</a></dt>
+    <dd><p>Receives the encoded representation.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The <code>ValueType</code> discriminator to persist alongside the value.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/Serializers/StringAuditValueSerializer.cs/#L24" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

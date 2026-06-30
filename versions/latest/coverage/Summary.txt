@@ -1,0 +1,58 @@
+Summary
+  Generated on: 6/30/2026 - 1:56:31 AM
+  Coverage date: 6/30/2026 - 1:56:23 AM - 6/30/2026 - 1:56:27 AM
+  Parser: MultiReport (3x Cobertura)
+  Assemblies: 4
+  Classes: 30
+  Files: 30
+  Line coverage: 99%
+  Covered lines: 964
+  Uncovered lines: 9
+  Coverable lines: 973
+  Total lines: 3173
+  Branch coverage: 93.3% (450 of 482)
+  Covered branches: 450
+  Total branches: 482
+  Method coverage: 100% (175 of 175)
+  Full method coverage: 95.4% (167 of 175)
+  Covered methods: 175
+  Fully covered methods: 167
+  Total methods: 175
+
+audittrail                                                                  100%
+  Wolfgang.AuditTrail.Cli.Command.Migrate                                   100%
+  Wolfgang.AuditTrail.Cli.Model.MigrateOptions                              100%
+
+Wolfgang.AuditTrail.Abstractions                                            100%
+  Wolfgang.AuditTrail.AuditOptions                                          100%
+  Wolfgang.AuditTrail.AuditUser                                             100%
+  Wolfgang.AuditTrail.AuditValueColumn                                      100%
+  Wolfgang.AuditTrail.Entities.AuditDetail                                  100%
+  Wolfgang.AuditTrail.Entities.AuditHeader                                  100%
+
+Wolfgang.AuditTrail.EntityFrameworkCore                                    98.9%
+  Wolfgang.AuditTrail.AuditingDbContext                                    97.4%
+  Wolfgang.AuditTrail.AuditSaveChangesInterceptor                          99.4%
+  Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions                     100%
+  Wolfgang.AuditTrail.Internal.AuditCapture                                95.9%
+  Wolfgang.AuditTrail.Internal.ColumnValueWriter                            100%
+  Wolfgang.AuditTrail.Internal.DbContextItemBag                             100%
+  Wolfgang.AuditTrail.Internal.PendingAuditEntry                            100%
+  Wolfgang.AuditTrail.Internal.PendingAuditValue                            100%
+  Wolfgang.AuditTrail.ModelBuilderExtensions                                100%
+  Wolfgang.AuditTrail.Schema.AuditMigrationsDbContext                       100%
+  Wolfgang.AuditTrail.Schema.AuditMigrationsModelCacheKey                   100%
+  Wolfgang.AuditTrail.Schema.AuditMigrationsModelCacheKeyFactory            100%
+  Wolfgang.AuditTrail.Schema.AuditSchemaInstaller                           100%
+  Wolfgang.AuditTrail.Schema.AuditSchemaMigrator                            100%
+  Wolfgang.AuditTrail.Schema.AuditSchemaVersion                             100%
+  Wolfgang.AuditTrail.Schema.AuditSchemaVersionStore                        100%
+  Wolfgang.AuditTrail.Schema.DbContextAuditSchemaExtensions                 100%
+  Wolfgang.AuditTrail.Schema.TableNotFoundIndicators                        100%
+  Wolfgang.AuditTrail.Serializers.PipeDelimitedEntityKeySerializer          100%
+  Wolfgang.AuditTrail.Serializers.StringAuditValueSerializer                100%
+  Wolfgang.AuditTrail.ServiceCollectionExtensions                           100%
+
+Wolfgang.AuditTrail.TestKit.Xunit                                          98.8%
+  Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests<T>   98.7%
+  Wolfgang.AuditTrail.TestKit.Xunit.InMemoryAuditValueBuffer                100%

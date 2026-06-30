@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class AuditValueSerializerContractTests&lt;TSut&gt; | Wolfgang.AuditTrail Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class AuditValueSerializerContractTests&lt;TSut&gt; | Wolfgang.AuditTrail Documentation ">
+      
+      <meta name="description" content="Contract test base every  implementation should inherit. Mixes FsCheck-generated property tests (~100 random inputs per type per run) with explicit boundary theories that document known edge cases.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/AuditTrail/new/v0.1.0/apiSpec/new?filename=Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1.md&amp;value=---%0Auid%3A%20Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.AuditTrail">
+            Wolfgang.AuditTrail
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1">
+
+
+
+  <h1 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1" class="text-break">
+Class AuditValueSerializerContractTests&lt;TSut&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.AuditTrail.html">AuditTrail</a>.<a class="xref" href="Wolfgang.AuditTrail.TestKit.html">TestKit</a>.<a class="xref" href="Wolfgang.AuditTrail.TestKit.Xunit.html">Xunit</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.AuditTrail.TestKit.Xunit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Contract test base every <a class="xref" href="Wolfgang.AuditTrail.IAuditValueSerializer.html">IAuditValueSerializer</a> implementation should
+inherit. Mixes FsCheck-generated property tests (~100 random inputs per type per
+run) with explicit boundary theories that document known edge cases.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class AuditValueSerializerContractTests&lt;TSut&gt; where TSut : IAuditValueSerializer</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TSut</code></dt>
+    <dd><p>The serializer type under test.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">AuditValueSerializerContractTests&lt;TSut&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Boolean_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Boolean_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Boolean_round_trips_System_Boolean_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Boolean_round_trips(System.Boolean)">
+  Boolean_round_trips(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool Boolean_round_trips(bool value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_array_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_array_round_trips_System_Byte___" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_round_trips(System.Byte[])">
+  Byte_array_round_trips(byte[]?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L194"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool Byte_array_round_trips(byte[]? value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_array_with_high_bytes_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_with_high_bytes_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_array_with_high_bytes_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_array_with_high_bytes_round_trips">
+  Byte_array_with_high_bytes_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L187"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Byte_array_with_high_bytes_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Byte_round_trips_System_Byte_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Byte_round_trips(System.Byte)">
+  Byte_round_trips(byte)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool Byte_round_trips(byte value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Columns_returns_at_least_one_column_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Columns_returns_at_least_one_column*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Columns_returns_at_least_one_column" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Columns_returns_at_least_one_column">
+  Columns_returns_at_least_one_column()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Columns_returns_at_least_one_column()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_CreateSut_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.CreateSut*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_CreateSut" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.CreateSut">
+  CreateSut()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Override to construct a fresh serializer for each test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract TSut CreateSut()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TSut</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTimeOffset_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTimeOffset_round_trips_System_DateTimeOffset_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_round_trips(System.DateTimeOffset)">
+  DateTimeOffset_round_trips(DateTimeOffset)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L215"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool DateTimeOffset_round_trips(DateTimeOffset value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTimeOffset_with_nonzero_offset_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_with_nonzero_offset_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTimeOffset_with_nonzero_offset_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTimeOffset_with_nonzero_offset_round_trips">
+  DateTimeOffset_with_nonzero_offset_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L136"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void DateTimeOffset_with_nonzero_offset_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_MaxValue_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MaxValue_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_MaxValue_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MaxValue_round_trips">
+  DateTime_MaxValue_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void DateTime_MaxValue_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_MinValue_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MinValue_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_MinValue_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_MinValue_round_trips">
+  DateTime_MinValue_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void DateTime_MinValue_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_with_random_kind_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_with_random_kind_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_DateTime_with_random_kind_round_trips_System_DateTime_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.DateTime_with_random_kind_round_trips(System.DateTime)">
+  DateTime_with_random_kind_round_trips(DateTime)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L205"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool DateTime_with_random_kind_round_trips(DateTime value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_MaxValue_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MaxValue_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_MaxValue_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MaxValue_round_trips">
+  Decimal_MaxValue_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Decimal_MaxValue_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_MinValue_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MinValue_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_MinValue_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_MinValue_round_trips">
+  Decimal_MinValue_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L149"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Decimal_MinValue_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Decimal_round_trips_System_Decimal_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Decimal_round_trips(System.Decimal)">
+  Decimal_round_trips(decimal)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool Decimal_round_trips(decimal value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_NaN_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NaN_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_NaN_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NaN_round_trips">
+  Double_NaN_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Double_NaN_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_NegativeInfinity_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NegativeInfinity_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_NegativeInfinity_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_NegativeInfinity_round_trips">
+  Double_NegativeInfinity_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L118"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Double_NegativeInfinity_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_PositiveInfinity_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_PositiveInfinity_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_PositiveInfinity_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_PositiveInfinity_round_trips">
+  Double_PositiveInfinity_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Double_PositiveInfinity_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_round_trips_for_finite_values_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_round_trips_for_finite_values*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Double_round_trips_for_finite_values_System_Double_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Double_round_trips_for_finite_values(System.Double)">
+  Double_round_trips_for_finite_values(double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool Double_round_trips_for_finite_values(double value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Empty_byte_array_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_byte_array_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Empty_byte_array_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_byte_array_round_trips">
+  Empty_byte_array_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L180"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Empty_byte_array_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Empty_string_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_string_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Empty_string_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Empty_string_round_trips">
+  Empty_string_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L161"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Empty_string_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Enum_discriminator_includes_full_type_name_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_discriminator_includes_full_type_name*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Enum_discriminator_includes_full_type_name" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_discriminator_includes_full_type_name">
+  Enum_discriminator_includes_full_type_name()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L219"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Enum_discriminator_includes_full_type_name()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Enum_round_trips_through_the_symbolic_name_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_round_trips_through_the_symbolic_name*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Enum_round_trips_through_the_symbolic_name" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Enum_round_trips_through_the_symbolic_name">
+  Enum_round_trips_through_the_symbolic_name()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L229"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Enum_round_trips_through_the_symbolic_name()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Guid_Empty_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_Empty_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Guid_Empty_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_Empty_round_trips">
+  Guid_Empty_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L155"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Guid_Empty_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Guid_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Guid_round_trips_System_Guid_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Guid_round_trips(System.Guid)">
+  Guid_round_trips(Guid)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool Guid_round_trips(Guid value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int16_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int16_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int16_round_trips_System_Int16_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int16_round_trips(System.Int16)">
+  Int16_round_trips(short)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool Int16_round_trips(short value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int32_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int32_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int32_round_trips_System_Int32_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int32_round_trips(System.Int32)">
+  Int32_round_trips(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool Int32_round_trips(int value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int64_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int64_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Int64_round_trips_System_Int64_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Int64_round_trips(System.Int64)">
+  Int64_round_trips(long)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool Int64_round_trips(long value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Null_string_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Null_string_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Null_string_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Null_string_round_trips">
+  Null_string_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L174"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void Null_string_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_SByte_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SByte_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_SByte_round_trips_System_SByte_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.SByte_round_trips(System.SByte)">
+  SByte_round_trips(sbyte)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool SByte_round_trips(sbyte value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.sbyte">sbyte</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Single_round_trips_for_finite_values_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Single_round_trips_for_finite_values*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_Single_round_trips_for_finite_values_System_Single_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.Single_round_trips_for_finite_values(System.Single)">
+  Single_round_trips_for_finite_values(float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool Single_round_trips_for_finite_values(float value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_String_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_String_round_trips_System_String_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_round_trips(System.String)">
+  String_round_trips(string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool String_round_trips(string? value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_String_with_embedded_null_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_with_embedded_null_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_String_with_embedded_null_round_trips" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.String_with_embedded_null_round_trips">
+  String_with_embedded_null_round_trips()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L167"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Fact]
+public void String_with_embedded_null_round_trips()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt16_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt16_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt16_round_trips_System_UInt16_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt16_round_trips(System.UInt16)">
+  UInt16_round_trips(ushort)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool UInt16_round_trips(ushort value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint16">ushort</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt32_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt32_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt32_round_trips_System_UInt32_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt32_round_trips(System.UInt32)">
+  UInt32_round_trips(uint)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool UInt32_round_trips(uint value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt64_round_trips_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt64_round_trips*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_TestKit_Xunit_AuditValueSerializerContractTests_1_UInt64_round_trips_System_UInt64_" data-uid="Wolfgang.AuditTrail.TestKit.Xunit.AuditValueSerializerContractTests`1.UInt64_round_trips(System.UInt64)">
+  UInt64_round_trips(ulong)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Property]
+public bool UInt64_round_trips(ulong value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.TestKit.Xunit/AuditValueSerializerContractTests.cs/#L14" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

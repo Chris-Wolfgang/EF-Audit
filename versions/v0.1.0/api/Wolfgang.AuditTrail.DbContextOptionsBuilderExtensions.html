@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class DbContextOptionsBuilderExtensions | Wolfgang.AuditTrail Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class DbContextOptionsBuilderExtensions | Wolfgang.AuditTrail Documentation ">
+      
+      <meta name="description" content="EF Core  extensions that wire the  into a consumer&#39;s DbContext.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/AuditTrail/new/v0.1.0/apiSpec/new?filename=Wolfgang_AuditTrail_DbContextOptionsBuilderExtensions.md&amp;value=---%0Auid%3A%20Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.AuditTrail">
+            Wolfgang.AuditTrail
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions">
+
+
+
+  <h1 id="Wolfgang_AuditTrail_DbContextOptionsBuilderExtensions" data-uid="Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions" class="text-break">
+Class DbContextOptionsBuilderExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/DbContextOptionsBuilderExtensions.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.AuditTrail.html">AuditTrail</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.AuditTrail.EntityFrameworkCore.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>EF Core <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder">DbContextOptionsBuilder</a> extensions that wire the
+<a class="xref" href="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html">AuditSaveChangesInterceptor</a> into a consumer's <code>DbContext</code>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class DbContextOptionsBuilderExtensions</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">DbContextOptionsBuilderExtensions</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_AuditTrail_DbContextOptionsBuilderExtensions_UseAuditing_" data-uid="Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.UseAuditing*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_DbContextOptionsBuilderExtensions_UseAuditing_Microsoft_EntityFrameworkCore_DbContextOptionsBuilder_System_IServiceProvider_" data-uid="Wolfgang.AuditTrail.DbContextOptionsBuilderExtensions.UseAuditing(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder,System.IServiceProvider)">
+  UseAuditing(DbContextOptionsBuilder, IServiceProvider)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/DbContextOptionsBuilderExtensions.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registers the audit save-changes interceptor on this
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder">DbContextOptionsBuilder</a>. Use this for applications whose
+<code>DbContext</code> already inherits from a third-party base (e.g.
+<code>IdentityDbContext&lt;TUser&gt;</code>) and therefore cannot also inherit
+from <a class="xref" href="Wolfgang.AuditTrail.AuditingDbContext.html">AuditingDbContext</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DbContextOptionsBuilder UseAuditing(this DbContextOptionsBuilder optionsBuilder, IServiceProvider serviceProvider)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>optionsBuilder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder">DbContextOptionsBuilder</a></dt>
+    <dd><p>The EF Core options builder.</p>
+</dd>
+    <dt><code>serviceProvider</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></dt>
+    <dd><p>The DI service provider; must already contain <a class="xref" href="Wolfgang.AuditTrail.AuditOptions.html">AuditOptions</a>
+and <a class="xref" href="Wolfgang.AuditTrail.IAuditUserProvider.html">IAuditUserProvider</a> (register them via
+<code>services.AddEfCoreAuditing&lt;TUserProvider&gt;()</code>).</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder">DbContextOptionsBuilder</a></dt>
+    <dd><p><code class="paramref">optionsBuilder</code> for chaining.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Wolfgang_AuditTrail_DbContextOptionsBuilderExtensions_UseAuditing_Microsoft_EntityFrameworkCore_DbContextOptionsBuilder_System_IServiceProvider__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>
+<strong>You must also call <code>modelBuilder.ApplyAuditing(options)</code> from
+your <code>DbContext.OnModelCreating</code> override.</strong> Unlike
+<a class="xref" href="Wolfgang.AuditTrail.AuditingDbContext.html">AuditingDbContext</a> (which applies the audit entity mappings
+itself in its <code>OnModelCreating</code>), the interceptor cannot reach into
+the consumer's model — the EF Core model is sealed by the time the
+interceptor first runs. Without the <code>ApplyAuditing</code> call, the first
+save with audit data will throw an "entity type was not found in the
+model" exception when the interceptor tries to <code>Add</code> the
+<a class="xref" href="Wolfgang.AuditTrail.Entities.AuditHeader.html">AuditHeader</a> / <a class="xref" href="Wolfgang.AuditTrail.Entities.AuditDetail.html">AuditDetail</a>
+entities.
+</p>
+<p>Minimal correct wiring:</p>
+<pre><code class="lang-csharp">services.AddEfCoreAuditing&lt;MyUserProvider&gt;();
+services.AddDbContext&lt;AppDbContext&gt;((sp, opts) =&gt; opts
+    .UseSqlServer(connStr)
+    .UseAuditing(sp));
+<p>public class AppDbContext : IdentityDbContext&lt;AppUser&gt;
+{
+private readonly AuditOptions _auditOptions;
+public AppDbContext(DbContextOptions options, AuditOptions auditOptions)
+: base(options) =&gt; _auditOptions = auditOptions;</p>
+<pre><code>protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+    modelBuilder.ApplyAuditing(_auditOptions);  // &lt;-- required
+}
+</code></pre>
+<p>}</p></code></pre>
+</div>
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/DbContextOptionsBuilderExtensions.cs/#L12" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

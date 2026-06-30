@@ -1,0 +1,10 @@
+[
+  {
+    "version": "latest",
+    "url": "/AuditTrail/versions/latest/"
+  },
+  {
+    "version": "v0.1.0",
+    "url": "/AuditTrail/versions/v0.1.0/"
+  }
+]

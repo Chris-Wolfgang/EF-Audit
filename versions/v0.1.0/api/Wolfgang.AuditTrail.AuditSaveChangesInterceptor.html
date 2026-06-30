@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class AuditSaveChangesInterceptor | Wolfgang.AuditTrail Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class AuditSaveChangesInterceptor | Wolfgang.AuditTrail Documentation ">
+      
+      <meta name="description" content="Auto-transaction  that captures Insert / Update / Delete operations via  and writes audit header + detail rows in the same transaction as the user&#39;s save.">
+      <link rel="icon" href="../favicon.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Chris-Wolfgang/AuditTrail/new/v0.1.0/apiSpec/new?filename=Wolfgang_AuditTrail_AuditSaveChangesInterceptor.md&amp;value=---%0Auid%3A%20Wolfgang.AuditTrail.AuditSaveChangesInterceptor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="Wolfgang.AuditTrail">
+            Wolfgang.AuditTrail
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor">
+
+
+
+  <h1 id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor" class="text-break">
+Class AuditSaveChangesInterceptor  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/AuditSaveChangesInterceptor.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Wolfgang.html">Wolfgang</a>.<a class="xref" href="Wolfgang.AuditTrail.html">AuditTrail</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Wolfgang.AuditTrail.EntityFrameworkCore.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Auto-transaction <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.isavechangesinterceptor">ISaveChangesInterceptor</a> that captures Insert /
+Update / Delete operations via <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext.changetracker">ChangeTracker</a> and writes
+audit header + detail rows in the same transaction as the user's save.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class AuditSaveChangesInterceptor : ISaveChangesInterceptor, IInterceptor</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">AuditSaveChangesInterceptor</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.isavechangesinterceptor">ISaveChangesInterceptor</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.iinterceptor">IInterceptor</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+Use this when your <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a> already inherits from a third-party
+base (such as <code>IdentityDbContext&lt;TUser&gt;</code>, a multi-tenant base, or an
+internal enterprise base) and cannot also inherit from
+<a class="xref" href="Wolfgang.AuditTrail.AuditingDbContext.html">AuditingDbContext</a>. Register via:
+</p>
+<pre><code class="lang-csharp">services.AddEfCoreAuditing&lt;MyUserProvider&gt;();
+services.AddDbContext&lt;AppDbContext&gt;((sp, opts) =&gt; opts
+    .UseSqlServer(connStr)
+    .UseAuditing(sp));</code></pre>
+<p>
+<strong>Cancellation.</strong> If the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> is
+signalled while <code>SavingChangesAsync</code> is opening the audit transaction,
+the interceptor catches the resulting <code>OperationCanceledException</code>,
+disposes the owned transaction, and re-raises — no leak. Cancellation that
+fires later (during EF's own SQL execution between
+<code>SavingChangesAsync</code> and <code>SavedChangesAsync</code>) is handled via
+<code>SaveChangesFailedAsync</code> on EF Core 6 / pre-7-cancel-callback versions;
+on EF Core 7+ that routes through <code>SaveChangesCanceledAsync</code> instead,
+which this interceptor doesn't yet hook because that method isn't on the
+EF Core 6 <code>ISaveChangesInterceptor</code> surface. In that narrow window the
+owned transaction is disposed when the <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a> is.
+Inherit from <a class="xref" href="Wolfgang.AuditTrail.AuditingDbContext.html">AuditingDbContext</a> for full cancellation
+robustness — it owns the <code>SaveChangesAsync</code> override and can clean up
+on every exit path.
+</p>
+<p>
+<strong>acceptAllChangesOnSuccess caveat.</strong> The interceptor does not
+support <code>SaveChanges(acceptAllChangesOnSuccess: false)</code>: when the caller
+passes <code>false</code>, EF leaves user entries in their dirty state and the
+interceptor's audit-pass save would re-emit them. The interceptor detects
+this case at runtime and throws <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a>
+pointing at <a class="xref" href="Wolfgang.AuditTrail.AuditingDbContext.html">AuditingDbContext</a>, which threads the value through
+both passes correctly.
+</p>
+<p>
+<strong>Retry-strategy caveat.</strong> EF Core's retrying execution strategies
+(e.g. <code>SqlServerRetryingExecutionStrategy</code> from
+<code>EnableRetryOnFailure</code>) refuse user-initiated transactions opened outside
+a strategy delegate. <em>Important:</em> <code>strategy.ExecuteAsync(...)</code> by
+itself does NOT open a transaction — <code>Database.CurrentTransaction</code>
+remains <code>null</code> inside it, and this interceptor would still try to
+open its own owned transaction (then throw via <code>EnsureNonRetryingStrategy</code>).
+The supported integration is either:
+<ul><li>Call <code>strategy.ExecuteInTransactionAsync(...)</code> so the strategy
+        opens a transaction the interceptor can enlist in, OR</li><li>Inside your <code>ExecuteAsync</code> delegate, call
+        <code>context.Database.BeginTransactionAsync(...)</code> yourself before
+        <code>SaveChangesAsync</code>, OR</li><li>Inherit from <a class="xref" href="Wolfgang.AuditTrail.AuditingDbContext.html">AuditingDbContext</a> instead — it composes
+        with retrying strategies correctly out of the box.</li></ul>
+
+<p>
+<strong>Rollback / ChangeTracker divergence.</strong> If the audit-pass
+<code>SaveChanges</code> throws after the user-pass <code>SaveChanges</code> has
+already accepted the user entries (entries are now <code>Unchanged</code>),
+rolling back the owned transaction puts the database back to the
+pre-save state but the in-memory <code>ChangeTracker</code> still reflects
+the accepted state. The interceptor calls
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.changetracking.changetracker.clear">Clear()</a>
+on the rollback path so a stale-state reuse fails loudly the next save —
+but the safer pattern is to dispose the <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a> after a
+save failure and create a new one.
+</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor__ctor_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.#ctor*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor__ctor_Wolfgang_AuditTrail_IAuditUserProvider_Wolfgang_AuditTrail_AuditOptions_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.#ctor(Wolfgang.AuditTrail.IAuditUserProvider,Wolfgang.AuditTrail.AuditOptions)">
+  AuditSaveChangesInterceptor(IAuditUserProvider, AuditOptions)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/AuditSaveChangesInterceptor.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.html">AuditSaveChangesInterceptor</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AuditSaveChangesInterceptor(IAuditUserProvider userProvider, AuditOptions options)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>userProvider</code> <a class="xref" href="Wolfgang.AuditTrail.IAuditUserProvider.html">IAuditUserProvider</a></dt>
+    <dd></dd>
+    <dt><code>options</code> <a class="xref" href="Wolfgang.AuditTrail.AuditOptions.html">AuditOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SaveChangesFailed_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailed*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SaveChangesFailed_Microsoft_EntityFrameworkCore_Diagnostics_DbContextErrorEventData_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailed(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData)">
+  SaveChangesFailed(DbContextErrorEventData)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/AuditSaveChangesInterceptor.cs/#L248"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when an exception has been thrown in <see cref="O:DbContext.SaveChanges"></see>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SaveChangesFailed(DbContextErrorEventData eventData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>eventData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.dbcontexterroreventdata">DbContextErrorEventData</a></dt>
+    <dd><p>Contextual information about the failure.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SaveChangesFailedAsync_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailedAsync*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SaveChangesFailedAsync_Microsoft_EntityFrameworkCore_Diagnostics_DbContextErrorEventData_System_Threading_CancellationToken_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SaveChangesFailedAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextErrorEventData,System.Threading.CancellationToken)">
+  SaveChangesFailedAsync(DbContextErrorEventData, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/AuditSaveChangesInterceptor.cs/#L263"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when an exception has been thrown in <see cref="O:DbContext.SaveChangesAsync"></see>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task SaveChangesFailedAsync(DbContextErrorEventData eventData, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>eventData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.dbcontexterroreventdata">DbContextErrorEventData</a></dt>
+    <dd><p>Contextual information about the failure.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> to observe while waiting for the task to complete.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a> representing the asynchronous operation.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
+    <dd><p>If the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> is canceled.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavedChanges_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChanges*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavedChanges_Microsoft_EntityFrameworkCore_Diagnostics_SaveChangesCompletedEventData_System_Int32_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChanges(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData,System.Int32)">
+  SavedChanges(SaveChangesCompletedEventData, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/AuditSaveChangesInterceptor.cs/#L211"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>
+    Called at the end of <see cref="O:DbContext.SaveChanges"></see>.
+</p>
+<p>
+    This method is still called if an interceptor suppressed creation of a command in <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.isavechangesinterceptor.savingchanges">SavingChanges(DbContextEventData, InterceptionResult&lt;int&gt;)</a>.
+    In this case, <code class="paramref">result</code> is the result returned by <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.isavechangesinterceptor.savingchanges">SavingChanges(DbContextEventData, InterceptionResult&lt;int&gt;)</a>.
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SavedChanges(SaveChangesCompletedEventData eventData, int result)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>eventData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.savechangescompletedeventdata">SaveChangesCompletedEventData</a></dt>
+    <dd><p>Contextual information about the <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a> being used.</p>
+</dd>
+    <dt><code>result</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The result of the call to <see cref="O:DbContext.SaveChanges"></see>.
+This value is typically used as the return value for the implementation of this method.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The result that EF will use.
+A normal implementation of this method for any interceptor that is not attempting to change the result
+is to return the <code class="paramref">result</code> value passed in.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavedChangesAsync_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChangesAsync*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavedChangesAsync_Microsoft_EntityFrameworkCore_Diagnostics_SaveChangesCompletedEventData_System_Int32_System_Threading_CancellationToken_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavedChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesCompletedEventData,System.Int32,System.Threading.CancellationToken)">
+  SavedChangesAsync(SaveChangesCompletedEventData, int, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/AuditSaveChangesInterceptor.cs/#L227"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>
+    Called at the end of <see cref="O:DbContext.SaveChangesAsync"></see>.
+</p>
+<p>
+    This method is still called if an interceptor suppressed creation of a command in <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.isavechangesinterceptor.savingchangesasync">SavingChangesAsync(DbContextEventData, InterceptionResult&lt;int&gt;, CancellationToken)</a>.
+    In this case, <code class="paramref">result</code> is the result returned by <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.isavechangesinterceptor.savingchangesasync">SavingChangesAsync(DbContextEventData, InterceptionResult&lt;int&gt;, CancellationToken)</a>.
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ValueTask&lt;int&gt; SavedChangesAsync(SaveChangesCompletedEventData eventData, int result, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>eventData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.savechangescompletedeventdata">SaveChangesCompletedEventData</a></dt>
+    <dd><p>Contextual information about the <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a> being used.</p>
+</dd>
+    <dt><code>result</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The result of the call to <see cref="O:DbContext.SaveChangesAsync"></see>.
+This value is typically used as the return value for the implementation of this method.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> to observe while waiting for the task to complete.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd><p>The result that EF will use.
+A normal implementation of this method for any interceptor that is not attempting to change the result
+is to return the <code class="paramref">result</code> value passed in.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
+    <dd><p>If the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> is canceled.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavingChanges_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChanges*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavingChanges_Microsoft_EntityFrameworkCore_Diagnostics_DbContextEventData_Microsoft_EntityFrameworkCore_Diagnostics_InterceptionResult_System_Int32__" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChanges(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData,Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult{System.Int32})">
+  SavingChanges(DbContextEventData, InterceptionResult&lt;int&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/AuditSaveChangesInterceptor.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called at the start of <see cref="O:DbContext.SaveChanges"></see>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InterceptionResult&lt;int&gt; SavingChanges(DbContextEventData eventData, InterceptionResult&lt;int&gt; result)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>eventData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.dbcontexteventdata">DbContextEventData</a></dt>
+    <dd><p>Contextual information about the <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a> being used.</p>
+</dd>
+    <dt><code>result</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1">InterceptionResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd><p>Represents the current result if one exists.
+This value will have <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1.hasresult">HasResult</a> set to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if some previous
+interceptor suppressed execution by calling <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1.suppresswithresult">SuppressWithResult(TResult)</a>.
+This value is typically used as the return value for the implementation of this method.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1">InterceptionResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd><p>If <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1.hasresult">HasResult</a> is false, the EF will continue as normal.
+If <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1.hasresult">HasResult</a> is true, then EF will suppress the operation it
+was about to perform and use <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1.result">Result</a> instead.
+A normal implementation of this method for any interceptor that is not attempting to change the result
+is to return the <code class="paramref">result</code> value passed in.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavingChangesAsync_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChangesAsync*"></a>
+
+  <h3 id="Wolfgang_AuditTrail_AuditSaveChangesInterceptor_SavingChangesAsync_Microsoft_EntityFrameworkCore_Diagnostics_DbContextEventData_Microsoft_EntityFrameworkCore_Diagnostics_InterceptionResult_System_Int32__System_Threading_CancellationToken_" data-uid="Wolfgang.AuditTrail.AuditSaveChangesInterceptor.SavingChangesAsync(Microsoft.EntityFrameworkCore.Diagnostics.DbContextEventData,Microsoft.EntityFrameworkCore.Diagnostics.InterceptionResult{System.Int32},System.Threading.CancellationToken)">
+  SavingChangesAsync(DbContextEventData, InterceptionResult&lt;int&gt;, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/AuditSaveChangesInterceptor.cs/#L154"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called at the start of <see cref="O:DbContext.SaveChangesAsync"></see>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ValueTask&lt;InterceptionResult&lt;int&gt;&gt; SavingChangesAsync(DbContextEventData eventData, InterceptionResult&lt;int&gt; result, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>eventData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.dbcontexteventdata">DbContextEventData</a></dt>
+    <dd><p>Contextual information about the <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a> being used.</p>
+</dd>
+    <dt><code>result</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1">InterceptionResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd><p>Represents the current result if one exists.
+This value will have <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1.hasresult">HasResult</a> set to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if some previous
+interceptor suppressed execution by calling <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1.suppresswithresult">SuppressWithResult(TResult)</a>.
+This value is typically used as the return value for the implementation of this method.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> to observe while waiting for the task to complete.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1">ValueTask</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1">InterceptionResult</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;&gt;</dt>
+    <dd><p>If <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1.hasresult">HasResult</a> is false, the EF will continue as normal.
+If <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1.hasresult">HasResult</a> is true, then EF will suppress the operation it
+was about to perform and use <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.entityframeworkcore.diagnostics.interceptionresult-1.result">Result</a> instead.
+A normal implementation of this method for any interceptor that is not attempting to change the result
+is to return the <code class="paramref">result</code> value passed in.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></dt>
+    <dd><p>If the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a> is canceled.</p>
+</dd>
+  </dl>
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Chris-Wolfgang/AuditTrail/blob/v0.1.0/src/Wolfgang.AuditTrail.EntityFrameworkCore/AuditSaveChangesInterceptor.cs/#L86" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Made with DocFX <script>(function(){var r='/';if(window.location.hostname.endsWith('.github.io')){var s=window.location.pathname.split('/').filter(Boolean);if(s.length)r='/'+s[0]+'/';}var t=document.createElement('script');t.src=r+'public/version-picker.js';t.async=true;document.head.appendChild(t);})();</script>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
