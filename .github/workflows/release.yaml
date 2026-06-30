@@ -476,7 +476,11 @@ jobs:
           $testDir = Join-Path $PWD 'package-smoke-test'
           New-Item -ItemType Directory -Force -Path $testDir | Out-Null
 
-          # Restrict NuGet restores in this directory to the local package source only
+          # Resolve the just-packed Wolfgang.* packages from the LOCAL folder,
+          # but pull their transitive third-party dependencies (EF Core, FsCheck/
+          # FSharp.Core, xunit, …) from nuget.org. A local-only source can't
+          # restore those, so package-source mapping routes the package family to
+          # local and everything else to nuget.org.
           $nugetConfigPath = Join-Path $testDir 'NuGet.config'
           # Build NuGet.config content as array to avoid YAML parsing issues with here-strings
           $nugetConfigContent = @(
@@ -484,10 +488,14 @@ jobs:
             '<configuration>'
             '  <packageSources>'
             '    <clear />'
+            '    <add key="nuget" value="https://api.nuget.org/v3/index.json" />'
             '    <add key="local" value="../nuget-packages" />'
             '  </packageSources>'
             '  <packageSourceMapping>'
             '    <packageSource key="local">'
+            '      <package pattern="Wolfgang.*" />'
+            '    </packageSource>'
+            '    <packageSource key="nuget">'
             '      <package pattern="*" />'
             '    </packageSource>'
             '  </packageSourceMapping>'
@@ -507,7 +515,11 @@ jobs:
               $packageId = $metadata.Id
               $packageVersion = $metadata.Version
               
-              dotnet add SmokeTest/SmokeTest.csproj package $packageId --version $packageVersion --source '../nuget-packages'
+              # No --source here: let the NuGet.config (local + nuget.org with
+              # package-source mapping) resolve the package from local and its
+              # transitive deps from nuget.org. Forcing --source would restrict
+              # the whole restore to local and fail on third-party deps.
+              dotnet add SmokeTest/SmokeTest.csproj package $packageId --version $packageVersion
               
               if ($LASTEXITCODE -ne 0) {
                 Write-Error "❌ Failed to install package $($package.Name)"
