@@ -128,4 +128,19 @@ public class PipeDelimitedEntityKeySerializerTests
 
         Assert.Equal("11111111-2222-3333-4444-555555555555", sut.Serialize(new object?[] { guid }));
     }
+
+
+
+    // Keyless entity types (HasNoKey — views, raw-SQL query types) are read-only
+    // in EF Core and never reach the audit pipeline, so they never produce a key
+    // to serialize. The capture path is still null-safe: FindPrimaryKey() == null
+    // yields an empty key-value list, and the serializer must degrade to "" rather
+    // than throw. This pins that documented fallback (see ADR-0004).
+    [Fact]
+    public void Serialize_empty_key_values_returns_empty_string()
+    {
+        var sut = new PipeDelimitedEntityKeySerializer();
+
+        Assert.Equal(string.Empty, sut.Serialize(Array.Empty<object?>()));
+    }
 }
