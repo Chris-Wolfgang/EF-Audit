@@ -6,6 +6,6 @@
     ],
     "target-framework": "net8.0",
     "reporters": [ "html", "progress" ],
-    "thresholds": { "high": 80, "low": 60, "break": 55 }
+    "thresholds": { "high": 80, "low": 65, "break": 62 }
   }
 }
