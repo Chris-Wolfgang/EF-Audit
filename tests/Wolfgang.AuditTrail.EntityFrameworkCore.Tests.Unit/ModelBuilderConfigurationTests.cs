@@ -1,5 +1,6 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Wolfgang.AuditTrail.Entities;
 using Wolfgang.AuditTrail.Serializers;
@@ -37,9 +38,27 @@ public sealed class ModelBuilderConfigurationTests : IDisposable
             ValueSerializer = new StringAuditValueSerializer(),
             EntityKeySerializer = new PipeDelimitedEntityKeySerializer(),
         };
-        var builder = new DbContextOptionsBuilder<TestDbContext>().UseSqlite(_connection);
+        var builder = new DbContextOptionsBuilder<TestDbContext>()
+            .UseSqlite(_connection)
+            // EF caches the model per (context type, provider). Without this, the
+            // first test to touch TestDbContext.Model caches it and later tests
+            // reuse it — so ConfigureAudit* never re-executes here and mutation
+            // testing can't attribute those mutants to these assertions. Force a
+            // fresh model per build so each test actually exercises the config.
+            .ReplaceService<IModelCacheKeyFactory, UncachedModelCacheKeyFactory>();
         return new TestDbContext(builder.Options, new StaticAuditUserProvider("u", null), options);
     }
+
+    // Interface-mandated signatures; parameters are intentionally unused because a
+    // unique key per call is exactly what disables the model cache.
+#pragma warning disable RCS1163 // Unused parameter
+    private sealed class UncachedModelCacheKeyFactory : IModelCacheKeyFactory
+    {
+        public object Create(DbContext context, bool designTime) => new object();
+
+        public object Create(DbContext context) => new object();
+    }
+#pragma warning restore RCS1163
 
     private IEntityType Header(string? schema = null) =>
         BuildContext(schema).Model.FindEntityType(typeof(AuditHeader))!;
