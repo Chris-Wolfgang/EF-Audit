@@ -1,0 +1,96 @@
+name: License audit
+
+# Audits the licenses of the shipped packages' transitive dependencies against
+# an allowlist, and generates THIRD-PARTY-NOTICES.md attribution. Dev-only
+# tooling (analyzers / SourceLink / framework shims — all PrivateAssets, never
+# shipped) is filtered out via .github/license/packages-filter.json. Fails the
+# run if a runtime dependency carries a license outside the allowlist.
+
+on:
+  pull_request:
+    paths:
+      - '**/*.csproj'
+      - 'Directory.Build.props'
+      - '.github/license/**'
+      - '.github/workflows/license-audit.yaml'
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '15 6 * * 1'   # Mondays 06:15 UTC
+
+permissions:
+  contents: read
+
+jobs:
+  license-audit:
+    name: Audit dependency licenses
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      - name: Install dotnet-project-licenses
+        run: dotnet tool install --global dotnet-project-licenses
+
+      - name: Restore (populates project.assets.json)
+        run: dotnet restore
+
+      - name: Audit licenses + generate notices
+        shell: bash
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          projects=(
+            src/Wolfgang.AuditTrail.Abstractions/Wolfgang.AuditTrail.Abstractions.csproj
+            src/Wolfgang.AuditTrail.EntityFrameworkCore/Wolfgang.AuditTrail.EntityFrameworkCore.csproj
+            src/Wolfgang.AuditTrail.TestKit.Xunit/Wolfgang.AuditTrail.TestKit.Xunit.csproj
+          )
+          {
+            echo "# Third-party notices"
+            echo
+            echo "Licenses of the transitive runtime dependencies of the shipped"
+            echo "\`Wolfgang.AuditTrail.*\` packages. Dev-only tooling (analyzers,"
+            echo "SourceLink, framework shims) is excluded — it is never distributed."
+            echo
+          } > THIRD-PARTY-NOTICES.md
+
+          fail=0
+          for proj in "${projects[@]}"; do
+            name=$(basename "$proj" .csproj)
+            echo "::group::License audit — $name"
+            if ! dotnet-project-licenses \
+                --input "$proj" \
+                --use-project-assets-json -t \
+                --packages-filter .github/license/packages-filter.json \
+                --licenseurl-to-license-mappings .github/license/licenseurl-mappings.json \
+                --allowed-license-types .github/license/allowed-licenses.json \
+                --outfile "notices-$name.md" --md
+            then
+              echo "::error::Disallowed license in $name — see the log above."
+              fail=1
+            fi
+            echo "::endgroup::"
+            {
+              echo "## $name"
+              echo
+              cat "notices-$name.md" 2>/dev/null || true
+              echo
+            } >> THIRD-PARTY-NOTICES.md
+          done
+          exit $fail
+
+      - name: Upload notices
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: third-party-notices
+          path: THIRD-PARTY-NOTICES.md
+          retention-days: 30
