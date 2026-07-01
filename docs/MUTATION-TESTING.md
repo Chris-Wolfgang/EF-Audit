@@ -23,8 +23,13 @@ with low mutation value).
 
 | | Score |
 |---|---|
-| Measured baseline (umbrella config, net8.0, local) | **63.9 %** |
-| `thresholds.break` (gate) | **55 %** |
+| Measured baseline (umbrella config, net8.0, local) | **69.4 %** |
+| `thresholds.break` (gate) | **62 %** |
+
+> The score climbed from an initial 63.9% as the test suite was hardened against
+> surviving mutants (model configuration, serializer wire format, interceptor
+> exception messages). Work toward ~80% (the practical killable ceiling, once
+> equivalent mutants are set aside) continues in follow-up PRs.
 
 The floor is set **below** the current baseline on purpose:
 

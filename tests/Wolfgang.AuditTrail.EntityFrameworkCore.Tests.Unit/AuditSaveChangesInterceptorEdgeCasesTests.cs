@@ -117,7 +117,17 @@ public class AuditSaveChangesInterceptorEdgeCasesTests
         using var ctx = new InterceptorTestDbContext(failBuilder.Options, options);
         ctx.Customers.Add(new Customer { Name = "Boom" });
 
-        Assert.Throws<InvalidOperationException>(() => ctx.SaveChanges());
+        var ex = Assert.Throws<InvalidOperationException>(() => ctx.SaveChanges());
+
+        // Pin each segment of the actionable message so a formatting change is caught.
+        Assert.Contains("cannot open an audit transaction", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("enables retries on failure", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("EnableRetryOnFailure", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("inherit your DbContext from", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("AuditingDbContext", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("strategy.ExecuteAsync", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("ExecuteInTransactionAsync", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("Database.CurrentTransaction", ex.Message, StringComparison.Ordinal);
     }
 
 
@@ -186,7 +196,11 @@ public class AuditSaveChangesInterceptorEdgeCasesTests
         var ex = await Assert.ThrowsAsync<InvalidOperationException>(() =>
             ctx.SaveChangesAsync(acceptAllChangesOnSuccess: false));
 
+        Assert.Contains("does not support", ex.Message, StringComparison.Ordinal);
         Assert.Contains("acceptAllChangesOnSuccess: false", ex.Message, StringComparison.Ordinal);
-        Assert.Contains("AuditingDbContext", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("re-emit the still-dirty user entries", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("without the false override", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("inherit your DbContext from AuditingDbContext", ex.Message, StringComparison.Ordinal);
+        Assert.Contains("through both passes correctly", ex.Message, StringComparison.Ordinal);
     }
 }
