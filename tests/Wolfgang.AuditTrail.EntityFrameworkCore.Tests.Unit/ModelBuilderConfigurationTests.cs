@@ -13,10 +13,12 @@ namespace Wolfgang.AuditTrail.Tests.Unit;
 
 /// <summary>
 /// Pins every statement in <see cref="ModelBuilderExtensions.ApplyAuditing"/> by
-/// asserting the resulting EF model metadata — table names, schema, keys, value
-/// generation, nullability, max lengths, precision, indexes, the header→detail
-/// cascade FK, and the Operation value converter. Removing or altering any single
-/// configuration statement changes the metadata a test below inspects.
+/// asserting the resulting EF model metadata — table names (the no-schema default;
+/// the schema-present branch is covered in <c>SmallCoverageGapsTests</c>), keys,
+/// value generation, nullability, max lengths, precision, indexes, the
+/// header→detail cascade FK, and the Operation value converter. Removing or
+/// altering any single configuration statement changes the metadata a test below
+/// inspects.
 /// </summary>
 public sealed class ModelBuilderConfigurationTests : IDisposable
 {
@@ -60,11 +62,19 @@ public sealed class ModelBuilderConfigurationTests : IDisposable
     }
 #pragma warning restore RCS1163
 
-    private IEntityType Header(string? schema = null) =>
-        BuildContext(schema).Model.FindEntityType(typeof(AuditHeader))!;
+    // Model metadata is immutable and outlives the context, so it is safe to read
+    // after the context is disposed. Dispose it here so the helpers don't leak.
+    private IEntityType Header(string? schema = null)
+    {
+        using var ctx = BuildContext(schema);
+        return ctx.Model.FindEntityType(typeof(AuditHeader))!;
+    }
 
-    private IEntityType Detail(string? schema = null) =>
-        BuildContext(schema).Model.FindEntityType(typeof(AuditDetail))!;
+    private IEntityType Detail(string? schema = null)
+    {
+        using var ctx = BuildContext(schema);
+        return ctx.Model.FindEntityType(typeof(AuditDetail))!;
+    }
 
 
 
@@ -179,6 +189,8 @@ public sealed class ModelBuilderConfigurationTests : IDisposable
         Assert.Contains(nameof(AuditHeader.TransactionId), indexes);
         Assert.Contains(nameof(AuditHeader.AuditedAtUtc), indexes);
         Assert.Contains($"{nameof(AuditHeader.EntityType)},{nameof(AuditHeader.EntityKey)}", indexes);
+        // Exactly these three — no extra index slips in unnoticed.
+        Assert.Equal(3, indexes.Count);
     }
 
 
@@ -192,6 +204,8 @@ public sealed class ModelBuilderConfigurationTests : IDisposable
 
         Assert.Contains(nameof(AuditDetail.HeaderId), indexes);
         Assert.Contains(nameof(AuditDetail.ColumnName), indexes);
+        // Exactly these two — the FK reuses the HeaderId index rather than adding one.
+        Assert.Equal(2, indexes.Count);
     }
 
 
