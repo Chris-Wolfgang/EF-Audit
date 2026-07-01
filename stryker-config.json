@@ -1,0 +1,11 @@
+{
+  "stryker-config": {
+    "project": "Wolfgang.AuditTrail.EntityFrameworkCore.csproj",
+    "test-projects": [
+      "tests/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Unit/Wolfgang.AuditTrail.EntityFrameworkCore.Tests.Unit.csproj"
+    ],
+    "target-framework": "net8.0",
+    "reporters": [ "html", "progress" ],
+    "thresholds": { "high": 80, "low": 60, "break": 55 }
+  }
+}
