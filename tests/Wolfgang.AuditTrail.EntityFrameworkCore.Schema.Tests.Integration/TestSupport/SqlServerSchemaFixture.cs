@@ -13,8 +13,7 @@ namespace Wolfgang.AuditTrail.EntityFrameworkCore.Schema.Tests.Integration.TestS
 [ExcludeFromCodeCoverage]
 public sealed class SqlServerSchemaFixture : IAsyncLifetime, ISchemaProviderFixture
 {
-    private readonly MsSqlContainer _container = new MsSqlBuilder()
-        .WithImage("mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04")
+    private readonly MsSqlContainer _container = new MsSqlBuilder("mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04")
         .Build();
 
     private string _currentDatabase = "master";

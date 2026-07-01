@@ -88,8 +88,7 @@ public class ProviderSaveChangesBenchmarks
                 // so benchmark numbers can't drift when MSFT publishes a new "latest"
                 // build under us. Bump intentionally + record a baseline reset when
                 // updating.
-                _sqlServerContainer = new MsSqlBuilder()
-                    .WithImage("mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04")
+                _sqlServerContainer = new MsSqlBuilder("mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04")
                     .Build();
                 await _sqlServerContainer.StartAsync().ConfigureAwait(false);
                 _connectionString = _sqlServerContainer.GetConnectionString();
@@ -98,8 +97,7 @@ public class ProviderSaveChangesBenchmarks
             case BenchmarkProvider.PostgreSQL:
                 // Pin to the same exact image as Tests.Integration's PostgresFixture
                 // for the same reproducibility reason as the SQL Server case above.
-                _postgresContainer = new PostgreSqlBuilder()
-                    .WithImage("postgres:16.4-alpine3.20")
+                _postgresContainer = new PostgreSqlBuilder("postgres:16.4-alpine3.20")
                     .WithDatabase("auditbench")
                     .Build();
                 await _postgresContainer.StartAsync().ConfigureAwait(false);

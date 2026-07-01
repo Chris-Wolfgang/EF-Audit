@@ -13,8 +13,7 @@ namespace Wolfgang.AuditTrail.EntityFrameworkCore.Schema.Tests.Integration.TestS
 [ExcludeFromCodeCoverage]
 public sealed class PostgresSchemaFixture : IAsyncLifetime, ISchemaProviderFixture
 {
-    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
-        .WithImage("postgres:16.4-alpine3.20")
+    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder("postgres:16.4-alpine3.20")
         .WithDatabase("audit_root")
         .Build();
 

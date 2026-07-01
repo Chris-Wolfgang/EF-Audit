@@ -15,8 +15,7 @@ public sealed class PostgresFixture : IAsyncLifetime, IProviderFixture
     // EnsureDeletedAsync can drop it. Without this, the connection lands on the
     // default "postgres" DB and EnsureDeletedAsync fails with
     // "cannot drop the currently open database".
-    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
-        .WithImage("postgres:16.4-alpine3.20")
+    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder("postgres:16.4-alpine3.20")
         .WithDatabase("auditdb")
         .Build();
 
