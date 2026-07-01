@@ -1,0 +1,14 @@
+[
+  "AsyncFixer",
+  "Meziantou.Analyzer",
+  "SonarAnalyzer.CSharp",
+  "Roslynator.Analyzers",
+  "Microsoft.CodeAnalysis.BannedApiAnalyzers",
+  "Microsoft.CodeAnalysis.PublicApiAnalyzers",
+  "Microsoft.SourceLink.Common",
+  "Microsoft.SourceLink.GitHub",
+  "Microsoft.Build.Tasks.Git",
+  "Microsoft.VisualStudio.Threading.Analyzers",
+  "NETStandard.Library",
+  "Microsoft.NETCore.Platforms"
+]
