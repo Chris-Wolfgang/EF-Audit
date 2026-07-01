@@ -43,7 +43,7 @@ public sealed class AuditSchemaVersionStoreBehaviorTests : IDisposable
     [Fact]
     public async Task ReadInstalledVersion_returns_the_highest_version_when_multiple_rows_exist()
     {
-        using (var ctx = CreateContext())
+        await using (var ctx = CreateContext())
         {
             await ctx.Database.EnsureCreatedAsync();
             // Two rows with distinct Ids (key is ValueGeneratedNever). The store
@@ -54,7 +54,7 @@ public sealed class AuditSchemaVersionStoreBehaviorTests : IDisposable
             await ctx.SaveChangesAsync();
         }
 
-        using var read = CreateContext();
+        await using var read = CreateContext();
         var version = await AuditSchemaVersionStore.ReadInstalledVersionAsync(read, default);
         Assert.Equal(9, version);
     }
@@ -64,7 +64,7 @@ public sealed class AuditSchemaVersionStoreBehaviorTests : IDisposable
     [Fact]
     public async Task ReadInstalledVersion_returns_zero_when_no_rows()
     {
-        using var ctx = CreateContext();
+        await using var ctx = CreateContext();
         await ctx.Database.EnsureCreatedAsync();
 
         Assert.Equal(0, await AuditSchemaVersionStore.ReadInstalledVersionAsync(ctx, default));
@@ -77,7 +77,7 @@ public sealed class AuditSchemaVersionStoreBehaviorTests : IDisposable
     {
         // No EnsureCreated — the version table does not exist, so the query throws
         // a "table not found" DbException that the store must swallow to 0.
-        using var ctx = CreateContext();
+        await using var ctx = CreateContext();
         Assert.Equal(0, await AuditSchemaVersionStore.ReadInstalledVersionAsync(ctx, default));
     }
 
@@ -86,13 +86,13 @@ public sealed class AuditSchemaVersionStoreBehaviorTests : IDisposable
     [Fact]
     public async Task Upsert_inserts_a_new_row_when_none_exists()
     {
-        using (var ctx = CreateContext())
+        await using (var ctx = CreateContext())
         {
             await ctx.Database.EnsureCreatedAsync();
             await AuditSchemaVersionStore.UpsertInstalledVersionAsync(ctx, 3, default);
         }
 
-        using var read = CreateContext();
+        await using var read = CreateContext();
         Assert.Equal(3, await AuditSchemaVersionStore.ReadInstalledVersionAsync(read, default));
         Assert.Equal(1, await read.Set<AuditSchemaVersion>().CountAsync());
     }
@@ -102,18 +102,18 @@ public sealed class AuditSchemaVersionStoreBehaviorTests : IDisposable
     [Fact]
     public async Task Upsert_updates_the_existing_row_rather_than_inserting_a_second()
     {
-        using (var ctx = CreateContext())
+        await using (var ctx = CreateContext())
         {
             await ctx.Database.EnsureCreatedAsync();
             await AuditSchemaVersionStore.UpsertInstalledVersionAsync(ctx, 3, default);
         }
 
-        using (var ctx = CreateContext())
+        await using (var ctx = CreateContext())
         {
             await AuditSchemaVersionStore.UpsertInstalledVersionAsync(ctx, 7, default);
         }
 
-        using var read = CreateContext();
+        await using var read = CreateContext();
         Assert.Equal(7, await AuditSchemaVersionStore.ReadInstalledVersionAsync(read, default));
         Assert.Equal(1, await read.Set<AuditSchemaVersion>().CountAsync());
     }
