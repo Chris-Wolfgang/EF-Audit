@@ -1,9 +1,14 @@
 # Mutation testing
 
 [Stryker.NET](https://stryker-mutator.io/docs/stryker-net/introduction/) runs on
-a schedule (`.github/workflows/stryker.yaml`) and, via the root
-[`stryker-config.json`](../stryker-config.json), acts as a **release-quality gate**:
-if the mutation score drops below the configured `break` threshold, the run fails.
+a schedule (`.github/workflows/stryker.yaml`, weekly + `workflow_dispatch`) and,
+via the root [`stryker-config.json`](../stryker-config.json), **fails that
+scheduled run** if the mutation score drops below the configured `break`
+threshold.
+
+Note: it is **not** wired into `pr.yaml`, so it does **not** block individual PR
+merges — it's a scheduled regression signal (surfaced when the workflow goes
+red), not a per-PR gate. Promoting it to a per-PR check is a possible follow-up.
 
 ## Scope
 
