@@ -66,11 +66,16 @@ internal static class AuditSchemaVersionStore
 
         if (existing is null)
         {
+            // VSTHRD103: DbSet.Add is the recommended API. EF Core's AddAsync exists
+            // only to support special value generators (HiLo / sequences) and is not
+            // recommended for normal use — Add does not block. Suppress the false positive.
+#pragma warning disable VSTHRD103
             context.Set<AuditSchemaVersion>().Add(new AuditSchemaVersion
             {
                 Id      = 1,
                 Version = version,
             });
+#pragma warning restore VSTHRD103
         }
         else
         {

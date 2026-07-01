@@ -1,0 +1,8 @@
+# Analyzer rules relaxed for benchmark projects
+
+[*.cs]
+
+# VSTHRD103: Add synchronously blocks — DbSet.Add is the recommended EF Core API
+# (AddAsync exists only for special value generators like HiLo and is not
+# recommended for normal use). The benchmark harness seeds entities via Add.
+dotnet_diagnostic.VSTHRD103.severity = none
