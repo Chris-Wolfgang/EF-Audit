@@ -155,4 +155,60 @@ public sealed class StringAuditValueSerializerExactFormatTests
         var decoded = sut.Decode(buffer, valueType);
         Assert.Equal(Color.Green, decoded);
     }
+
+
+
+    private static object? Decode(string text, string valueType)
+    {
+        var sut = new StringAuditValueSerializer();
+        var buffer = new InMemoryAuditValueBuffer();
+        buffer.WriteText(StringAuditValueSerializer.ValueColumnName, text);
+        return sut.Decode(buffer, valueType);
+    }
+
+
+
+    [Theory]
+    [InlineData("True", "Boolean", true)]
+    [InlineData("False", "Boolean", false)]
+    [InlineData("42", "Byte", (byte)42)]
+    [InlineData("-42", "SByte", (sbyte)-42)]
+    [InlineData("-1234", "Int16", (short)-1234)]
+    [InlineData("1234", "UInt16", (ushort)1234)]
+    [InlineData("-100000", "Int32", -100000)]
+    [InlineData("100000", "UInt32", 100000u)]
+    [InlineData("-5000000000", "Int64", -5000000000L)]
+    [InlineData("5000000000", "UInt64", 5000000000UL)]
+    public void Decode_parses_each_discriminator_to_its_exact_typed_value(string text, string valueType, object expected)
+    {
+        Assert.Equal(expected, Decode(text, valueType));
+    }
+
+
+
+    [Fact]
+    public void Decode_bytes_returns_the_original_byte_array()
+    {
+        var bytes = new byte[] { 0x00, 0x01, 0xFF, 0x7F };
+        var decoded = Decode(Convert.ToBase64String(bytes), "Bytes");
+        Assert.Equal(bytes, Assert.IsType<byte[]>(decoded));
+    }
+
+
+
+    [Fact]
+    public void Decode_guid_uses_exact_D_parse()
+    {
+        Assert.Equal(
+            new Guid("3f2504e0-4f89-41d3-9a0c-0305e82c3301"),
+            Decode("3f2504e0-4f89-41d3-9a0c-0305e82c3301", "Guid"));
+    }
+
+
+
+    [Fact]
+    public void Decode_unknown_discriminator_falls_back_to_raw_text()
+    {
+        Assert.Equal("whatever", Decode("whatever", "SomethingUnknown"));
+    }
 }
